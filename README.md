@@ -5,5 +5,5 @@ Installation
 ------------
 
 ```
-git clone http://github.com/rstacruz/vimfiles.git ~/.vim
+git clone http://github.com/fhwrdh/vimrc.git ~/.vim
 cd ~/.vim
