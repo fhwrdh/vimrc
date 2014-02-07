@@ -59,6 +59,7 @@ Bundle 'bling/vim-airline'
 Bundle 'Syntastic'
 Bundle 'Tagbar'
 Bundle 'neocomplcache'
+Bundle 'gitv'
 
 
 
