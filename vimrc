@@ -13,7 +13,7 @@ set directory=/tmp// " prepend(^=) $HOME/.tmp/ to default path; use full path as
 " Match and search
 set hlsearch    " highlight search
 set ignorecase  " Do case in sensitive matching with
-set smartcase	" be sensitive when there's a capital letter
+set smartcase   " be sensitive when there's a capital letter
 set incsearch
 
 " Visual
@@ -26,10 +26,10 @@ set laststatus=2  " Always show status line.
 set vb t_vb= " disable any beeps or flashes on error
 set ruler  " Show ruler
 set showcmd " Display an incomplete command in the lower right corner of the Vim window
-set autoread
+set autoread " Automatically read a file that has changed on disk
 set list " Display unprintable characters f12 - switches
 set listchars=tab:·\-,trail:·,extends:»,precedes:« " Unprintable chars mapping
-set scrolloff=2
+set scrolloff=8
 
 " Text Formatting
 set autoindent
@@ -60,8 +60,24 @@ Bundle 'Syntastic'
 Bundle 'Tagbar'
 Bundle 'neocomplcache'
 Bundle 'gitv'
+Bundle 'surround.vim'
+Bundle 'Command-T'
+Bundle 'The-NERD-Commenter'
 
+"" ack.vim: Vim plugin for the Perl module / CLI script 'ack'
+"" https://github.com/mileszs/ack.vim
+Bundle 'ack.vim'
+let g:ackprg = "ack-grep -H --nocolor --nogroup --column"
 
+"" xmledit: A filetype plugin to help edit XML, HTML, and SGML documents
+"" http://www.vim.org/scripts/script.php?script_id=301
+Bundle 'xmledit'
+
+"" CloseTag: functions and mappings to close open HTML/XML tags
+"" http://www.vim.org/scripts/script.php?script_id=13
+Bundle 'closetag.vim'
+autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
 " Brief help
 " :BundleInstall(!)    - install (update) bundles
@@ -86,6 +102,8 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 let g:enable_numbers = 0
 nnoremap <F3> :NumbersToggle<CR>
 nnoremap <F4> :NumbersOnOff<CR>
+
+set pastetoggle=<F2>
 
 " clear the highlighting of :set hlsearch.
 nnoremap <leader>n :nohls<CR>
