@@ -6,32 +6,36 @@ set history=1000
 set undolevels=1000
 
 " Backup
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nowritebackup
 set nobackup
 set directory=/tmp// " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
 
 " Match and search
-set hlsearch    " highlight search
-set ignorecase  " Do case in sensitive matching with
-set smartcase   " be sensitive when there's a capital letter
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hlsearch          " highlight search
+set ignorecase        " Do case in sensitive matching with
+set smartcase         " be sensitive when there's a capital letter
 set incsearch
 
 " Visual
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number
-set showmatch  " Show matching brackets.
-set matchtime=5  " Bracket blinking.
-set novisualbell  " No blinking
-set noerrorbells  " No noise.
-set laststatus=2  " Always show status line.
-set vb t_vb= " disable any beeps or flashes on error
-set ruler  " Show ruler
-set showcmd " Display an incomplete command in the lower right corner
-set autoread " Automatically read a file that has changed on disk
-set list " Display unprintable characters f12 - switches
+set showmatch         " Show matching brackets.
+set matchtime=5       " Bracket blinking.
+set novisualbell      " No blinking
+set noerrorbells      " No noise.
+set laststatus=2      " Always show status line.
+set vb t_vb=          " disable any beeps or flashes on error
+set ruler             " Show ruler
+set showcmd           " Display an incomplete command in the lower right corner
+set autoread          " Automatically read a file that has changed on disk
+set list              " Display unprintable characters f12 - switches
 set listchars=tab:·\-,trail:·,extends:»,precedes:« " Unprintable chars mapping
-set scrolloff=8
+set scrolloff=8       " keep N lines on the bottom/top of screen at all times
 
 " Text Formatting
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autoindent
 set smartindent
 set softtabstop=4
@@ -40,7 +44,43 @@ set tabstop=4
 set expandtab
 set nosmarttab
 
+" Keybindings
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" leader is a key that allows you to have your own "namespace" of keybindings.
+let mapleader = ","
+" map space bar to leader
+map <space> <leader>
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+set pastetoggle=<F2>
+
+" clear the highlighting of :set hlsearch.
+nnoremap <leader>n :nohls<CR>
+
+" map 'jj' to <esc>
+imap jj <esc>
+cmap jj <esc>
+
+" make regexp search use the more familiar regex syntax
+"nnoremap / /\v
+"nnoremap / /\v
+
+" remove trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
 " Vundle stuff
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Brief help
+" :BundleInstall(!)    - install (update) bundles
+" :BundleSearch(!) foo - search (or refresh cache first) for foo
+" :BundleClean(!)      - confirm (or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle commands are not allowed.
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -54,15 +94,29 @@ Bundle 'flazz/vim-colorschemes'
 
 "" ctrlp.vim: Fuzzy file, buffer, mru, tag, etc finder. """"""""""""""""""""""
 "" http://kien.github.com/ctrlp.vim
+"" :help ctrlp-options
 Bundle 'kien/ctrlp.vim'
+"Once CtrlP is open:
+" Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+" Press <c-f> and <c-b> to cycle between modes.
+" Press <c-d> to switch to filename search instead of full path.
+" Press <c-r> to switch to regexp mode.
+" Use <c-j>, <c-k> or the arrow keys to navigate the result list.
+" Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
+" Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
+" Use <c-y> to create a new file and its parent directories.
+" Use <c-z> to mark/unmark multiple files and <c-o> to open them.
 let g:ctrlp_map = '<c-p>'
-
-" Set How Ctrl-P determines the working directory
-" 0 - don’t manage working directory.
-" 1 - the parent directory of the current file.
-" 2 - the nearest ancestor that contains one of these directories or files: .git/ .hg/ .svn/ .bzr/ _darcs/
-let g:ctrlp_working_path_mode = 2
-
+" When invoked, unless a starting directory is specified, CtrlP will set its
+" local working directory according to this variable.
+" 'c' - the directory of the current file.
+" 'r' - the nearest ancestor that contains one of these directories or files:
+" .git .hg .svn .bzr _darcs, and your own root markers defined with the
+" g:ctrlp_root_markers option.
+" 'a' - like 'c', but only applies when the current working directory outside
+" of CtrlP isn't a direct ancestor of the directory of the current file.
+" 0 or '' (empty string) - disable this feature.
+let g:ctrlp_working_path_mode = 'ra'
 " exclude files or directory from search
 " with vim script regexp, needs to escape |, + as well
 let g:ctrlp_custom_ignore = {
@@ -70,14 +124,20 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\.exe$\|\.so$\|\.dll$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
-
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store " MacOSX/Linux
 " use custom file listing command
 " let g:ctrlp_user_command = 'find %s -type f'
 
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:50'
+" Max MRU entries to remember
+let g:ctrlp_mruf_max = 50
+" additional keyboard shortcuts
+nnoremap <leader>m :CtrlPMRUFiles<CR>
+
 "" vim-json: Syntax highlighting for JSON in Vim """""""""""""""""""""""""""""
 "" https://github.com/leshill/vim-json
 Bundle 'leshill/vim-json'
+" (no config}
 
 "" vim-javascript: Vastly improved Javascript indentation and syntax support
 "" in Vim.
@@ -106,14 +166,12 @@ Bundle 'The-NERD-tree'
 " toggle NERDTree plugin
 map <silent> <leader>d :NERDTreeToggle<CR>
 
-
 "" numbers.vim: better line numbers for vim.
 "" http://myusuf3.github.io/numbers.vim/
 Bundle 'myusuf3/numbers.vim'
 let g:enable_numbers = 0
 nnoremap <F3> :NumbersToggle<CR>
 nnoremap <F4> :NumbersOnOff<CR>
-
 
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
@@ -170,41 +228,10 @@ autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle
 "" https://github.com/airblade/vim-gitgutter
 Bundle 'airblade/vim-gitgutter'
 
-" Brief help
-" :BundleInstall(!)    - install (update) bundles
-" :BundleSearch(!) foo - search (or refresh cache first) for foo
-" :BundleClean(!)      - confirm (or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle commands are not allowed.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 
 colo 256-grayvim
 syntax on       " enable syntax highlighting
 filetype plugin indent on
-
-" leader is a key that allows you to have your own "namespace" of keybindings.
-let mapleader = ","
-
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-set pastetoggle=<F2>
-
-" clear the highlighting of :set hlsearch.
-nnoremap <leader>n :nohls<CR>
-
-" Alright... let's try this out / map 'jj' to <esc>
-imap jj <esc>
-cmap jj <esc>
-
-" make regexp search use the more familiar regex syntax
-"nnoremap / /\v
-"nnoremap / /\v
-
-" remove trailing whitespace
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 
