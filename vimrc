@@ -25,7 +25,7 @@ set noerrorbells  " No noise.
 set laststatus=2  " Always show status line.
 set vb t_vb= " disable any beeps or flashes on error
 set ruler  " Show ruler
-set showcmd " Display an incomplete command in the lower right corner of the Vim window
+set showcmd " Display an incomplete command in the lower right corner
 set autoread " Automatically read a file that has changed on disk
 set list " Display unprintable characters f12 - switches
 set listchars=tab:·\-,trail:·,extends:»,precedes:« " Unprintable chars mapping
@@ -44,19 +44,38 @@ set nosmarttab
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-"" Vundle.vim: Vundle, the plug-in manager for Vim
+"" Vundle.vim: Vundle, the plug-in manager for Vim """""""""""""""""""""""""""
 "" ihttps://github.com/gmarik/Vundle.vim
 Bundle 'gmarik/vundle'
 
-"" vim-colorschemes: one colorscheme pack to rule them all!
+"" vim-colorschemes: one colorscheme pack to rule them all! """"""""""""""""""
 "" https://github.com/flazz/vim-colorschemes
 Bundle 'flazz/vim-colorschemes'
 
-"" ctrlp.vim: Fuzzy file, buffer, mru, tag, etc finder.
+"" ctrlp.vim: Fuzzy file, buffer, mru, tag, etc finder. """"""""""""""""""""""
 "" http://kien.github.com/ctrlp.vim
 Bundle 'kien/ctrlp.vim'
+let g:ctrlp_map = '<c-p>'
 
-"" vim-json: Syntax highlighting for JSON in Vim
+" Set How Ctrl-P determines the working directory
+" 0 - don’t manage working directory.
+" 1 - the parent directory of the current file.
+" 2 - the nearest ancestor that contains one of these directories or files: .git/ .hg/ .svn/ .bzr/ _darcs/
+let g:ctrlp_working_path_mode = 2
+
+" exclude files or directory from search
+" with vim script regexp, needs to escape |, + as well
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|\.hg$\|\.svn$\|node_modules$\|vendor$\|.*cache$',
+  \ 'file': '\.exe$\|\.so$\|\.dll$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store " MacOSX/Linux
+" use custom file listing command
+" let g:ctrlp_user_command = 'find %s -type f'
+
+"" vim-json: Syntax highlighting for JSON in Vim """""""""""""""""""""""""""""
 "" https://github.com/leshill/vim-json
 Bundle 'leshill/vim-json'
 
@@ -81,13 +100,20 @@ Bundle 'tpope/vim-fugitive'
 "" http://www.vim.org/scripts/script.php?script_id=4300
 Bundle 'tpope/vim-eunuch'
 
-"" The NERD tree : A tree explorer plugin for navigating the filesystem.
+"" The NERD tree : A tree explorer plugin for navigating the filesystem. """""
 "" http://www.vim.org/scripts/script.php?script_id=1658
 Bundle 'The-NERD-tree'
+" toggle NERDTree plugin
+map <silent> <leader>d :NERDTreeToggle<CR>
+
 
 "" numbers.vim: better line numbers for vim.
 "" http://myusuf3.github.io/numbers.vim/
 Bundle 'myusuf3/numbers.vim'
+let g:enable_numbers = 0
+nnoremap <F3> :NumbersToggle<CR>
+nnoremap <F4> :NumbersOnOff<CR>
+
 
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
@@ -110,7 +136,7 @@ Bundle 'neocomplcache'
 Bundle 'gitv'
 
 "" surround.vim : Delete/change/add parentheses/quotes/XML-tags/much more with
-"" ease 
+"" ease
 "" http://www.vim.org/scripts/script.php?script_id=1697
 Bundle 'surround.vim'
 
@@ -118,14 +144,16 @@ Bundle 'surround.vim'
 "" http://www.vim.org/scripts/script.php?script_id=3025
 Bundle 'Command-T'
 
-"" The-NERD-Commenter: A plugin that allows for easy commenting of code for many filetypes.
+"" The-NERD-Commenter: A plugin that allows for easy commenting """"""""""""""
+"" of code for many filetypes.
 "" ihttp://www.vim.org/scripts/script.php?script_id=1218
 Bundle 'The-NERD-Commenter'
+let NERDSpaceDelims = 1
 
-"" ack.vim: Vim plugin for the Perl module / CLI script 'ack'
+"" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""
 "" https://github.com/mileszs/ack.vim
 Bundle 'ack.vim'
-let g:ackprg = "ack-grep -H --nocolor --nogroup --column"
+let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
 
 "" xmledit: A filetype plugin to help edit XML, HTML, and SGML documents
 "" http://www.vim.org/scripts/script.php?script_id=301
@@ -137,6 +165,11 @@ Bundle 'closetag.vim'
 autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
 autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
+"" vim-gitgutter: A Vim plugin which shows a git diff in the gutter (sign
+"" column) and stages/reverts hunks.
+"" https://github.com/airblade/vim-gitgutter
+Bundle 'airblade/vim-gitgutter'
+
 " Brief help
 " :BundleInstall(!)    - install (update) bundles
 " :BundleSearch(!) foo - search (or refresh cache first) for foo
@@ -144,6 +177,8 @@ autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle
 "
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 colo 256-grayvim
 syntax on       " enable syntax highlighting
@@ -155,11 +190,6 @@ let mapleader = ","
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-" numbers.vim
-let g:enable_numbers = 0
-nnoremap <F3> :NumbersToggle<CR>
-nnoremap <F4> :NumbersOnOff<CR>
 
 set pastetoggle=<F2>
 
@@ -177,6 +207,4 @@ cmap jj <esc>
 " remove trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-" toggle NERDTree plugin
-map <silent> <leader>d :NERDTreeToggle<CR>
 
