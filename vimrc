@@ -33,6 +33,8 @@ set autoread          " Automatically read a file that has changed on disk
 set list              " Display unprintable characters f12 - switches
 set listchars=tab:·\-,trail:·,extends:»,precedes:« " Unprintable chars mapping
 set scrolloff=8       " keep N lines on the bottom/top of screen at all times
+set t_Co=256          " Use 256 colors
+set backspace=indent,eol,start
 
 " Text Formatting
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -80,7 +82,6 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 "
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -173,9 +174,19 @@ let g:enable_numbers = 0
 nnoremap <F3> :NumbersToggle<CR>
 nnoremap <F4> :NumbersOnOff<CR>
 
+"" delimitMate.vim: Vim plugin, provides insert mode auto-completion for
+"" quotes, parens, brackets, etc.
+"" http://www.vim.org/scripts/script.php?script_id=2754
+Bundle 'delimitMate.vim'
+
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
 Bundle 'bling/vim-airline'
+let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+  endif
+  let g:airline_symbols.space = "\ua0"
 
 "" Syntastic : Automatic syntax checking
 "" http://www.vim.org/scripts/script.php?script_id=2736
@@ -210,6 +221,7 @@ let NERDSpaceDelims = 1
 
 "" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""
 "" https://github.com/mileszs/ack.vim
+"" USAGE: :Ack
 Bundle 'ack.vim'
 let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
 
@@ -229,7 +241,6 @@ autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle
 Bundle 'airblade/vim-gitgutter'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 colo 256-grayvim
 syntax on       " enable syntax highlighting
 filetype plugin indent on
