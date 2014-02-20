@@ -5,6 +5,6 @@ Installation
 ------------
 
 ```
-git clone http://github.com/fhwrdh/vimrc.git
+git clone https://github.com/fhwrdh/vimrc.git
 cd ~/vimrc
 ./install.sh
