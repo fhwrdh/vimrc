@@ -45,7 +45,7 @@ echo "Download Vundle"
 mkdir -p "$HOME/.vim/bundle"
 if [[ ! -d "$HOME/.vim/bundle/vundle" ]]
 then
-    git clone http://github.com/gmarik/vundle.git "$HOME/.vim/bundle/vundle"
+    git clone https://github.com/gmarik/vundle.git "$HOME/.vim/bundle/vundle"
 fi
 
 echo "Link vimrc, gvimrc"

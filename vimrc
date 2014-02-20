@@ -250,11 +250,11 @@ set patchmode=.clean
 set backupdir=~/.vimbak
 let savevers_dirs=&backupdir
 
-
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set background=dark
+" colo eclm_wombat
 colo 256-grayvim
+
 syntax on       " enable syntax highlighting
 filetype plugin indent on
 
