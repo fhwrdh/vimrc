@@ -7,9 +7,9 @@ set undolevels=1000
 
 " Backup
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nowritebackup
-set nobackup
-set directory=/tmp// " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
+" set nowritebackup
+" set nobackup
+" set directory=/tmp// " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
 
 " Match and search
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -235,10 +235,23 @@ Bundle 'closetag.vim'
 autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
 autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
-"" vim-gitgutter: A Vim plugin which shows a git diff in the gutter (sign
-"" column) and stages/reverts hunks.
+"" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""
+"" (sign column) and stages/reverts hunks.
 "" https://github.com/airblade/vim-gitgutter
 Bundle 'airblade/vim-gitgutter'
+"" 'You don't have to do anything: it just works.'
+
+"" Automatically save and diff multiple, sequentially numbered 
+"" revisions (like VMS)
+"" https://github.com/vim-scripts/savevers.vim
+Bundle 'savevers.vim'
+set backup
+set patchmode=.clean
+set backupdir=~/.vimbak
+let savevers_dirs=&backupdir
+
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 colo 256-grayvim
