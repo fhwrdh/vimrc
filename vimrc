@@ -32,18 +32,19 @@ set showcmd           " Display an incomplete command in the lower right corner
 set autoread          " Automatically read a file that has changed on disk
 set list              " Display unprintable characters f12 - switches
 set listchars=tab:·\-,trail:·,extends:»,precedes:« " Unprintable chars mapping
-set scrolloff=8       " keep N lines on the bottom/top of screen at all times
-set t_Co=256          " Use 256 colors
+set scrolloff=999
 set backspace=indent,eol,start
 
 " Text Formatting
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autoindent
 set smartindent
-set softtabstop=4
-set shiftwidth=4
-set tabstop=4
-set expandtab
+
+set tabstop=4         "
+set softtabstop=4     "
+set shiftwidth=4      " Width of '<' '>' indentation
+set expandtab         " Insert spaces when <TAB>ing
+
 set nosmarttab
 
 " Keybindings
@@ -177,11 +178,14 @@ nnoremap <F4> :NumbersOnOff<CR>
 "" delimitMate.vim: Vim plugin, provides insert mode auto-completion for
 "" quotes, parens, brackets, etc.
 "" http://www.vim.org/scripts/script.php?script_id=2754
-Bundle 'delimitMate.vim'
+"" Bundle 'delimitMate.vim'
 
-"" vim-airline: lean & mean status/tabline for vim that's light as air.
+"" vim-airline: lean & mean status/tabline for vim that's light as air.  """"""
 "" https://github.com/bling/vim-airline
 Bundle 'bling/vim-airline'
+let g:airline_theme             = 'powerlineish'
+let g:airline_enable_branch     = 1
+let g:airline_enable_syntastic  = 1
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
       let g:airline_symbols = {}
@@ -241,7 +245,7 @@ autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle
 Bundle 'airblade/vim-gitgutter'
 "" 'You don't have to do anything: it just works.'
 
-"" Automatically save and diff multiple, sequentially numbered 
+"" Automatically save and diff multiple, sequentially numbered
 "" revisions (like VMS)
 "" https://github.com/vim-scripts/savevers.vim
 Bundle 'savevers.vim'
@@ -250,10 +254,18 @@ set patchmode=.clean
 set backupdir=~/.vimbak
 let savevers_dirs=&backupdir
 
+"" TODO unite.vim
+"" https://github.com/Shougo/unite.vim
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=dark
-" colo eclm_wombat
-colo 256-grayvim
+set t_Co=256          " Use 256 colors
+" set background=dark
+colo busybee
+" colo 256-grayvim
+
+" invisible char colors
+highlight NonText guifg=#4a4a59
+highlight SpecialKey guifg=#4a4a59
 
 syntax on       " enable syntax highlighting
 filetype plugin indent on
