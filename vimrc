@@ -74,6 +74,9 @@ cmap jj <esc>
 " remove trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
+" call :sudow FLIENAME when bit by a file you don't own
+cnoremap sudow w !sudo tee % >/dev/null
+
 " Vundle stuff
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Brief help
@@ -254,13 +257,15 @@ set patchmode=.clean
 set backupdir=~/.vimbak
 let savevers_dirs=&backupdir
 
+" Bundle "daylerees/colour-schemes", { "rtp": "vim/" }
+
 "" TODO unite.vim
 "" https://github.com/Shougo/unite.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256          " Use 256 colors
 " set background=dark
-colo busybee
+ colo busybee
 " colo 256-grayvim
 
 " invisible char colors
