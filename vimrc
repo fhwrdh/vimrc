@@ -100,7 +100,8 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'honza/vim-snippets'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'amirh/HTML-AutoCloseTag'
-Plugin 'gorodinskiy/vim-coloresque'
+" doesn't work in webfaction shell account, no idea
+"Plugin 'gorodinskiy/vim-coloresque'
 
 "" vim-colorschemes: one colorscheme pack to rule them all! """"""""""""""""""
 "" https://github.com/flazz/vim-colorschemes
@@ -256,7 +257,7 @@ map <space> <leader>
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
 
-set pastetoggle=<F2>
+set pastetoggle=<F5>
 
 " clear the highlighting of :set hlsearch.
 nnoremap <leader>n :nohls<CR>
@@ -290,6 +291,5 @@ highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
 
 syntax on       " enable syntax highlighting
-filetype plugin indent on
 
 
