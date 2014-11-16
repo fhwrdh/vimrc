@@ -179,7 +179,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 
 
 Bundle 'sheerun/vim-polyglot'
-Bundle 'SirVer/ultisnips'
+"Bundle 'SirVer/ultisnips' " not working on vim 7.0
 Bundle 'honza/vim-snippets'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'amirh/HTML-AutoCloseTag'
@@ -217,10 +217,10 @@ Bundle 'tpope/vim-eunuch'
 
 "" numbers.vim: better line numbers for vim.
 "" http://myusuf3.github.io/numbers.vim/
-Bundle 'myusuf3/numbers.vim'
-let g:enable_numbers = 0
-nnoremap <F11> :NumbersToggle<CR>
-nnoremap <F12> :NumbersOnOff<CR>
+"Bundle 'myusuf3/numbers.vim' " does not work on 7.0
+"let g:enable_numbers = 0
+"nnoremap <F11> :NumbersToggle<CR>
+"nnoremap <F12> :NumbersOnOff<CR>
 
 "" Syntastic : Automatic syntax checking
 "" http://www.vim.org/scripts/script.php?script_id=2736
@@ -229,7 +229,7 @@ Bundle 'Syntastic'
 
 "" Tagbar: The Vim class outline viewer
 "" http://majutsushi.github.io/tagbar/
-Bundle 'Tagbar'
+"Bundle 'Tagbar' " does not work on 7.0
 
 "" neocomplcache: Ultimate auto-completion system for Vim.
 "" https://github.com/Shougo/neocomplcache.vim
