@@ -30,7 +30,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
-"" TODO
+"" vim-commentary: comment stuff out
+"" https://github.com/tpope/vim-commentary
 Plugin 'tpope/vim-commentary'
 
 "" fugitive.vim: a Git wrapper so awesome, it should be illegal
@@ -91,8 +92,8 @@ if !exists('g:airline_symbols')
   endif
   let g:airline_symbols.space = "\ua0"
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
 
 
 Plugin 'sheerun/vim-polyglot'
