@@ -17,6 +17,10 @@ call vundle#begin()
 "" https://github.com/gmarik/Vundle.vim
 Plugin 'gmarik/Vundle.vim'
 
+"" eunuch.vim : Helpers for UNIX
+"" http://www.vim.org/scripts/script.php?script_id=4300
+Plugin 'tpope/vim-eunuch'
+
 "" The NERD tree : A tree explorer plugin for navigating the filesystem. """""
 Plugin 'scrooloose/nerdtree'
 let g:NERDTreeChDirMode=2
@@ -37,6 +41,16 @@ Plugin 'tpope/vim-commentary'
 "" fugitive.vim: a Git wrapper so awesome, it should be illegal
 "" http://www.vim.org/scripts/script.php?script_id=2975
 Plugin 'tpope/vim-fugitive'
+
+"" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""
+"" (sign column) and stages/reverts hunks.
+"" https://github.com/airblade/vim-gitgutter
+Plugin 'airblade/vim-gitgutter'
+
+"" 'You don't have to do anything: it just works.'
+"" gitv: gitk for Vim.
+"" https://github.com/gregsexton/gitv
+Plugin 'gitv'
 
 "" ctrlp.vim: Fuzzy file, buffer, mru, tag, etc finder. """"""""""""""""""""""
 "" http://kien.github.com/ctrlp.vim
@@ -73,7 +87,6 @@ let g:ctrlp_custom_ignore = {
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store " MacOSX/Linux
 " use custom file listing command
 " let g:ctrlp_user_command = 'find %s -type f'
-
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:50'
 " Max MRU entries to remember
 let g:ctrlp_mruf_max = 50
@@ -84,6 +97,7 @@ nnoremap <leader>m :CtrlPMRUFiles<CR>
 "" https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
 let g:airline_theme             = 'powerlineish'
+"let g:airline_theme             = 'jellybeans'
 let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
 let g:airline_powerline_fonts = 1
@@ -91,25 +105,50 @@ if !exists('g:airline_symbols')
       let g:airline_symbols = {}
   endif
   let g:airline_symbols.space = "\ua0"
+"" Automatically displays all buffers when there's only one tab open.
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-
-
-Plugin 'sheerun/vim-polyglot'
-"Plugin 'SirVer/ultisnips' " not working on vim 7.0
-Plugin 'honza/vim-snippets'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'amirh/HTML-AutoCloseTag'
-" doesn't work in webfaction shell account, no idea
-"Plugin 'gorodinskiy/vim-coloresque'
 
 "" vim-colorschemes: one colorscheme pack to rule them all! """"""""""""""""""
 "" https://github.com/flazz/vim-colorschemes
 Plugin 'flazz/vim-colorschemes'
 
+"" numbers.vim: better line numbers for vim.
+"" http://myusuf3.github.io/numbers.vim/
+"Plugin 'myusuf3/numbers.vim'
+"let g:enable_numbers = 0
+"nnoremap <F6> :NumbersToggle<CR>
+"nnoremap <F7> :NumbersOnOff<CR>
+
+"" vim-polyglot: A collection of language packs for Vim.
+" https://github.com/sheerun/vim-polyglot
+Plugin 'sheerun/vim-polyglot'
+
+"" vim-css3-syntax: Add CSS3 syntax support to vim's built-in `syntax/css.vim`.
+"" https://github.com/hail2u/vim-css3-syntax
+Plugin 'hail2u/vim-css3-syntax'
+
+"" ultisnips: The ultimate snippet solution for Vim.
+"" https://github.com/SirVer/ultisnips
+"Plugin 'SirVer/ultisnips'
+
+"" vim-snippets: This repository contains snippets files for various programming languages.
+"" https://github.com/honza/vim-snippets
+"Plugin 'honza/vim-snippets'
+
+"" HTML-AutoCloseTag: Automatically closes HTML tags once you finish typing them.
+"" http://www.vim.org/scripts/script.php?script_id=2591
+"Plugin 'vim-scripts/HTML-AutoCloseTag'
+" doesnt really work.... look for replacement
+
+
+
+
+
+
+
+
 "" tern_for_vim autocompletes javascript
-Plugin 'marijnh/tern_for_vim'
+"Plugin 'marijnh/tern_for_vim'
 
 "" vim-json: Syntax highlighting for JSON in Vim """""""""""""""""""""""""""""
 "" https://github.com/leshill/vim-json
@@ -119,8 +158,8 @@ Plugin 'leshill/vim-json'
 "" vim-javascript: Vastly improved Javascript indentation and syntax support
 "" in Vim.
 "" https://github.com/pangloss/vim-javascript
-Plugin 'pangloss/vim-javascript'
-let javascript_enable_domhtmlcss=1
+"Plugin 'pangloss/vim-javascript'
+"let javascript_enable_domhtmlcss=1
 
 "" indent/html.vim : alternative html indent script
 "" http://www.vim.org/scripts/script.php?script_id=2075
@@ -130,33 +169,10 @@ Plugin 'indenthtml.vim'
 "" https://github.com/tpope/vim-markdown
 Plugin 'tpope/vim-markdown'
 
-"" eunuch.vim : Helpers for UNIX
-"" http://www.vim.org/scripts/script.php?script_id=4300
-Plugin 'tpope/vim-eunuch'
-
-"" numbers.vim: better line numbers for vim.
-"" http://myusuf3.github.io/numbers.vim/
-"Plugin 'myusuf3/numbers.vim' " does not work on 7.0
-"let g:enable_numbers = 0
-"nnoremap <F11> :NumbersToggle<CR>
-"nnoremap <F12> :NumbersOnOff<CR>
-
 "" Syntastic : Automatic syntax checking
 "" http://www.vim.org/scripts/script.php?script_id=2736
 Plugin 'Syntastic'
-"let g:syntastic_javascript_checkers = ['jsxhint']
-
-"" Tagbar: The Vim class outline viewer
-"" http://majutsushi.github.io/tagbar/
-"Plugin 'Tagbar' " does not work on 7.0
-
-"" neocomplcache: Ultimate auto-completion system for Vim.
-"" https://github.com/Shougo/neocomplcache.vim
-""Plugin 'neocomplcache'
-
-"" gitv: gitk for Vim.
-"" https://github.com/gregsexton/gitv
-Plugin 'gitv'
+let g:syntastic_javascript_checkers = ['jsxhint']
 
 "" surround.vim : Delete/change/add parentheses/quotes/XML-tags/much more with
 "" ease
@@ -165,13 +181,7 @@ Plugin 'surround.vim'
 
 "" Command-T : Fast file navigation for VIM
 "" http://www.vim.org/scripts/script.php?script_id=3025
-Plugin 'Command-T'
-
-"" The-NERD-Commenter: A plugin that allows for easy commenting """"""""""""""
-"" of code for many filetypes.
-"" ihttp://www.vim.org/scripts/script.php?script_id=1218
-Plugin 'The-NERD-Commenter'
-let NERDSpaceDelims = 1
+"Plugin 'Command-T'
 
 "" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""
 "" https://github.com/mileszs/ack.vim
@@ -185,20 +195,14 @@ let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
 
 "" CloseTag: functions and mappings to close open HTML/XML tags
 "" http://www.vim.org/scripts/script.php?script_id=13
-Plugin 'closetag.vim'
-autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+"Plugin 'closetag.vim'
+"autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+"autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
-"" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""
-"" (sign column) and stages/reverts hunks.
-"" https://github.com/airblade/vim-gitgutter
-Plugin 'airblade/vim-gitgutter'
-"" 'You don't have to do anything: it just works.'
 call vundle#end()
 filetype plugin indent on
-"" END VUNDLE CONFIG
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set hidden
 set history=1000
 set undolevels=1000
@@ -283,9 +287,8 @@ nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
 set t_Co=256          " Use 256 colors
-" set background=dark
- colo busybee
-" colo 256-grayvim
+set background=dark
+colo busybee
 
 " invisible char colors
 highlight NonText guifg=#4a4a59
