@@ -7,8 +7,9 @@ set undolevels=1000
 
 " Backup
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set nowritebackup
-" set nobackup
+set nowritebackup
+set nobackup
+set noswapfile
 " set directory=/tmp// " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
 
 " Match and search
@@ -16,11 +17,11 @@ set undolevels=1000
 set hlsearch          " highlight search
 set ignorecase        " Do case in sensitive matching with
 set smartcase         " be sensitive when there's a capital letter
-set incsearch
+set incsearch         " Search as you type
 
 " Visual
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set number
+set number            " Show line numbers
 set showmatch         " Show matching brackets.
 set matchtime=5       " Bracket blinking.
 set novisualbell      " No blinking
@@ -33,7 +34,7 @@ set autoread          " Automatically read a file that has changed on disk
 set list              " Display unprintable characters f12 - switches
 set listchars=tab:·\-,trail:·,extends:»,precedes:« " Unprintable chars mapping
 set scrolloff=999
-set backspace=indent,eol,start
+set backspace=indent,eol,start " Let backspace cross lines
 
 " Text Formatting
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -49,6 +50,7 @@ set nosmarttab
 
 " Keybindings
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap ; :
 " leader is a key that allows you to have your own "namespace" of keybindings.
 let mapleader = ","
 " map space bar to leader
@@ -77,6 +79,11 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " call :sudow FLIENAME when bit by a file you don't own
 cnoremap sudow w !sudo tee % >/dev/null
 
+"" Tabs
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+nnoremap <silent> <S-t> :tabnew<CR>
+
 " Vundle stuff
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Brief help
@@ -93,9 +100,25 @@ call vundle#rc()
 "" ihttps://github.com/gmarik/Vundle.vim
 Bundle 'gmarik/vundle'
 
-"" vim-colorschemes: one colorscheme pack to rule them all! """"""""""""""""""
-"" https://github.com/flazz/vim-colorschemes
-Bundle 'flazz/vim-colorschemes'
+"" The NERD tree : A tree explorer plugin for navigating the filesystem. """""
+Bundle 'scrooloose/nerdtree'
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache_    _']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 20
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+noremap <F3> :NERDTreeToggle<CR>
+
+"" TODO
+Bundle 'tpope/vim-commentary'
+
+"" fugitive.vim: a Git wrapper so awesome, it should be illegal
+"" http://www.vim.org/scripts/script.php?script_id=2975
+Bundle 'tpope/vim-fugitive'
 
 "" ctrlp.vim: Fuzzy file, buffer, mru, tag, etc finder. """"""""""""""""""""""
 "" http://kien.github.com/ctrlp.vim
@@ -139,50 +162,6 @@ let g:ctrlp_mruf_max = 50
 " additional keyboard shortcuts
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 
-"" vim-json: Syntax highlighting for JSON in Vim """""""""""""""""""""""""""""
-"" https://github.com/leshill/vim-json
-Bundle 'leshill/vim-json'
-" (no config}
-
-"" vim-javascript: Vastly improved Javascript indentation and syntax support
-"" in Vim.
-"" https://github.com/pangloss/vim-javascript
-Bundle 'pangloss/vim-javascript'
-
-"" indent/html.vim : alternative html indent script
-"" http://www.vim.org/scripts/script.php?script_id=2075
-Bundle 'indenthtml.vim'
-
-"" vim-markdown: Vim Markdown runtime files
-"" https://github.com/tpope/vim-markdown
-Bundle 'tpope/vim-markdown'
-
-"" fugitive.vim: a Git wrapper so awesome, it should be illegal
-"" http://www.vim.org/scripts/script.php?script_id=2975
-Bundle 'tpope/vim-fugitive'
-
-"" eunuch.vim : Helpers for UNIX
-"" http://www.vim.org/scripts/script.php?script_id=4300
-Bundle 'tpope/vim-eunuch'
-
-"" The NERD tree : A tree explorer plugin for navigating the filesystem. """""
-"" http://www.vim.org/scripts/script.php?script_id=1658
-Bundle 'The-NERD-tree'
-" toggle NERDTree plugin
-map <silent> <leader>d :NERDTreeToggle<CR>
-
-"" numbers.vim: better line numbers for vim.
-"" http://myusuf3.github.io/numbers.vim/
-Bundle 'myusuf3/numbers.vim'
-let g:enable_numbers = 0
-nnoremap <F3> :NumbersToggle<CR>
-nnoremap <F4> :NumbersOnOff<CR>
-
-"" delimitMate.vim: Vim plugin, provides insert mode auto-completion for
-"" quotes, parens, brackets, etc.
-"" http://www.vim.org/scripts/script.php?script_id=2754
-"" Bundle 'delimitMate.vim'
-
 "" vim-airline: lean & mean status/tabline for vim that's light as air.  """"""
 "" https://github.com/bling/vim-airline
 Bundle 'bling/vim-airline'
@@ -194,10 +173,59 @@ if !exists('g:airline_symbols')
       let g:airline_symbols = {}
   endif
   let g:airline_symbols.space = "\ua0"
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+
+Bundle 'sheerun/vim-polyglot'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'amirh/HTML-AutoCloseTag'
+Bundle 'gorodinskiy/vim-coloresque'
+
+"" vim-colorschemes: one colorscheme pack to rule them all! """"""""""""""""""
+"" https://github.com/flazz/vim-colorschemes
+Bundle 'flazz/vim-colorschemes'
+
+"" tern_for_vim autocompletes javascript
+Bundle 'marijnh/tern_for_vim'
+
+"" vim-json: Syntax highlighting for JSON in Vim """""""""""""""""""""""""""""
+"" https://github.com/leshill/vim-json
+Bundle 'leshill/vim-json'
+" (no config}
+
+"" vim-javascript: Vastly improved Javascript indentation and syntax support
+"" in Vim.
+"" https://github.com/pangloss/vim-javascript
+Bundle 'pangloss/vim-javascript'
+let javascript_enable_domhtmlcss=1
+
+"" indent/html.vim : alternative html indent script
+"" http://www.vim.org/scripts/script.php?script_id=2075
+Bundle 'indenthtml.vim'
+
+"" vim-markdown: Vim Markdown runtime files
+"" https://github.com/tpope/vim-markdown
+Bundle 'tpope/vim-markdown'
+
+"" eunuch.vim : Helpers for UNIX
+"" http://www.vim.org/scripts/script.php?script_id=4300
+Bundle 'tpope/vim-eunuch'
+
+"" numbers.vim: better line numbers for vim.
+"" http://myusuf3.github.io/numbers.vim/
+Bundle 'myusuf3/numbers.vim'
+let g:enable_numbers = 0
+nnoremap <F11> :NumbersToggle<CR>
+nnoremap <F12> :NumbersOnOff<CR>
 
 "" Syntastic : Automatic syntax checking
 "" http://www.vim.org/scripts/script.php?script_id=2736
 Bundle 'Syntastic'
+"let g:syntastic_javascript_checkers = ['jsxhint']
 
 "" Tagbar: The Vim class outline viewer
 "" http://majutsushi.github.io/tagbar/
@@ -205,7 +233,7 @@ Bundle 'Tagbar'
 
 "" neocomplcache: Ultimate auto-completion system for Vim.
 "" https://github.com/Shougo/neocomplcache.vim
-Bundle 'neocomplcache'
+""Bundle 'neocomplcache'
 
 "" gitv: gitk for Vim.
 "" https://github.com/gregsexton/gitv
@@ -234,7 +262,7 @@ let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
 
 "" xmledit: A filetype plugin to help edit XML, HTML, and SGML documents
 "" http://www.vim.org/scripts/script.php?script_id=301
-Bundle 'xmledit'
+"Bundle 'xmledit'
 
 "" CloseTag: functions and mappings to close open HTML/XML tags
 "" http://www.vim.org/scripts/script.php?script_id=13
@@ -248,19 +276,6 @@ autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle
 Bundle 'airblade/vim-gitgutter'
 "" 'You don't have to do anything: it just works.'
 
-"" Automatically save and diff multiple, sequentially numbered
-"" revisions (like VMS)
-"" https://github.com/vim-scripts/savevers.vim
-Bundle 'savevers.vim'
-set backup
-set patchmode=.clean
-set backupdir=~/.vimbak
-let savevers_dirs=&backupdir
-
-" Bundle "daylerees/colour-schemes", { "rtp": "vim/" }
-
-"" TODO unite.vim
-"" https://github.com/Shougo/unite.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256          " Use 256 colors
