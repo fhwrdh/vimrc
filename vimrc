@@ -21,7 +21,14 @@ Plugin 'gmarik/Vundle.vim'
 "" http://www.vim.org/scripts/script.php?script_id=4300
 Plugin 'tpope/vim-eunuch'
 
-"" The NERD tree : A tree explorer plugin for navigating the filesystem. """""
+"" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""
+"" https://github.com/mileszs/ack.vim
+"" USAGE: :Ack
+Plugin 'ack.vim'
+let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" The NERD tree : A tree explorer plugin for navigating the filesystem.
 Plugin 'scrooloose/nerdtree'
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache_    _']
@@ -52,12 +59,14 @@ Plugin 'airblade/vim-gitgutter'
 "" https://github.com/gregsexton/gitv
 Plugin 'gitv'
 
-"" ctrlp.vim: Fuzzy file, buffer, mru, tag, etc finder. """"""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" ctrlp.vim: Fuzzy file, buffer, mru, tag, etc finder.
 "" http://kien.github.com/ctrlp.vim
 "" :help ctrlp-options
 Plugin 'kien/ctrlp.vim'
 "Once CtrlP is open:
-" Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+" Press <F5> to purge the cache for the current directory to get new files,
+" remove deleted files and apply new ignore options.
 " Press <c-f> and <c-b> to cycle between modes.
 " Press <c-d> to switch to filename search instead of full path.
 " Press <c-r> to switch to regexp mode.
@@ -93,7 +102,8 @@ let g:ctrlp_mruf_max = 50
 " additional keyboard shortcuts
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 
-"" vim-airline: lean & mean status/tabline for vim that's light as air.  """"""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
 let g:airline_theme             = 'powerlineish'
@@ -119,75 +129,116 @@ Plugin 'flazz/vim-colorschemes'
 "nnoremap <F6> :NumbersToggle<CR>
 "nnoremap <F7> :NumbersOnOff<CR>
 
-"" vim-polyglot: A collection of language packs for Vim.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" neocomplete: Next generation completion framework after neocomplcache
+"" https://github.com/Shougo/neocomplete.vim
+Plugin 'Shougo/neocomplete'
+" Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" <CR> closes popup
+inoremap <expr><CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><space> pumvisible() ? neocomplete#smart_close_popup()."\<space>" : "\<space>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" neosnippet: neo-snippet plugin contains neocomplcache snippets source
+"" https://github.com/Shougo/neosnippet.vim
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+"let g:neosnippet#snippets_directory='~/path/to/above/snippets/'
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+"" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""
 " https://github.com/sheerun/vim-polyglot
 Plugin 'sheerun/vim-polyglot'
+
+"" vim-javascript: Vastly improved Javascript indentation and syntax support
+"" in Vim.
+"" https://github.com/pangloss/vim-javascript
+"" INCLUDED IN VIM-POLYGLOT "Plugin 'pangloss/vim-javascript'
+let javascript_enable_domhtmlcss=1
+
+"" vim-jsx: React JSX syntax highlighting and indenting for vim.""""""""""""""
+"" https://github.com/mxw/vim-jsx
+"" This bundle requires pangloss's vim-javascript syntax highlighting.
+Plugin 'mxw/vim-jsx'
+"" By default, JSX syntax highlighting and indenting will be enabled only for 
+"" files with the .jsx extension. If you would like JSX in .js files, add:
+let g:jsx_ext_required = 0
 
 "" vim-css3-syntax: Add CSS3 syntax support to vim's built-in `syntax/css.vim`.
 "" https://github.com/hail2u/vim-css3-syntax
 Plugin 'hail2u/vim-css3-syntax'
-
-"" ultisnips: The ultimate snippet solution for Vim.
-"" https://github.com/SirVer/ultisnips
-"Plugin 'SirVer/ultisnips'
-
-"" vim-snippets: This repository contains snippets files for various programming languages.
-"" https://github.com/honza/vim-snippets
-"Plugin 'honza/vim-snippets'
-
-"" HTML-AutoCloseTag: Automatically closes HTML tags once you finish typing them.
-"" http://www.vim.org/scripts/script.php?script_id=2591
-"Plugin 'vim-scripts/HTML-AutoCloseTag'
-" doesnt really work.... look for replacement
-
-
-
-
-
-
-
-
-"" tern_for_vim autocompletes javascript
-"Plugin 'marijnh/tern_for_vim'
 
 "" vim-json: Syntax highlighting for JSON in Vim """""""""""""""""""""""""""""
 "" https://github.com/leshill/vim-json
 Plugin 'leshill/vim-json'
 " (no config}
 
-"" vim-javascript: Vastly improved Javascript indentation and syntax support
-"" in Vim.
-"" https://github.com/pangloss/vim-javascript
-"Plugin 'pangloss/vim-javascript'
-"let javascript_enable_domhtmlcss=1
+"" HTML-AutoCloseTag: Automatically closes HTML tags once you finish typing them.
+"" http://www.vim.org/scripts/script.php?script_id=2591
+"Plugin 'vim-scripts/HTML-AutoCloseTag'
+" doesnt really work.... look for replacement
 
-"" indent/html.vim : alternative html indent script
+"" indent/html.vim : alternative html indent script """"""""""""""""""""""""""
 "" http://www.vim.org/scripts/script.php?script_id=2075
 Plugin 'indenthtml.vim'
 
-"" vim-markdown: Vim Markdown runtime files
+"" vim-markdown: Vim Markdown runtime files """"""""""""""""""""""""""""""""""
 "" https://github.com/tpope/vim-markdown
 Plugin 'tpope/vim-markdown'
 
-"" Syntastic : Automatic syntax checking
+"" Syntastic : Automatic syntax checking """""""""""""""""""""""""""""""""""""
 "" http://www.vim.org/scripts/script.php?script_id=2736
 Plugin 'Syntastic'
 let g:syntastic_javascript_checkers = ['jsxhint']
 
-"" surround.vim : Delete/change/add parentheses/quotes/XML-tags/much more with
-"" ease
+"" surround.vim : Delete/change/add parentheses/quotes/XML-tags/much """""""""
+"" more with ease
 "" http://www.vim.org/scripts/script.php?script_id=1697
 Plugin 'surround.vim'
 
-"" Command-T : Fast file navigation for VIM
+"" Command-T : Fast file navigation for VIM 
 "" http://www.vim.org/scripts/script.php?script_id=3025
 "Plugin 'Command-T'
-
-"" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""
-"" https://github.com/mileszs/ack.vim
-"" USAGE: :Ack
-Plugin 'ack.vim'
-let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
 
 "" xmledit: A filetype plugin to help edit XML, HTML, and SGML documents
 "" http://www.vim.org/scripts/script.php?script_id=301
@@ -198,6 +249,10 @@ let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
 "Plugin 'closetag.vim'
 "autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
 "autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+
+
+
+
 
 call vundle#end()
 filetype plugin indent on
@@ -294,6 +349,8 @@ colo busybee
 highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
 
-syntax on       " enable syntax highlighting
+
+" enable syntax highlighting
+syntax on
 
 
