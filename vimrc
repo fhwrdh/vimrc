@@ -38,6 +38,8 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 20
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+" this opens nerdtree pointing to the location of the file in the current
+" buffer
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
@@ -118,6 +120,12 @@ if !exists('g:airline_symbols')
 "" Automatically displays all buffers when there's only one tab open.
 let g:airline#extensions#tabline#enabled = 1
 
+"" tmuxline.vim: Simple tmux statusline generator with support for powerline
+"" symbols and statusline / airline / lightline integration
+"" https://github.com/edkolev/tmuline.vim
+Plugin 'edkolev/tmuxline.vim'
+let g:tmuxline_preset = 'nightly_fox'
+
 "" vim-colorschemes: one colorscheme pack to rule them all! """"""""""""""""""
 "" https://github.com/flazz/vim-colorschemes
 Plugin 'flazz/vim-colorschemes'
@@ -157,9 +165,8 @@ inoremap <expr><space> pumvisible() ? neocomplete#smart_close_popup()."\<space>"
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" neosnippet: neo-snippet plugin contains neocomplcache snippets source
@@ -200,11 +207,11 @@ let javascript_enable_domhtmlcss=1
 "" https://github.com/mxw/vim-jsx
 "" This bundle requires pangloss's vim-javascript syntax highlighting.
 Plugin 'mxw/vim-jsx'
-"" By default, JSX syntax highlighting and indenting will be enabled only for 
+"" By default, JSX syntax highlighting and indenting will be enabled only for
 "" files with the .jsx extension. If you would like JSX in .js files, add:
 let g:jsx_ext_required = 0
 
-"" vim-css3-syntax: Add CSS3 syntax support to vim's built-in `syntax/css.vim`.
+"" vim-css3-syntax: Add CSS3 syntax support to vim's built-in `syntax/css.vim`
 "" https://github.com/hail2u/vim-css3-syntax
 Plugin 'hail2u/vim-css3-syntax'
 
@@ -236,7 +243,7 @@ let g:syntastic_javascript_checkers = ['jsxhint']
 "" http://www.vim.org/scripts/script.php?script_id=1697
 Plugin 'surround.vim'
 
-"" Command-T : Fast file navigation for VIM 
+"" Command-T : Fast file navigation for VIM
 "" http://www.vim.org/scripts/script.php?script_id=3025
 "Plugin 'Command-T'
 
@@ -250,12 +257,42 @@ Plugin 'surround.vim'
 "autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
 "autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
+Plugin 'tpope/vim-ragtag'
+let g:ragtag_global_maps = 1
 
 
-
+" FUTURES LIST
+" vim-expand-region
+"Plugin 'Shougo/unite.vim'
 
 call vundle#end()
 filetype plugin indent on
+
+" Functions
+" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ---------------
+" Make a scratch buffer with all of the leader keybindings.
+"
+" Adapted from http://ctoomey.com/posts/an-incremental-approach-to-vim/
+" ---------------
+function! ListLeaders()
+  silent! redir @b
+  silent! nmap <LEADER>
+  silent! redir END
+  silent! new
+  silent! set buftype=nofile
+  silent! set bufhidden=hide
+  silent! setlocal noswapfile
+  silent! put! b
+  silent! g/^s*$/d
+  silent! %s/^.*,//
+  silent! normal ggVg
+  silent! sort
+  silent! let lines = getline(1,"$")
+  silent! normal <esc>
+endfunction
+command! ListLeaders :call ListLeaders()
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set hidden
@@ -286,71 +323,100 @@ set noerrorbells      " No noise.
 set laststatus=2      " Always show status line.
 set vb t_vb=          " disable any beeps or flashes on error
 set ruler             " Show ruler
+set noshowmode        " Don't show the mode since Powerline shows it
 set showcmd           " Display an incomplete command in the lower right corner
 set autoread          " Automatically read a file that has changed on disk
 set list              " Display unprintable characters f12 - switches
 set listchars=tab:·\-,trail:·,extends:»,precedes:« " Unprintable chars mapping
-set scrolloff=999
+set scrolloff=999     " keep the cursor in the middle of the screen
 set backspace=indent,eol,start " Let backspace cross lines
+set splitbelow        " default split locations
+set splitright
+
+if exists('+colorcolumn')
+  "set colorcolumn=80 " Color the 80th column differently as a wrapping guide.
+endif
 
 " Text Formatting
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autoindent
 set smartindent
-
 set tabstop=4         "
 set softtabstop=4     "
 set shiftwidth=4      " Width of '<' '>' indentation
 set expandtab         " Insert spaces when <TAB>ing
-
 set nosmarttab
 
 " Keybindings
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" map semi to colon. saves the shift
 nnoremap ; :
-" leader is a key that allows you to have your own "namespace" of keybindings.
-let mapleader = ","
-" map space bar to leader
+vnoremap ; :
+
+imap jj <esc>
+cmap jj <esc>
+
+" begin/end of lines
+noremap H ^
+noremap L $
+
+" Tabs
+noremap <silent> <S-t> :tabnew<CR>
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+
+" windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+let mapleader = ","                      " testing
+" map spacebar to leader.
 map <space> <leader>
+nmap <leader>w :w!<cr>                   " fast saving a buffer
+nnoremap <leader>/ :nohls<CR>            " clear the highlighting of :set hlsearch.
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
 
-set pastetoggle=<F5>
-
-" clear the highlighting of :set hlsearch.
-nnoremap <leader>n :nohls<CR>
-
-" map 'jj' to <esc>
-imap jj <esc>
-cmap jj <esc>
-
-" make regexp search use the more familiar regex syntax
-"nnoremap / /\v
-"nnoremap / /\v
-
 " remove trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-" call :sudow FLIENAME when bit by a file you don't own
+" call :sudow FILENAME when bit by a file you don't own
 cnoremap sudow w !sudo tee % >/dev/null
 
-"" Tabs
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
-nnoremap <silent> <S-t> :tabnew<CR>
+"" remove the ^M from wonky windows encodings
+noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
+map <leader>pp :setlocal paste!<cr>
+nnoremap <silent> <F5> :setlocal paste!<CR>
+
+" toggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Colors
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256          " Use 256 colors
 set background=dark
-colo busybee
+"colo ir_black
+colo grb256
+"colo atom-dark
+"colo busybee
+
+"" trying to fix the gitgutter/colorscheme issues...
+highlight clear SignColumn
+highlight GitGutterAdd ctermfg=green guifg=darkgreen
+highlight GitGutterChange ctermfg=white guifg=darkyellow
+highlight GitGutterDelete ctermfg=red guifg=darkred
+highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
 
 " invisible char colors
 highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
 
-
 " enable syntax highlighting
 syntax on
 
-
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
