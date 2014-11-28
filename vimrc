@@ -1,7 +1,7 @@
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" fhwrdh / vimrc
 "" URL: http://www.github.com/fhwrdh/vimrc
-"" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 set hidden
 set history=1000
@@ -81,11 +81,15 @@ nnoremap <C-l> <C-w>l
 noremap <silent> <C-p> :bp<CR
 noremap <silent> <C-n> :bn<CR>
 
+"" map ',' and spacebar to leader.
 let mapleader = ","
-"" map spacebar to leader.
 map <space> <leader>
-nmap <leader>w :w!<cr>                   " fast saving a buffer
-nnoremap <leader>/ :nohls<CR>            " clear the highlighting of :set hlsearch.
+
+" fast saving a buffer
+nmap <leader>w :w!<cr>
+
+" clear the highlighting of :set hlsearch.
+nnoremap <leader>/ :nohls<CR>
 
 "" Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -106,10 +110,6 @@ nnoremap <silent> <F5> :setlocal paste!<CR>
 "" toggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-
-
-
-
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Plugins
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -124,7 +124,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-"" Vundle.vim: Vundle, the plug-in manager for Vim """""""""""""""""""""""""""
+"" Vundle.vim: Vundle, the plug-in manager for Vim """""""""""""""""""""""""""""
 "" https://github.com/gmarik/Vundle.vim
 Plugin 'gmarik/Vundle.vim'
 
@@ -132,7 +132,7 @@ Plugin 'gmarik/Vundle.vim'
 "" http://www.vim.org/scripts/script.php?script_id=4300
 Plugin 'tpope/vim-eunuch'
 
-"" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""
+"" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""""
 "" https://github.com/mileszs/ack.vim
 "" USAGE: :Ack
 Plugin 'ack.vim'
@@ -163,7 +163,7 @@ Plugin 'tpope/vim-commentary'
 "" http://www.vim.org/scripts/script.php?script_id=2975
 Plugin 'tpope/vim-fugitive'
 
-"" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""
+"" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""""
 "" (sign column) and stages/reverts hunks.
 "" https://github.com/airblade/vim-gitgutter
 Plugin 'airblade/vim-gitgutter'
@@ -173,7 +173,7 @@ Plugin 'airblade/vim-gitgutter'
 "" https://github.com/gregsexton/gitv
 Plugin 'gitv'
 
-"" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
@@ -195,12 +195,12 @@ let g:airline#extensions#tabline#enabled = 1
 Plugin 'edkolev/tmuxline.vim'
 let g:tmuxline_preset = 'nightly_fox'
 
-"" vim-colorschemes: one colorscheme pack to rule them all! """"""""""""""""""
+"" vim-colorschemes: one colorscheme pack to rule them all!  """""""""""""""""""
 "" https://github.com/flazz/vim-colorschemes
 Plugin 'flazz/vim-colorschemes'
 
 
-"" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Unite: Unite and create user interfaces
 "" https://github.com/Shougo/unite.vim
 Plugin 'Shougo/unite.vim'
@@ -214,7 +214,11 @@ Plugin 'Shougo/unite-outline'
 Plugin 'Shougo/vimproc.vim'
 "" Unite plugin for quickfix buffer
 Plugin 'osyo-manga/unite-quickfix'
+
+Plugin 'ujihisa/unite-colorscheme'
+
 Plugin 'rking/ag.vim'
+
 let g:unite_source_file_mru_limit = 200
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_grep_command = 'ag'
@@ -222,6 +226,7 @@ let g:unite_prompt='» '
 let g:unite_abbr_highlight = 'Keyword'
 
 map <leader>ub :Unite -quick-match buffer<CR>
+map <leader>uc :Unite colorscheme -auto-preview<CR>
 map <leader>uf :Unite -toggle -start-insert file_rec/async<CR>
 map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
 map <leader>uh :Unite -toggle history/yank<CR>
@@ -233,7 +238,7 @@ map <leader>ut :Unite -toggle -quick-match tab<CR>
 map <leader>ux :Unite command<CR>
 map <leader>u* :exe 'silent Ggrep -i '.expand("<cword>")<Bar>Unite quickfix -no-quit<CR>
 
-"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" neocomplete: Next generation completion framework after neocomplcache
 "" https://github.com/Shougo/neocomplete.vim
 Plugin 'Shougo/neocomplete'
@@ -269,7 +274,7 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" neosnippet: neo-snippet plugin contains neocomplcache snippets source
 "" https://github.com/Shougo/neosnippet.vim
 Plugin 'Shougo/neosnippet'
@@ -294,7 +299,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-"" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""
+"" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""""
 "" https://github.com/sheerun/vim-polyglot
 Plugin 'sheerun/vim-polyglot'
 
@@ -304,7 +309,7 @@ Plugin 'sheerun/vim-polyglot'
 "" INCLUDED IN VIM-POLYGLOT "Plugin 'pangloss/vim-javascript'
 let javascript_enable_domhtmlcss=1
 
-"" vim-jsx: React JSX syntax highlighting and indenting for vim.""""""""""""""
+"" vim-jsx: React JSX syntax highlighting and indenting for vim. """""""""""""""
 "" https://github.com/mxw/vim-jsx
 "" This bundle requires pangloss's vim-javascript syntax highlighting.
 Plugin 'mxw/vim-jsx'
@@ -316,30 +321,31 @@ let g:jsx_ext_required = 0
 "" https://github.com/hail2u/vim-css3-syntax
 Plugin 'hail2u/vim-css3-syntax'
 
-"" vim-json: Syntax highlighting for JSON in Vim """""""""""""""""""""""""""""
+"" vim-json: Syntax highlighting for JSON in Vim """""""""""""""""""""""""""""""
 "" https://github.com/leshill/vim-json
 Plugin 'leshill/vim-json'
 "" (no config}
 
-"" HTML-AutoCloseTag: Automatically closes HTML tags once you finish typing them.
+"" HTML-AutoCloseTag: Automatically closes HTML tags once you finish typing
+"" them.
 "" http://www.vim.org/scripts/script.php?script_id=2591
 "Plugin 'vim-scripts/HTML-AutoCloseTag'
 "" doesnt really work.... look for replacement
 
-"" indent/html.vim : alternative html indent script """"""""""""""""""""""""""
+"" indent/html.vim : alternative html indent script """"""""""""""""""""""""""""
 "" http://www.vim.org/scripts/script.php?script_id=2075
 Plugin 'indenthtml.vim'
 
-"" vim-markdown: Vim Markdown runtime files """"""""""""""""""""""""""""""""""
+"" vim-markdown: Vim Markdown runtime files """"""""""""""""""""""""""""""""""""
 "" https://github.com/tpope/vim-markdown
 Plugin 'tpope/vim-markdown'
 
-"" Syntastic : Automatic syntax checking """""""""""""""""""""""""""""""""""""
+"" Syntastic : Automatic syntax checking """""""""""""""""""""""""""""""""""""""
 "" http://www.vim.org/scripts/script.php?script_id=2736
 Plugin 'Syntastic'
 let g:syntastic_javascript_checkers = ['jsxhint']
 
-"" surround.vim : Delete/change/add parentheses/quotes/XML-tags/much """""""""
+"" surround.vim : Delete/change/add parentheses/quotes/XML-tags/much """""""""""
 "" more with ease
 "" http://www.vim.org/scripts/script.php?script_id=1697
 Plugin 'surround.vim'
@@ -348,7 +354,7 @@ Plugin 'surround.vim'
 Plugin 'tpope/vim-ragtag'
 let g:ragtag_global_maps = 1
 
-"" livedown: Live Markdown previews for your favourite editor.""""""""""""""""
+"" livedown: Live Markdown previews for your favourite editor.""""""""""""""""""
 "" https://github.com/shime/livedown
 "" requires livedown app: npm install -g livedown
 "" ./livedown start <file> --open
@@ -356,18 +362,18 @@ Plugin 'shime/livedown'
 "" this does not seem to work?
 "map gm :call LivedownPreview()<CR>
 
-"" vim-expand-region """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" vim-expand-region """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" https://github.com/terryma/vim-expand-region
 "" '+'/'-' to expand/contract
 Plugin 'terryma/vim-expand-region'
 
-"" ZoomWin: Zoom in/out of windows """""""""""""""""""""""""""""""""""""""""""
+"" ZoomWin: Zoom in/out of windows """""""""""""""""""""""""""""""""""""""""""""
 "" https://github.com/vim-scripts/ZoomWin
 "" Press <c-w>o : the current window zooms into a full screen
 "" Press <c-w>o again: the previous set of windows is restored
 Plugin 'vim-scripts/ZoomWin'
 
-"" tern_for_vim: Tern plugin for vim """""""""""""""""""""""""""""""""""""""""
+"" tern_for_vim: Tern plugin for vim """""""""""""""""""""""""""""""""""""""""""
 "" https://github.com/marijnh/tern_for_vim
 "" Install the tern server by running npm install in the bundle/tern_for_vim
 "" directory.
@@ -376,16 +382,13 @@ let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
 
 "" FUTURES LIST
+" 'tpope/unimpaired'
 
 call vundle#end()
 filetype plugin indent on
 
-
-
-
-
 "" Functions
-"" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Make a scratch buffer with all of the leader keybindings.
 "" Adapted from http://ctoomey.com/posts/an-incremental-approach-to-vim/
 function! ListLeaders()
@@ -425,6 +428,10 @@ highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
 "" invisible char colors
 highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
+
+"" highlight the line number of the current line?
+highlight CursorLine   ctermfg=141
+highlight CursorLineNr ctermfg=222 cterm=bold
 
 "" enable syntax highlighting
 syntax on
