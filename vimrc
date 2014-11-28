@@ -1,6 +1,115 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
-filetype off
+set hidden
+set history=1000
+set undolevels=1000
 
+" Backup
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nowritebackup
+set nobackup
+set noswapfile
+" set directory=/tmp// " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
+
+" Match and search
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hlsearch          " highlight search
+set ignorecase        " Do case in sensitive matching with
+set smartcase         " be sensitive when there's a capital letter
+set incsearch         " Search as you type
+
+" Visual
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set number            " Show line numbers
+set showmatch         " Show matching brackets.
+set matchtime=5       " Bracket blinking.
+set novisualbell      " No blinking
+set noerrorbells      " No noise.
+set laststatus=2      " Always show status line.
+set vb t_vb=          " disable any beeps or flashes on error
+set ruler             " Show ruler
+set noshowmode        " Don't show the mode since Powerline shows it
+set showcmd           " Display an incomplete command in the lower right corner
+set autoread          " Automatically read a file that has changed on disk
+set list              " Display unprintable characters f12 - switches
+set listchars=tab:·\-,trail:·,extends:»,precedes:« " Unprintable chars mapping
+set scrolloff=999     " keep the cursor in the middle of the screen
+set backspace=indent,eol,start " Let backspace cross lines
+set splitbelow        " default split locations
+set splitright
+
+if exists('+colorcolumn')
+  "set colorcolumn=80 " Color the 80th column differently as a wrapping guide.
+endif
+
+" Text Formatting
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set autoindent
+set smartindent
+set tabstop=4         "
+set softtabstop=4     "
+set shiftwidth=4      " Width of '<' '>' indentation
+set expandtab         " Insert spaces when <TAB>ing
+set nosmarttab
+
+" Keybindings
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" map semi to colon. saves the shift
+nnoremap ; :
+vnoremap ; :
+
+imap jj <esc>
+cmap jj <esc>
+
+" begin/end of lines
+noremap H ^
+noremap L $
+
+" Tabs
+noremap <silent> <S-t> :tabnew<CR>
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+
+" windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" C-{n,p} move between buffers 
+noremap <silent> <C-p> :bp<CR
+noremap <silent> <C-n> :bn<CR>
+
+let mapleader = ","
+" map spacebar to leader.
+map <space> <leader>
+nmap <leader>w :w!<cr>                   " fast saving a buffer
+nnoremap <leader>/ :nohls<CR>            " clear the highlighting of :set hlsearch.
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
+
+" remove trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" call :sudow FILENAME when bit by a file you don't own
+cnoremap sudow w !sudo tee % >/dev/null
+
+"" remove the ^M from wonky windows encodings
+noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+map <leader>pp :setlocal paste!<cr>
+nnoremap <silent> <F5> :setlocal paste!<CR>
+
+" toggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+
+
+
+
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle stuff
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Brief help
@@ -10,7 +119,10 @@ filetype off
 "
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Plugin commands are not allowed.
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/lib/vimproc.vim/autoread/
+set rtp+=~/lib/vimproc.vim/plugin/
 call vundle#begin()
 
 "" Vundle.vim: Vundle, the plug-in manager for Vim """""""""""""""""""""""""""
@@ -25,7 +137,8 @@ Plugin 'tpope/vim-eunuch'
 "" https://github.com/mileszs/ack.vim
 "" USAGE: :Ack
 Plugin 'ack.vim'
-let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
+" let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
+let g:ackprg = "ag --nocolor --nogroup --column"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" The NERD tree : A tree explorer plugin for navigating the filesystem.
@@ -60,49 +173,6 @@ Plugin 'airblade/vim-gitgutter'
 "" gitv: gitk for Vim.
 "" https://github.com/gregsexton/gitv
 Plugin 'gitv'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" ctrlp.vim: Fuzzy file, buffer, mru, tag, etc finder.
-"" http://kien.github.com/ctrlp.vim
-"" :help ctrlp-options
-Plugin 'kien/ctrlp.vim'
-"Once CtrlP is open:
-" Press <F5> to purge the cache for the current directory to get new files,
-" remove deleted files and apply new ignore options.
-" Press <c-f> and <c-b> to cycle between modes.
-" Press <c-d> to switch to filename search instead of full path.
-" Press <c-r> to switch to regexp mode.
-" Use <c-j>, <c-k> or the arrow keys to navigate the result list.
-" Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
-" Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
-" Use <c-y> to create a new file and its parent directories.
-" Use <c-z> to mark/unmark multiple files and <c-o> to open them.
-let g:ctrlp_map = '<c-p>'
-" When invoked, unless a starting directory is specified, CtrlP will set its
-" local working directory according to this variable.
-" 'c' - the directory of the current file.
-" 'r' - the nearest ancestor that contains one of these directories or files:
-" .git .hg .svn .bzr _darcs, and your own root markers defined with the
-" g:ctrlp_root_markers option.
-" 'a' - like 'c', but only applies when the current working directory outside
-" of CtrlP isn't a direct ancestor of the directory of the current file.
-" 0 or '' (empty string) - disable this feature.
-let g:ctrlp_working_path_mode = 'ra'
-" exclude files or directory from search
-" with vim script regexp, needs to escape |, + as well
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn$\|node_modules$\|vendor$\|.*cache$',
-  \ 'file': '\.exe$\|\.so$\|\.dll$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store " MacOSX/Linux
-" use custom file listing command
-" let g:ctrlp_user_command = 'find %s -type f'
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:50'
-" Max MRU entries to remember
-let g:ctrlp_mruf_max = 50
-" additional keyboard shortcuts
-nnoremap <leader>m :CtrlPMRUFiles<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
@@ -260,15 +330,48 @@ Plugin 'surround.vim'
 Plugin 'tpope/vim-ragtag'
 let g:ragtag_global_maps = 1
 
+"" livedown: Live Markdown previews for your favourite editor.
+"" https://github.com/shime/livedown
+"" requires livedown app: npm install -g livedown
+"" ./livedown start <file> --open
+Plugin 'shime/livedown'
+" this does not seem to work?
+"map gm :call LivedownPreview()<CR>
 
 " FUTURES LIST
 " vim-expand-region
-"Plugin 'Shougo/unite.vim'
+
+"" Unite:
+""
+""
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/vimproc.vim.git'
+Plugin 'osyo-manga/unite-quickfix'
+Plugin 'rking/ag.vim'
+let g:unite_source_file_mru_limit = 200
+let g:unite_source_history_yank_enable = 1
+let g:unite_source_grep_command = 'ag'
+let g:unite_prompt='» '
+
+map <leader>ub :Unite -quick-match buffer<CR>
+map <leader>uf :Unite -toggle -start-insert file_rec<CR>
+map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
+map <leader>uh :Unite -toggle history/yank<CR>
+map <leader>up :Unite -toggle -start-insert process<CR>
+map <leader>uq :Unite -toggle quickfix<CR>
+map <leader>ur :Unite -toggle -quick-match file_mru<CR>
+map <leader>ut :Unite -toggle -quick-match tab<CR>
+map <leader>ux :Unite command<CR>
+map <leader>u* :exe 'silent Ggrep -i '.expand("<cword>")<Bar>Unite quickfix -no-quit<CR>
+
+
+
+
+
 
 call vundle#end()
 filetype plugin indent on
-
-" Functions
 " """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ---------------
 " Make a scratch buffer with all of the leader keybindings.
@@ -294,107 +397,6 @@ endfunction
 command! ListLeaders :call ListLeaders()
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set hidden
-set history=1000
-set undolevels=1000
-
-" Backup
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nowritebackup
-set nobackup
-set noswapfile
-" set directory=/tmp// " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
-
-" Match and search
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set hlsearch          " highlight search
-set ignorecase        " Do case in sensitive matching with
-set smartcase         " be sensitive when there's a capital letter
-set incsearch         " Search as you type
-
-" Visual
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set number            " Show line numbers
-set showmatch         " Show matching brackets.
-set matchtime=5       " Bracket blinking.
-set novisualbell      " No blinking
-set noerrorbells      " No noise.
-set laststatus=2      " Always show status line.
-set vb t_vb=          " disable any beeps or flashes on error
-set ruler             " Show ruler
-set noshowmode        " Don't show the mode since Powerline shows it
-set showcmd           " Display an incomplete command in the lower right corner
-set autoread          " Automatically read a file that has changed on disk
-set list              " Display unprintable characters f12 - switches
-set listchars=tab:·\-,trail:·,extends:»,precedes:« " Unprintable chars mapping
-set scrolloff=999     " keep the cursor in the middle of the screen
-set backspace=indent,eol,start " Let backspace cross lines
-set splitbelow        " default split locations
-set splitright
-
-if exists('+colorcolumn')
-  "set colorcolumn=80 " Color the 80th column differently as a wrapping guide.
-endif
-
-" Text Formatting
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set autoindent
-set smartindent
-set tabstop=4         "
-set softtabstop=4     "
-set shiftwidth=4      " Width of '<' '>' indentation
-set expandtab         " Insert spaces when <TAB>ing
-set nosmarttab
-
-" Keybindings
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" map semi to colon. saves the shift
-nnoremap ; :
-vnoremap ; :
-
-imap jj <esc>
-cmap jj <esc>
-
-" begin/end of lines
-noremap H ^
-noremap L $
-
-" Tabs
-noremap <silent> <S-t> :tabnew<CR>
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
-
-" windows
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-let mapleader = ","                      " testing
-" map spacebar to leader.
-map <space> <leader>
-nmap <leader>w :w!<cr>                   " fast saving a buffer
-nnoremap <leader>/ :nohls<CR>            " clear the highlighting of :set hlsearch.
-
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
-
-" remove trailing whitespace
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-
-" call :sudow FILENAME when bit by a file you don't own
-cnoremap sudow w !sudo tee % >/dev/null
-
-"" remove the ^M from wonky windows encodings
-noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-map <leader>pp :setlocal paste!<cr>
-nnoremap <silent> <F5> :setlocal paste!<CR>
-
-" toggle spell checking
-map <leader>ss :setlocal spell!<cr>
 
 " Colors
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -419,4 +421,6 @@ highlight SpecialKey guifg=#4a4a59
 " enable syntax highlighting
 syntax on
 
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
