@@ -121,8 +121,6 @@ map <leader>ss :setlocal spell!<cr>
 " NOTE: comments after Plugin commands are not allowed.
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=~/lib/vimproc.vim/autoread/
-set rtp+=~/lib/vimproc.vim/plugin/
 call vundle#begin()
 
 "" Vundle.vim: Vundle, the plug-in manager for Vim """""""""""""""""""""""""""
@@ -174,7 +172,7 @@ Plugin 'airblade/vim-gitgutter'
 "" https://github.com/gregsexton/gitv
 Plugin 'gitv'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
@@ -222,14 +220,19 @@ let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 "let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
 " <CR> closes popup
 inoremap <expr><CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
 " <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><space> pumvisible() ? neocomplete#smart_close_popup()."\<space>" : "\<space>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -341,12 +344,13 @@ Plugin 'shime/livedown'
 " FUTURES LIST
 " vim-expand-region
 
-"" Unite:
-""
-""
+"" Unite: Unite and create user interfaces
+"" https://github.com/Shougo/unite.vim
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/vimproc.vim.git'
+"" vimproc.vim
+"" requires building lib
+Plugin 'Shougo/vimproc.vim'
 Plugin 'osyo-manga/unite-quickfix'
 Plugin 'rking/ag.vim'
 let g:unite_source_file_mru_limit = 200
@@ -355,7 +359,7 @@ let g:unite_source_grep_command = 'ag'
 let g:unite_prompt='» '
 
 map <leader>ub :Unite -quick-match buffer<CR>
-map <leader>uf :Unite -toggle -start-insert file_rec<CR>
+map <leader>uf :Unite -toggle -start-insert file_rec/async<CR>
 map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
 map <leader>uh :Unite -toggle history/yank<CR>
 map <leader>up :Unite -toggle -start-insert process<CR>
