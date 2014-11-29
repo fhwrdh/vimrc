@@ -41,10 +41,6 @@ set backspace=indent,eol,start " Let backspace cross lines
 set splitbelow        " default split locations
 set splitright
 
-if exists('+colorcolumn')
-  "set colorcolumn=80 " Color the 80th column differently as a wrapping guide.
-endif
-
 "" Text Formatting
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autoindent
@@ -106,9 +102,12 @@ noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 map <leader>pp :setlocal paste!<cr>
 nnoremap <silent> <F5> :setlocal paste!<CR>
-
 "" toggle spell checking
 map <leader>ss :setlocal spell!<cr>
+"" buffer mgmt
+nnoremap <leader>bd :bd<CR>
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader>bn :bn<CR>
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Plugins
@@ -167,6 +166,11 @@ Plugin 'tpope/vim-fugitive'
 "" (sign column) and stages/reverts hunks.
 "" https://github.com/airblade/vim-gitgutter
 Plugin 'airblade/vim-gitgutter'
+let g:gitgutter_sign_added = '++'
+let g:gitgutter_sign_modified = '~~'
+let g:gitgutter_sign_removed = '--'
+let g:gitgutter_sign_removed_first_line = '^^'
+let g:gitgutter_sign_modified_removed = 'ww'
 
 "" 'You don't have to do anything: it just works.'
 "" gitv: gitk for Vim.
@@ -177,8 +181,8 @@ Plugin 'gitv'
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
-let g:airline_theme             = 'powerlineish'
-"let g:airline_theme             = 'jellybeans'
+"let g:airline_theme             = 'powerlineish'
+let g:airline_theme             = 'fhwrdh'
 let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
 let g:airline_powerline_fonts = 1
@@ -221,22 +225,59 @@ Plugin 'rking/ag.vim'
 
 let g:unite_source_file_mru_limit = 200
 let g:unite_source_history_yank_enable = 1
-let g:unite_source_grep_command = 'ag'
 let g:unite_prompt='» '
 let g:unite_abbr_highlight = 'Keyword'
+let g:unite_split_rule = "botright"
+let g:unite_source_file_mru_filename_format = ':~:.'
+let g:unite_source_file_mru_time_format = ''
 
+if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts =
+          \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
+          \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' ' .
+          \ '--ignore ''**/*.pyc'''
+    let g:unite_source_grep_recursive_opt = ''
+elseif executable('ack-grep')
+    let g:unite_source_grep_command = 'ack-grep'
+    " Match whole word only. This might/might not be a good idea
+    let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
+    "let g:unite_source_grep_default_opts = '--no-heading --no-color -a -w'
+    let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
+    let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_search_word_highlight = 1
+elseif executable('ack')
+    let g:unite_source_grep_command = 'ack'
+    let g:unite_source_grep_default_opts = '--no-heading --no-color -a -w'
+    let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
+    let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_search_word_highlight = 1
+endif
+
+" b: buffer
 map <leader>ub :Unite -quick-match buffer<CR>
+" c: colorscheme
 map <leader>uc :Unite colorscheme -auto-preview<CR>
+" f: file
 map <leader>uf :Unite -toggle -start-insert file_rec/async<CR>
+" g: grep
 map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
-map <leader>uh :Unite -toggle history/yank<CR>
-map <leader>uo :Unite outline<CR>
-map <leader>up :Unite -toggle -start-insert process<CR>
-map <leader>uq :Unite -toggle quickfix<CR>
-map <leader>ur :Unite -toggle -quick-match file_mru<CR>
-map <leader>ut :Unite -toggle -quick-match tab<CR>
-map <leader>ux :Unite command<CR>
+" *: grep at cursor
 map <leader>u* :exe 'silent Ggrep -i '.expand("<cword>")<Bar>Unite quickfix -no-quit<CR>
+" h: history
+map <leader>uh :Unite -toggle history/yank<CR>
+" o: outline
+nnoremap <silent><Leader>uo :Unite -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
+" p: process
+map <leader>up :Unite -toggle -start-insert process<CR>
+" q: quickfix
+map <leader>uq :Unite -toggle quickfix<CR>
+" r: recent (mru)
+map <leader>ur :Unite -toggle -start-insert file_mru<CR>
+" t: tab
+map <leader>ut :Unite -toggle -quick-match tab<CR>
+" x: command
+map <leader>ux :Unite command<CR>
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" neocomplete: Next generation completion framework after neocomplcache
@@ -383,6 +424,9 @@ let g:tern_show_argument_hints='on_hold'
 
 "" FUTURES LIST
 " 'tpope/unimpaired'
+" https://github.com/maksimr/vim-jsbeautify
+
+
 
 call vundle#end()
 filetype plugin indent on
@@ -411,27 +455,30 @@ command! ListLeaders :call ListLeaders()
 
 "" Colors
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" http://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
 set t_Co=256          " Use 256 colors
 set background=dark
-"colo ir_black
-colo grb256
-"colo atom-dark
+"colo 256-grayvim
 "colo busybee
+"colo darkburn
+"colo ir_black
+"colo mustang
+"colo up
+"colo xoria256
+colo fhwrdh
 
-"" trying to fix the gitgutter/colorscheme issues...
-highlight clear SignColumn
-highlight GitGutterAdd ctermfg=green guifg=darkgreen
-highlight GitGutterChange ctermfg=white guifg=darkyellow
-highlight GitGutterDelete ctermfg=red guifg=darkred
-highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
 
-"" invisible char colors
-highlight NonText guifg=#4a4a59
-highlight SpecialKey guifg=#4a4a59
+" "" invisible char colors
+" highlight NonText guifg=#4a4a59
+" highlight SpecialKey guifg=#4a4a59
 
-"" highlight the line number of the current line?
-highlight CursorLine   ctermfg=141
-highlight CursorLineNr ctermfg=222 cterm=bold
+" "" highlight the line number of the current line?
+" highlight CursorLine   ctermfg=141
+" highlight CursorLineNr ctermfg=222 cterm=bold
+
+" if exists('+colorcolumn')
+" "  set colorcolumn=80,120 " Color the 80th column differently as a wrapping guide.
+" endif
 
 "" enable syntax highlighting
 syntax on

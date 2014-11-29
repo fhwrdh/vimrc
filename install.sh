@@ -56,6 +56,9 @@ then
     ln -s -f "$PWD/vimrc.local" "$HOME/.vimrc.local"
 fi
 
+echo  "Link theme"
+ln -s -f "$PWD/colors/fhwrdh.vim" "$HOME/.vim/colors/fhwrdh.vim"
+
 echo "Instruct Vundle to download all the scripts"
 vim +BundleInstall +qall
 
