@@ -56,8 +56,15 @@ then
     ln -s -f "$PWD/vimrc.local" "$HOME/.vimrc.local"
 fi
 
-echo  "Link theme"
+echo "Link theme"
+mkdir "$HOME/.vim/colors"
 ln -s -f "$PWD/colors/fhwrdh.vim" "$HOME/.vim/colors/fhwrdh.vim"
+
+echo "Link airline theme"
+mkdir -p "$HOME/.vim/autoload/airline/themes/"
+# symlink no good?
+# ln -s -f "$PWD/autoload/airline/themes/fhwrdh.vim" "$HOME/.vim/autoload/airline/themes/fhwrdh.vim"
+cp "$PWD/autoload/airline/themes/fhwrdh.vim" "$HOME/.vim/autoload/airline/themes/fhwrdh.vim"
 
 echo "Instruct Vundle to download all the scripts"
 vim +BundleInstall +qall

@@ -1,4 +1,4 @@
-" Maintainer:   Franklin Henderson
+" Maintainer:   Franklin Henderson / fhwrdh
 " Version:      0.1
 " Last Change:  28 Nov 2014
 " Credits:      Vim color scheme "fhwrdh" originaly based on "Up" colorscheme create by Sasha Koss
