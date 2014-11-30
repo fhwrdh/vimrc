@@ -191,7 +191,7 @@ if !exists('g:airline_symbols')
   endif
   let g:airline_symbols.space = "\ua0"
 "" Automatically displays all buffers when there's only one tab open.
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 
 "" tmuxline.vim: Simple tmux statusline generator with support for powerline
 "" symbols and statusline / airline / lightline integration
@@ -228,8 +228,8 @@ let g:unite_source_history_yank_enable = 1
 let g:unite_prompt='» '
 let g:unite_abbr_highlight = 'Keyword'
 let g:unite_split_rule = "botright"
-let g:unite_source_file_mru_filename_format = ':~:.'
-let g:unite_source_file_mru_time_format = ''
+" let g:unite_source_file_mru_filename_format = ':~:.'
+" let g:unite_source_file_mru_time_format = ''
 
 if executable('ag')
     let g:unite_source_grep_command = 'ag'
@@ -255,11 +255,11 @@ elseif executable('ack')
 endif
 
 " b: buffer
-map <leader>ub :Unite -quick-match buffer<CR>
+map <leader>ub :Unite buffer<CR>
 " c: colorscheme
 map <leader>uc :Unite colorscheme -auto-preview<CR>
-" f: file
-map <leader>uf :Unite -toggle -start-insert file_rec/async<CR>
+" f: recursive file
+map <leader>uf :Unite -toggle file_rec/async<CR>
 " g: grep
 map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
 " *: grep at cursor
@@ -270,10 +270,10 @@ map <leader>uh :Unite -toggle history/yank<CR>
 nnoremap <silent><Leader>uo :Unite -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
 " p: process
 map <leader>up :Unite -toggle -start-insert process<CR>
-" q: quickfix
-map <leader>uq :Unite -toggle quickfix<CR>
+" q: quit
+map <leader>uq :UniteClose<CR>
 " r: recent (mru)
-map <leader>ur :Unite -toggle -start-insert file_mru<CR>
+map <leader>ur :Unite -toggle file_mru<CR>
 " t: tab
 map <leader>ut :Unite -toggle -quick-match tab<CR>
 " x: command
@@ -433,8 +433,10 @@ filetype plugin indent on
 
 "" Functions
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "" Make a scratch buffer with all of the leader keybindings.
 "" Adapted from http://ctoomey.com/posts/an-incremental-approach-to-vim/
+"" ---------------------------------------------------------
 function! ListLeaders()
   silent! redir @b
   silent! nmap <LEADER>
@@ -453,6 +455,19 @@ function! ListLeaders()
 endfunction
 command! ListLeaders :call ListLeaders()
 
+"" Clobber the cursor line styling, regardless of what the 
+"" coloscheme does
+"" ---------------------------------------------------------
+function! s:updateCursorLine()
+    if &background == "dark"
+        highlight CursorLineNr guifg=#839496 guibg=#002b36 gui=NONE
+    else
+        highlight CursorLineNr guifg=#073642 guibg=#fdf6e3 gui=NONE
+    endif
+endf
+
+autocmd ColorScheme * call s:updateCursorLine()
+
 "" Colors
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" http://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
@@ -466,6 +481,7 @@ set background=dark
 "colo up
 "colo xoria256
 colo fhwrdh
+
 
 
 " "" invisible char colors
