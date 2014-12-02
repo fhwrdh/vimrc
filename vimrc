@@ -40,6 +40,7 @@ set scrolloff=999     " keep the cursor in the middle of the screen
 set backspace=indent,eol,start " Let backspace cross lines
 set splitbelow        " default split locations
 set splitright
+set wildmenu
 
 "" Text Formatting
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -62,6 +63,56 @@ cmap jj <esc>
 noremap H ^
 noremap L $
 
+"" Remap 0 to first non-blank character
+map 0 ^
+
+"" map ',' and spacebar to leader.
+let mapleader = ","
+map <space> <leader>
+
+"" fast saving a buffer
+nmap <leader>w :w!<cr>
+
+"" call :sudow FILENAME when bit by a file you don't own
+cnoremap sudow w !sudo tee % >/dev/null
+
+"" clear the highlighting of :set hlsearch.
+nnoremap <leader>/ :nohls<CR>
+
+"" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
+
+"" remove trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+"" remove the ^M from wonky windows encodings
+noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+"" toggle paste mode
+map <leader>pp :setlocal paste!<cr>
+nnoremap <silent> <F5> :setlocal paste!<CR>
+
+"" SPELLING
+"" toggle spell checking
+map <leader>ss :setlocal spell!<cr>
+"" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+"" spelling: next
+map <leader>sn ]s
+"" spelling: prev
+map <leader>sp [s
+"" spelling: add word
+map <leader>sa zg
+"" spelling: suggest word
+map <leader>s? z=
+
+"" buffer mgmt: next/prev/delete/closeall
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader>bn :bn<CR>
+nnoremap <leader>bd :bd<CR>
+nnoremap <leader>ba :1,1000 bd!<cr>
+
 "" Tabs
 noremap <silent> <S-t> :tabnew<CR>
 nnoremap <Tab> gt
@@ -73,41 +124,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-"" C-{n,p} move between buffers
-noremap <silent> <C-p> :bp<CR
-noremap <silent> <C-n> :bn<CR>
-
-"" map ',' and spacebar to leader.
-let mapleader = ","
-map <space> <leader>
-
-" fast saving a buffer
-nmap <leader>w :w!<cr>
-
-" clear the highlighting of :set hlsearch.
-nnoremap <leader>/ :nohls<CR>
-
-"" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
-
-"" remove trailing whitespace
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-
-"" call :sudow FILENAME when bit by a file you don't own
-cnoremap sudow w !sudo tee % >/dev/null
-
-"" remove the ^M from wonky windows encodings
-noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-map <leader>pp :setlocal paste!<cr>
-nnoremap <silent> <F5> :setlocal paste!<CR>
-"" toggle spell checking
-map <leader>ss :setlocal spell!<cr>
-"" buffer mgmt
-nnoremap <leader>bd :bd<CR>
-nnoremap <leader>bp :bp<CR>
-nnoremap <leader>bn :bn<CR>
+"" Visual mode pressing * or # searches for the current selection
+"" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f', '')<CR>
+vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Plugins
@@ -455,7 +475,7 @@ function! ListLeaders()
 endfunction
 command! ListLeaders :call ListLeaders()
 
-"" Clobber the cursor line styling, regardless of what the 
+"" Clobber the cursor line styling, regardless of what the
 "" coloscheme does
 "" ---------------------------------------------------------
 function! s:updateCursorLine()
@@ -465,8 +485,38 @@ function! s:updateCursorLine()
         highlight CursorLineNr guifg=#073642 guibg=#fdf6e3 gui=NONE
     endif
 endf
-
 autocmd ColorScheme * call s:updateCursorLine()
+
+""
+""
+"" ---------------------------------------------------------
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("Ack \"" . l:pattern . "\" " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
 
 "" Colors
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
