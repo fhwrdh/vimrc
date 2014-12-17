@@ -129,6 +129,14 @@ nnoremap <C-l> <C-w>l
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
+    " Quickly close the current window
+nnoremap <leader>Q :q<CR>
+   " Quickly close the current buffer
+nnoremap <leader>q :bd<CR>
+
+"" auto save when losing focus
+au FocusLost * :wa
+
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Plugins
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -181,6 +189,15 @@ Plugin 'tpope/vim-commentary'
 "" fugitive.vim: a Git wrapper so awesome, it should be illegal
 "" http://www.vim.org/scripts/script.php?script_id=2975
 Plugin 'tpope/vim-fugitive'
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>ga :Git add -A<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+nnoremap <silent> <leader>gl :Git pull<CR>
+nnoremap <silent> <leader>gr :Gremove<CR>
+nnoremap <silent> <leader>gb :Gbrowse<CR>
+vnoremap <silent> <leader>gb :Gbrowse<CR>
 
 "" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""""
 "" (sign column) and stages/reverts hunks.
@@ -196,13 +213,13 @@ let g:gitgutter_sign_modified_removed = 'ww'
 "" gitv: gitk for Vim.
 "" https://github.com/gregsexton/gitv
 Plugin 'gitv'
+"" :gitv  - browser mode
+"" :gitv! - file mode
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
-"let g:airline_theme             = 'powerlineish'
-let g:airline_theme             = 'fhwrdh'
 let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
 let g:airline_powerline_fonts = 1
@@ -212,6 +229,11 @@ if !exists('g:airline_symbols')
   let g:airline_symbols.space = "\ua0"
 "" Automatically displays all buffers when there's only one tab open.
 "let g:airline#extensions#tabline#enabled = 1
+if has("gui_running")
+    let g:airline_theme             = 'powerlineish'
+else
+    let g:airline_theme             = 'fhwrdh'
+endif
 
 "" tmuxline.vim: Simple tmux statusline generator with support for powerline
 "" symbols and statusline / airline / lightline integration
@@ -238,11 +260,11 @@ Plugin 'Shougo/unite-outline'
 Plugin 'Shougo/vimproc.vim'
 "" Unite plugin for quickfix buffer
 Plugin 'osyo-manga/unite-quickfix'
-
 Plugin 'ujihisa/unite-colorscheme'
-
+Plugin 'Shougo/vimfiler.vim'
 Plugin 'rking/ag.vim'
 
+:let g:vimfiler_as_default_explorer = 1
 let g:unite_source_file_mru_limit = 200
 let g:unite_source_history_yank_enable = 1
 let g:unite_prompt='» '
@@ -284,10 +306,14 @@ map <leader>uf :Unite -toggle file_rec/async<CR>
 map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
 " *: grep at cursor
 map <leader>u* :exe 'silent Ggrep -i '.expand("<cword>")<Bar>Unite quickfix -no-quit<CR>
-" h: history
-map <leader>uh :Unite -toggle history/yank<CR>
+" hc: history/command
+"" map <leader>uhc :Unite -toggle history/command<CR>
+" hy: history/yank
+map <leader>uhy :Unite -toggle history/yank<CR>
+" m: outline
+map <silent><Leader>uo :Unite -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
 " o: outline
-nnoremap <silent><Leader>uo :Unite -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
+map <silent><Leader>uo :Unite -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
 " p: process
 map <leader>up :Unite -toggle -start-insert process<CR>
 " q: quit
@@ -298,6 +324,41 @@ map <leader>ur :Unite -toggle file_mru<CR>
 map <leader>ut :Unite -toggle -quick-match tab<CR>
 " x: command
 map <leader>ux :Unite command<CR>
+
+" nnoremap <leader>um  :Unite -silent menu    <CR>
+" nnoremap <leader>umg :Unite -silent menu:git<CR>
+" let g:unite_source_menu_menus = {}
+" " Menu items for Unite commands.
+" let g:unite_source_menu_menus.unite = {
+"     \'description' : 'Unite Commands',
+" \}
+" let g:unite_source_menu_menus.unite.command_candidates = [
+"     \['List Buffers                      ,ub', 'Unite -quick-match -auto-preview -buffer-name=buffers -no-split buffer'],
+"     \['List Files                        ,f', 'Unite -start-insert -no-split -buffer-name=files file_rec/async'],
+"     \['Browse Files                     ,vf', 'VimFiler'],
+"     \['Search Files                      ,s', 'Unite -auto-preview -no-split -buffer-name=search grep:.'],
+"     \['Show Outline                      ,o', 'Unite -start-insert -buffer-name=outline outline'],
+"     \['Show Lines                        ,l', 'Unite -start-insert -buffer-name=lines line'],
+"     \['Show Registers                    ,r', 'Unite -start-insert -buffer-name=registers register'],
+"     \['Show Yank History                 ,y', 'Unite -no-split -buffer-name=yank history/yank'],
+"     \['Show Git Conflicts                ,gc', 'Unite git-conflict'],
+"     \['Show Command History              ,hc', 'Unite -no-split -buffer-name=command history/command'],
+"     \['Show Search History               ,hs', 'Unite -no-split -buffer-name=search history/search'],
+" \]
+" " Menu items for Git.
+" let g:unite_source_menu_menus.git = {
+"     \'description' : 'Git Commands',
+" \}
+" let g:unite_source_menu_menus.git.command_candidates = [
+"     \['Go to next hunk                   ]h', 'GitGutterNextHunk'],
+"     \['Go to prev hunk                   [h', 'GitGutterPrevHunk'],
+"     \['Stage hunk                       ,hs', 'GitGutterStageHunk'],
+"     \['Revert hunk                      ,hr', 'GitGutterRevertHunk'],
+"     \['View branch history            :Gitv', 'Gitv'],
+"     \['View file history             :Gitv!', 'Gitv!'],
+"     \['View repo status            :Gstatus', 'Gstatus'],
+"     \['Commit changes              :Gcommit', 'Gcommit'],
+" \]
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" neocomplete: Next generation completion framework after neocomplcache
@@ -446,7 +507,7 @@ let g:tern_show_argument_hints='on_hold'
 " 'tpope/unimpaired'
 " https://github.com/maksimr/vim-jsbeautify
 
-
+Plugin 'jordwalke/flatlandia'
 
 call vundle#end()
 filetype plugin indent on
@@ -523,24 +584,27 @@ endfunction
 "" http://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
 set t_Co=256          " Use 256 colors
 set background=dark
-"colo 256-grayvim
-"colo busybee
-"colo darkburn
-"colo ir_black
-"colo mustang
-"colo up
-"colo xoria256
-colo fhwrdh
+if has("gui_running")
+    " Remove toolbar, left scrollbar and right scrollbar
+    set guioptions-=T
+    set guioptions-=l
+    set guioptions-=L
+    set guioptions-=r
+    set guioptions-=R
 
-
-
-" "" invisible char colors
-" highlight NonText guifg=#4a4a59
-" highlight SpecialKey guifg=#4a4a59
-
-" "" highlight the line number of the current line?
-" highlight CursorLine   ctermfg=141
-" highlight CursorLineNr ctermfg=222 cterm=bold
+    "colorscheme wombat256
+    "colorscheme jellybeans
+    colo flatlandia
+else
+    "colo 256-grayvim
+    "colo busybee
+    "colo darkburn
+    "colo ir_black
+    "colo mustang
+    "colo up
+    "colo xoria256
+    colo fhwrdh
+endif
 
 " if exists('+colorcolumn')
 " "  set colorcolumn=80,120 " Color the 80th column differently as a wrapping guide.
@@ -549,6 +613,5 @@ colo fhwrdh
 "" enable syntax highlighting
 syntax on
 
-
-
-
+"" GVIM
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
