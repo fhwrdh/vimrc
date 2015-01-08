@@ -7,6 +7,9 @@ set hidden
 set history=1000
 set undolevels=1000
 
+set autowriteall      " save all files when switching buffers
+:au FocusLost * :wa   " save all files with losing focus
+
 "" Backup
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nowritebackup
@@ -113,6 +116,10 @@ nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bd :bd<CR>
 nnoremap <leader>ba :1,1000 bd!<cr>
 
+"" cycle through buffers
+nnoremap <C-Tab>   :bn<CR>
+nnoremap <C-S-Tab> :bp<CR>
+
 "" Tabs
 noremap <silent> <S-t> :tabnew<CR>
 nnoremap <Tab> gt
@@ -175,7 +182,7 @@ let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 20
+let g:NERDTreeWinSize = 30
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 "" this opens nerdtree pointing to the location of the file in the current
 "" buffer
@@ -245,7 +252,6 @@ let g:tmuxline_preset = 'nightly_fox'
 "" https://github.com/flazz/vim-colorschemes
 Plugin 'flazz/vim-colorschemes'
 
-
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Unite: Unite and create user interfaces
 "" https://github.com/Shougo/unite.vim
@@ -264,7 +270,8 @@ Plugin 'ujihisa/unite-colorscheme'
 Plugin 'Shougo/vimfiler.vim'
 Plugin 'rking/ag.vim'
 
-:let g:vimfiler_as_default_explorer = 1
+" call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', 'target/')
+let g:vimfiler_as_default_explorer = 1
 let g:unite_source_file_mru_limit = 200
 let g:unite_source_history_yank_enable = 1
 let g:unite_prompt='» '
@@ -296,33 +303,31 @@ elseif executable('ack')
     let g:unite_source_grep_search_word_highlight = 1
 endif
 
-" b: buffer
+"" b: buffer
 map <leader>ub :Unite buffer<CR>
-" c: colorscheme
+"" c: colorscheme
 map <leader>uc :Unite colorscheme -auto-preview<CR>
-" f: recursive file
+"" f: recursive file
 map <leader>uf :Unite -toggle file_rec/async<CR>
-" g: grep
+"" g: grep
 map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
-" *: grep at cursor
+"" *: grep at cursor
 map <leader>u* :exe 'silent Ggrep -i '.expand("<cword>")<Bar>Unite quickfix -no-quit<CR>
-" hc: history/command
-"" map <leader>uhc :Unite -toggle history/command<CR>
-" hy: history/yank
+"" hc: history/command
+"map <leader>uhc :Unite -toggle history/command<CR>
+"" hy: history/yank
 map <leader>uhy :Unite -toggle history/yank<CR>
-" m: outline
+"" o: outline
 map <silent><Leader>uo :Unite -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
-" o: outline
-map <silent><Leader>uo :Unite -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
-" p: process
+"" p: process
 map <leader>up :Unite -toggle -start-insert process<CR>
-" q: quit
+"" q: quit
 map <leader>uq :UniteClose<CR>
-" r: recent (mru)
+"" r: recent (mru)
 map <leader>ur :Unite -toggle file_mru<CR>
-" t: tab
+"" t: tab
 map <leader>ut :Unite -toggle -quick-match tab<CR>
-" x: command
+"" x: command
 map <leader>ux :Unite command<CR>
 
 " nnoremap <leader>um  :Unite -silent menu    <CR>
@@ -374,6 +379,10 @@ let g:neocomplete#enable_smart_case = 1
 "" Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 "let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+"" stop the annoying popping up of scratch/preview in the modeline
+set completeopt-=preview
+
+
 
 "" Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
@@ -390,12 +399,11 @@ inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 "" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
+autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" neosnippet: neo-snippet plugin contains neocomplcache snippets source
 "" https://github.com/Shougo/neosnippet.vim
@@ -584,6 +592,9 @@ endfunction
 "" http://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
 set t_Co=256          " Use 256 colors
 set background=dark
+
+"" GVIM
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_running")
     " Remove toolbar, left scrollbar and right scrollbar
     set guioptions-=T
@@ -591,7 +602,8 @@ if has("gui_running")
     set guioptions-=L
     set guioptions-=r
     set guioptions-=R
-
+    set lines=999 columns=999
+    autocmd GUIEnter * set vb t_vb=
     "colorscheme wombat256
     "colorscheme jellybeans
     colo flatlandia
@@ -606,12 +618,11 @@ else
     colo fhwrdh
 endif
 
-" if exists('+colorcolumn')
-" "  set colorcolumn=80,120 " Color the 80th column differently as a wrapping guide.
-" endif
+"if exists('+colorcolumn')
+"  set colorcolumn=80,120 " Color the 80th column differently as a wrapping guide.
+"endif
 
 "" enable syntax highlighting
 syntax on
 
-"" GVIM
-"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
