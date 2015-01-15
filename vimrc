@@ -607,6 +607,7 @@ if has("gui_running")
     "colorscheme wombat256
     "colorscheme jellybeans
     colo flatlandia
+   set guifont=Monospace\ 9
 else
     "colo 256-grayvim
     "colo busybee
