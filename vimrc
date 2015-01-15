@@ -1,4 +1,4 @@
-"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" fhwrdh / vimrc
 "" URL: http://www.github.com/fhwrdh/vimrc
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -270,7 +270,7 @@ Plugin 'ujihisa/unite-colorscheme'
 Plugin 'Shougo/vimfiler.vim'
 Plugin 'rking/ag.vim'
 
-" call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', 'target/')
+"" NOTE SEE POST-VUNDLE CONFIG SECTION BELOW
 let g:vimfiler_as_default_explorer = 1
 let g:unite_source_file_mru_limit = 200
 let g:unite_source_history_yank_enable = 1
@@ -279,6 +279,7 @@ let g:unite_abbr_highlight = 'Keyword'
 let g:unite_split_rule = "botright"
 " let g:unite_source_file_mru_filename_format = ':~:.'
 " let g:unite_source_file_mru_time_format = ''
+let g:unite_source_rec_max_cache_files = 0
 
 if executable('ag')
     let g:unite_source_grep_command = 'ag'
@@ -308,7 +309,7 @@ map <leader>ub :Unite buffer<CR>
 "" c: colorscheme
 map <leader>uc :Unite colorscheme -auto-preview<CR>
 "" f: recursive file
-map <leader>uf :Unite -toggle file_rec/async<CR>
+map <leader>uf :Unite -toggle -start-insert file_rec/async<CR>
 "" g: grep
 map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
 "" *: grep at cursor
@@ -381,8 +382,6 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 "let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 "" stop the annoying popping up of scratch/preview in the modeline
 set completeopt-=preview
-
-
 
 "" Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
@@ -520,6 +519,15 @@ Plugin 'jordwalke/flatlandia'
 call vundle#end()
 filetype plugin indent on
 
+"" POST-VUNDLE CONFIG
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" certain settings/function can only be called after the plugin manager is 
+"" done (vundle#end()).
+"" see https://github.com/Shougo/neobundle.vim/issues/330
+"" TODO: think about batching the "Plugin ..." calls, then doing config?
+call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', 'target/')
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
 "" Functions
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -585,7 +593,6 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
-
 
 "" Colors
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
