@@ -43,7 +43,7 @@ hi Normal          guifg=#e2e2e5   guibg=#1B1B1B   gui=none            ctermfg=2
 hi NonText         guifg=#333333   guibg=#232323   gui=none            ctermfg=244     ctermbg=232     cterm=NONE
 
 hi LineNr          guifg=#707070   guibg=#3E3E3E   gui=none            ctermfg=244     ctermbg=232     cterm=NONE
-hi CursorLineNr                                                        ctermbg=157
+hi CursorLineNr    guifg=#FBDE2D                                       ctermfg=Yellow  ctermbg=NONE
 
 hi StatusLine      guifg=#0e0e0e   guibg=#fe9e21   gui=none            ctermfg=253     ctermbg=238     cterm=NONE
 hi StatusLineNC    guifg=#f0f6e6   guibg=#68774f   gui=none            ctermfg=246     ctermbg=238     cterm=NONE

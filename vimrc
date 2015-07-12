@@ -1,5 +1,5 @@
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" fhwrdh / vimrc
+"" fhwrdh | vimrc
 "" URL: http://www.github.com/fhwrdh/vimrc
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
@@ -7,41 +7,50 @@ set hidden
 set history=1000
 set undolevels=1000
 
-set autowriteall      " save all files when switching buffers
-:au FocusLost * :wa   " save all files with losing focus
+set autowriteall              " save all files when switching buffers
+:au FocusLost * :wa           " save all files with losing focus
 
 "" Backup
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nowritebackup
-set nobackup
-set noswapfile
-"" set directory=/tmp// " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
+set directory=~/.vim/tmp/     " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
+set nowritebackup             " no backups on write
+set nobackup                  " no backups at all
+set noswapfile                " no swap files
+if exists("&undodir")
+    set undofile              " Persistent undo! Pure money.
+    let &undodir=&directory
+    set undolevels=500
+    set undoreload=500
+endif
+set viminfo+=n$HOME/.vim/tmp/viminfo
 
 "" Match and search
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set hlsearch          " highlight search
-set ignorecase        " Do case in sensitive matching with
-set smartcase         " be sensitive when there's a capital letter
-set incsearch         " Search as you type
+set hlsearch              " highlight search
+set ignorecase            " Do case in sensitive matching with
+set smartcase             " be sensitive when there's a capital letter
+set incsearch             " Search as you type
 
 "" Visual
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set number            " Show line numbers
-set showmatch         " Show matching brackets.
-set matchtime=5       " Bracket blinking.
-set novisualbell      " No blinking
-set noerrorbells      " No noise.
-set laststatus=2      " Always show status line.
-set vb t_vb=          " disable any beeps or flashes on error
-set ruler             " Show ruler
-set noshowmode        " Don't show the mode since Powerline shows it
-set showcmd           " Display an incomplete command in the lower right corner
-set autoread          " Automatically read a file that has changed on disk
-set list              " Display unprintable characters f12 - switches
-set listchars=tab:·\-,trail:·,extends:»,precedes:« " Unprintable chars mapping
-set scrolloff=999     " keep the cursor in the middle of the screen
-set backspace=indent,eol,start " Let backspace cross lines
-set splitbelow        " default split locations
+set number                " Show line numbers
+set showmatch             " Show matching brackets.
+set matchtime=5           " Bracket blinking.
+set novisualbell          " No blinking
+set noerrorbells          " No noise.
+set laststatus=2          " Always show status line.
+set vb t_vb=              " disable any beeps or flashes on error
+set ruler                 " Show ruler
+set noshowmode            " Don't show the mode since Powerline shows it
+set showcmd               " Display an incomplete command in the lower right corner
+set autoread              " Automatically read a file that has changed on disk
+set list                  " Display unprintable characters f12 - switches
+                          " Unprintable chars mapping
+set listchars=tab:·\-,trail:·,extends:»,precedes:«
+set scrolloff=999         " keep the cursor in the middle of the screen
+                          " Let backspace cross linest
+set backspace=indent,eol,start
+set splitbelow            " default split locations
 set splitright
 set wildmenu
 
@@ -49,16 +58,19 @@ set wildmenu
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autoindent
 set smartindent
-set tabstop=4         "
-set softtabstop=4     "
-set shiftwidth=4      " Width of '<' '>' indentation
-set expandtab         " Insert spaces when <TAB>ing
+set tabstop=4             "
+set softtabstop=4         "
+set shiftwidth=4          " Width of '<' '>' indentation
+set expandtab             " Insert spaces when <TAB>ing
 set nosmarttab
 
 "" Keybindings
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" map semi to colon. saves the shift
 nnoremap ; :
+noremap <M-;> ;
+
+"" map escape key to jj
 imap jj <esc>
 cmap jj <esc>
 
@@ -76,6 +88,9 @@ map <space> <leader>
 "" fast saving a buffer
 nmap <leader>w :w!<cr>
 
+"" handy buffer list
+nmap <leader>b :ls<CR>:b<Space>
+
 "" call :sudow FILENAME when bit by a file you don't own
 cnoremap sudow w !sudo tee % >/dev/null
 
@@ -86,6 +101,12 @@ nnoremap <leader>/ :nohls<CR>
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
 
+"" Bubble lines
+nnoremap <silent> <C-Up>   :move-2<CR>==
+nnoremap <silent> <C-Down> :move+<CR>==
+xnoremap <silent> <C-Up>   :move-2<CR>gv=gv
+xnoremap <silent> <C-Down> :move'>+<CR>gv=gv
+
 "" remove trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
@@ -95,6 +116,9 @@ noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 "" toggle paste mode
 map <leader>pp :setlocal paste!<cr>
 nnoremap <silent> <F5> :setlocal paste!<CR>
+
+"" toggle relative/absolute line numbers
+" nnoremap <silent><leader>n :set rnu! rnu? <cr>
 
 "" SPELLING
 "" toggle spell checking
@@ -136,13 +160,22 @@ nnoremap <C-l> <C-w>l
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
-    " Quickly close the current window
+"" Quickly close the current window
 nnoremap <leader>Q :q<CR>
-   " Quickly close the current buffer
+"" Quickly close the current buffer
 nnoremap <leader>q :bd<CR>
 
-"" auto save when losing focus
-au FocusLost * :wa
+"" copy / paste to the system clipboard
+vmap <leader>y "+y
+vmap <leader>d "+d
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>p "+p
+vmap <leader>P "+P
+
+"" gf: goto file
+set suffixesadd=.js,.jsx
+set path=.,/home/fhenderson/work/dev/cjo/member-web,**
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Plugins
@@ -182,7 +215,7 @@ let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 30
+let g:NERDTreeWinSize = 40
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 "" this opens nerdtree pointing to the location of the file in the current
 "" buffer
@@ -305,17 +338,17 @@ elseif executable('ack')
 endif
 
 "" b: buffer
-map <leader>ub :Unite buffer<CR>
+map <leader>ub :Unite -quick-match buffer<CR>
 "" c: colorscheme
 map <leader>uc :Unite colorscheme -auto-preview<CR>
 "" f: recursive file
 map <leader>uf :Unite -toggle -start-insert file_rec/async<CR>
 "" g: grep
-map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
+" TODO: BROKEN map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
 "" *: grep at cursor
-map <leader>u* :exe 'silent Ggrep -i '.expand("<cword>")<Bar>Unite quickfix -no-quit<CR>
+" TODO: BROKEN map <leader>u* :exe 'silent Ggrep -i '.expand("<cword>")<Bar>Unite quickfix -no-quit<CR>
 "" hc: history/command
-"map <leader>uhc :Unite -toggle history/command<CR>
+" TODO: BROKEN map <leader>uhc :Unite -toggle history/command<CR>
 "" hy: history/yank
 map <leader>uhy :Unite -toggle history/yank<CR>
 "" o: outline
@@ -500,7 +533,7 @@ Plugin 'terryma/vim-expand-region'
 "" https://github.com/vim-scripts/ZoomWin
 "" Press <c-w>o : the current window zooms into a full screen
 "" Press <c-w>o again: the previous set of windows is restored
-Plugin 'vim-scripts/ZoomWin'
+" Plugin 'vim-scripts/ZoomWin'
 
 "" tern_for_vim: Tern plugin for vim """""""""""""""""""""""""""""""""""""""""""
 "" https://github.com/marijnh/tern_for_vim
@@ -510,24 +543,43 @@ Plugin 'marijnh/tern_for_vim'
 let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
 
-"" FUTURES LIST
-" 'tpope/unimpaired'
-" https://github.com/maksimr/vim-jsbeautify
+"" EditorConfig Vim Plugin """""""""""""""""""""""""""""""""""""""""""""""""""
+Plugin 'editorconfig/editorconfig-vim'
+" To ensure that this plugin works well with Tim Pope's fugitive,
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+Plugin 'myusuf3/numbers.vim'
+nnoremap <silent><leader>n :NumbersToggle<CR>
 
 Plugin 'jordwalke/flatlandia'
+
+
+
+
+"" FUTURES LIST //////////////////////////////////////
+" Plugin 'majutsushi/tagbar'
+" Plugin 'nathanaelkane/vim-indent-guides'
+" Plugin 'tpope/unimpaired'
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
+" autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" " for html
+" autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" " for css or scss
+" autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
 call vundle#end()
 filetype plugin indent on
 
 "" POST-VUNDLE CONFIG
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" certain settings/function can only be called after the plugin manager is 
+"" certain settings/function can only be called after the plugin manager is
 "" done (vundle#end()).
 "" see https://github.com/Shougo/neobundle.vim/issues/330
 "" TODO: think about batching the "Plugin ..." calls, then doing config?
-call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', 'target/')
+call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '\(target/\|ztest-container-member/\)')
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
+"
 "" Functions
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -564,7 +616,6 @@ function! s:updateCursorLine()
 endf
 autocmd ColorScheme * call s:updateCursorLine()
 
-""
 ""
 "" ---------------------------------------------------------
 function! CmdLine(str)
@@ -614,7 +665,8 @@ if has("gui_running")
     "colorscheme wombat256
     "colorscheme jellybeans
     colo flatlandia
-   set guifont=Monospace\ 9
+    set guifont=Monospace\ 9
+    let g:NERDTreeWinSize = 50
 else
     "colo 256-grayvim
     "colo busybee
@@ -632,5 +684,4 @@ endif
 
 "" enable syntax highlighting
 syntax on
-
 
