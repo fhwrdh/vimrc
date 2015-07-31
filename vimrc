@@ -17,7 +17,7 @@ set nowritebackup             " no backups on write
 set nobackup                  " no backups at all
 set noswapfile                " no swap files
 if exists("&undodir")
-    set undofile              " Persistent undo! Pure money.
+    set undofile              " Persistent undo!
     let &undodir=&directory
     set undolevels=500
     set undoreload=500
@@ -173,9 +173,12 @@ nmap <leader>P "+P
 vmap <leader>p "+p
 vmap <leader>P "+P
 
-"" gf: goto file
-set suffixesadd=.js,.jsx
-set path=.,/home/fhenderson/work/dev/cjo/member-web,**
+"" expand region. S-v to kill. Ctrl-v to shrink.
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+"" quickly select the text just pasted
+noremap gV `[v`]
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Plugins
@@ -217,10 +220,36 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 40
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+"" This closes vim if the only window open is nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+
+
 "" this opens nerdtree pointing to the location of the file in the current
 "" buffer
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
+
 
 "" vim-commentary: comment stuff out
 "" https://github.com/tpope/vim-commentary
@@ -230,14 +259,13 @@ Plugin 'tpope/vim-commentary'
 "" http://www.vim.org/scripts/script.php?script_id=2975
 Plugin 'tpope/vim-fugitive'
 nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>ga :Git add -A<CR>
+"nnoremap <silent> <leader>ga :Git add -A<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gl :Git pull<CR>
-nnoremap <silent> <leader>gr :Gremove<CR>
-nnoremap <silent> <leader>gb :Gbrowse<CR>
-vnoremap <silent> <leader>gb :Gbrowse<CR>
+"nnoremap <silent> <leader>gc :Gcommit<CR>
+"nnoremap <silent> <leader>gp :Git push<CR>
+"nnoremap <silent> <leader>gl :Git pull<CR>
+"nnoremap <silent> <leader>gr :Gremove<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
 
 "" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""""
 "" (sign column) and stages/reverts hunks.
@@ -548,11 +576,19 @@ Plugin 'editorconfig/editorconfig-vim'
 " To ensure that this plugin works well with Tim Pope's fugitive,
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
+"" Numbers """""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'myusuf3/numbers.vim'
 nnoremap <silent><leader>n :NumbersToggle<CR>
 
 Plugin 'jordwalke/flatlandia'
 
+
+"" Vim plugin that provides additional text objects """"""""""""""""""""""""""
+"" https://github.com/wellle/targets.vim
+Plugin 'wellle/targets.vim'
+
+
+Plugin 'mattn/emmet-vim'
 
 
 
