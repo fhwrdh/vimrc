@@ -67,8 +67,8 @@ set nosmarttab
 "" Keybindings
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" map semi to colon. saves the shift
-nnoremap ; :
-noremap <M-;> ;
+" nnoremap ; :
+" noremap <M-;> ;
 
 "" map escape key to jj
 imap jj <esc>
@@ -89,7 +89,7 @@ map <space> <leader>
 nmap <leader>w :w!<cr>
 
 "" handy buffer list
-nmap <leader>b :ls<CR>:b<Space>
+" nmap <leader>b :ls<CR>:b<Space>
 
 "" call :sudow FILENAME when bit by a file you don't own
 cnoremap sudow w !sudo tee % >/dev/null
@@ -117,14 +117,20 @@ noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 map <leader>pp :setlocal paste!<cr>
 nnoremap <silent> <F5> :setlocal paste!<CR>
 
+"" open splits
+nnoremap <leader>vs :sp<CR>
+nnoremap <leader>vv :vsp<CR>
+
 "" toggle relative/absolute line numbers
 " nnoremap <silent><leader>n :set rnu! rnu? <cr>
 
-"" SPELLING
-"" toggle spell checking
-map <leader>ss :setlocal spell!<cr>
 "" Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+"" SPELLING
+"" toggle spell checking
+
+map <leader>ss :setlocal spell!<cr>
 "" spelling: next
 map <leader>sn ]s
 "" spelling: prev
@@ -138,16 +144,16 @@ map <leader>s? z=
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bd :bd<CR>
-nnoremap <leader>ba :1,1000 bd!<cr>
+" nnoremap <leader>ba :1,1000 bd!<cr>
 
 "" cycle through buffers
 nnoremap <C-Tab>   :bn<CR>
 nnoremap <C-S-Tab> :bp<CR>
 
 "" Tabs
-noremap <silent> <S-t> :tabnew<CR>
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
+" noremap <silent> <S-t> :tabnew<CR>
+" nnoremap <Tab> gt
+" nnoremap <S-Tab> gT
 
 "" windows
 nnoremap <C-h> <C-w>h
@@ -179,6 +185,17 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 "" quickly select the text just pasted
 noremap gV `[v`]
+
+"" execute the current line of text as a shell command
+noremap Q !!$SHELL<CR>
+
+" Map alt-v in command-line mode to replace the commandline
+" with the Ex command-line beneath the cursor in the buffer
+cnoremap     <Esc>v <C-\>esubstitute(getline('.'), '^\s*\(' . escape(substitute(&commentstring, '%s.*$', '', ''), '*') . '\)*\s*:*' , '', '')<CR>
+
+"" (from Steve Losh?)
+"" split line - opposite of J
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Plugins
@@ -216,6 +233,7 @@ let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache_    _']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
+let g:NERDTreeShowHidden=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 40
@@ -288,8 +306,8 @@ Plugin 'gitv'
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
-let g:airline_enable_branch     = 1
-let g:airline_enable_syntastic  = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
       let g:airline_symbols = {}
@@ -366,21 +384,21 @@ elseif executable('ack')
 endif
 
 "" b: buffer
-map <leader>ub :Unite -quick-match buffer<CR>
+map <leader>ub :Unite buffer<CR>
 "" c: colorscheme
 map <leader>uc :Unite colorscheme -auto-preview<CR>
 "" f: recursive file
 map <leader>uf :Unite -toggle -start-insert file_rec/async<CR>
 "" g: grep
-" TODO: BROKEN map <leader>ug :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite quickfix -no-quit -auto-preview<CR>
-"" *: grep at cursor
-" TODO: BROKEN map <leader>u* :exe 'silent Ggrep -i '.expand("<cword>")<Bar>Unite quickfix -no-quit<CR>
+map <leader>ug :Unite -silent -buffer-name=ag grep:.<CR>
+"" *: grep with word under cursor
+map <leader>u* :UniteWithCursorWord grep:.<CR>
 "" hc: history/command
-" TODO: BROKEN map <leader>uhc :Unite -toggle history/command<CR>
-"" hy: history/yank
-map <leader>uhy :Unite -toggle history/yank<CR>
+map <leader>uhc :Unite -toggle history/command<CR>
+"" m: mappings
+map <leader>um :Unite  -auto-resize -buffer-name=mappings mapping<CR>
 "" o: outline
-map <silent><Leader>uo :Unite -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
+map <leader>uo :Unite -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
 "" p: process
 map <leader>up :Unite -toggle -start-insert process<CR>
 "" q: quit
@@ -389,8 +407,14 @@ map <leader>uq :UniteClose<CR>
 map <leader>ur :Unite -toggle file_mru<CR>
 "" t: tab
 map <leader>ut :Unite -toggle -quick-match tab<CR>
+"" u: resume last search
+map <leader>uu :UniteResume<CR>
 "" x: command
 map <leader>ux :Unite command<CR>
+"" y: history/yank
+map <leader>uy :Unite -toggle history/yank<CR>
+
+
 
 " nnoremap <leader>um  :Unite -silent menu    <CR>
 " nnoremap <leader>umg :Unite -silent menu:git<CR>
@@ -533,7 +557,8 @@ Plugin 'tpope/vim-markdown'
 "" Syntastic : Automatic syntax checking """""""""""""""""""""""""""""""""""""""
 "" http://www.vim.org/scripts/script.php?script_id=2736
 Plugin 'Syntastic'
-let g:syntastic_javascript_checkers = ['jsxhint']
+" let g:syntastic_javascript_checkers = ['jsxhint']
+let g:syntastic_javascript_checkers = ['eslint']
 
 "" surround.vim : Delete/change/add parentheses/quotes/XML-tags/much """""""""""
 "" more with ease
@@ -580,29 +605,85 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 Plugin 'myusuf3/numbers.vim'
 nnoremap <silent><leader>n :NumbersToggle<CR>
 
-Plugin 'jordwalke/flatlandia'
-
+"" CtrlSF: An ack.vim alternative mimics Ctrl-Shift-F """"""""""""""""""""""""""
+"" https://github.com/dyng/ctrlsf.vim
+Plugin 'dyng/ctrlsf.vim'
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 "" Vim plugin that provides additional text objects """"""""""""""""""""""""""
 "" https://github.com/wellle/targets.vim
 Plugin 'wellle/targets.vim'
 
-
 Plugin 'mattn/emmet-vim'
+Plugin 'jordwalke/flatlandia'
 
+
+"" https://github.com/unblevable/quick-scope
+"" Lightning fast left-right movement in Vim
+Plugin 'unblevable/quick-scope'
+"" https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
+"" Only enable the quick-scope plugin's highlighting when using the f/F/t/T movements
+function! Quick_scope_selective(movement)
+    let needs_disabling = 0
+    if !g:qs_enable
+        QuickScopeToggle
+        redraw
+        let needs_disabling = 1
+    endif
+
+    let letter = nr2char(getchar())
+
+    if needs_disabling
+        QuickScopeToggle
+    endif
+
+    return a:movement . letter
+endfunction
+
+let g:qs_enable = 0
+
+nnoremap <expr> <silent> f Quick_scope_selective('f')
+nnoremap <expr> <silent> F Quick_scope_selective('F')
+nnoremap <expr> <silent> t Quick_scope_selective('t')
+nnoremap <expr> <silent> T Quick_scope_selective('T')
+vnoremap <expr> <silent> f Quick_scope_selective('f')
+vnoremap <expr> <silent> F Quick_scope_selective('F')
+vnoremap <expr> <silent> t Quick_scope_selective('t')
+vnoremap <expr> <silent> T Quick_scope_selective('T')
+
+
+
+Plugin 'Yggdroot/indentLine'
+" Vim
+let g:indentLine_color_term = 239
+"GVim
+let g:indentLine_color_gui = '#A4E57E'
+" none X terminal
+let g:indentLine_color_tty_light = 6 " (default: 4)
+let g:indentLine_color_dark = 1 " (default: 2)
+let g:indentLine_char = '|'
 
 
 "" FUTURES LIST //////////////////////////////////////
 " Plugin 'majutsushi/tagbar'
 " Plugin 'nathanaelkane/vim-indent-guides'
 " Plugin 'tpope/unimpaired'
+
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'einars/js-beautify'
 " autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 " " for html
-" autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+ autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " " for css or scss
 " autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
 
 call vundle#end()
 filetype plugin indent on
@@ -618,7 +699,6 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "
 "" Functions
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 "" Make a scratch buffer with all of the leader keybindings.
 "" Adapted from http://ctoomey.com/posts/an-incremental-approach-to-vim/
 "" ---------------------------------------------------------
@@ -720,4 +800,8 @@ endif
 
 "" enable syntax highlighting
 syntax on
+
+
+
+
 
