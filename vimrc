@@ -6,9 +6,11 @@ set nocompatible
 set hidden
 set history=1000
 set undolevels=1000
+set ttyfast                   " Better redraw for large files?
 
 set autowriteall              " save all files when switching buffers
 :au FocusLost * :wa           " save all files with losing focus
+
 
 "" Backup
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -47,12 +49,14 @@ set autoread              " Automatically read a file that has changed on disk
 set list                  " Display unprintable characters f12 - switches
                           " Unprintable chars mapping
 set listchars=tab:·\-,trail:·,extends:»,precedes:«
-set scrolloff=999         " keep the cursor in the middle of the screen
+set scrolloff=20          " keep the cursor in the middle of the screen
                           " Let backspace cross linest
 set backspace=indent,eol,start
 set splitbelow            " default split locations
 set splitright
 set wildmenu
+" set colorcolumn=80,120     " highlight column 79 as a soft reminder
+set cursorline
 
 "" Text Formatting
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -80,6 +84,9 @@ noremap L $
 
 "" Remap 0 to first non-blank character
 map 0 ^
+
+" No man pages because I don't write C or many shell scripts
+noremap K <nop>
 
 "" map ',' and spacebar to leader.
 let mapleader = ","
@@ -179,6 +186,11 @@ nmap <leader>P "+P
 vmap <leader>p "+p
 vmap <leader>P "+P
 
+"" stop accidentally opening help
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
 "" expand region. S-v to kill. Ctrl-v to shrink.
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -241,7 +253,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 "" This closes vim if the only window open is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
@@ -262,14 +273,12 @@ call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
-
 "" this opens nerdtree pointing to the location of the file in the current
 "" buffer
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
-
-"" vim-commentary: comment stuff out
+"" vim-commentary: comment stuff out """""""""""""""""""""""""""""""""""""""""""
 "" https://github.com/tpope/vim-commentary
 Plugin 'tpope/vim-commentary'
 
@@ -295,7 +304,13 @@ let g:gitgutter_sign_removed = '--'
 let g:gitgutter_sign_removed_first_line = '^^'
 let g:gitgutter_sign_modified_removed = 'ww'
 
-"" 'You don't have to do anything: it just works.'
+"" Don't map any keys by default
+let g:gitgutter_map_keys = 0
+
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+
+"" 'You don't have to do anything: it just works.' """""""""""""""""""""""""""""
 "" gitv: gitk for Vim.
 "" https://github.com/gregsexton/gitv
 Plugin 'gitv'
@@ -316,7 +331,7 @@ if !exists('g:airline_symbols')
 "" Automatically displays all buffers when there's only one tab open.
 "let g:airline#extensions#tabline#enabled = 1
 if has("gui_running")
-    let g:airline_theme             = 'powerlineish'
+    let g:airline_theme             = 'apprentice'
 else
     let g:airline_theme             = 'fhwrdh'
 endif
@@ -383,37 +398,22 @@ elseif executable('ack')
     let g:unite_source_grep_search_word_highlight = 1
 endif
 
-"" b: buffer
-map <leader>ub :Unite buffer<CR>
-"" c: colorscheme
-map <leader>uc :Unite colorscheme -auto-preview<CR>
-"" f: recursive file
-map <leader>uf :Unite -toggle -start-insert file_rec/async<CR>
-"" g: grep
-map <leader>ug :Unite -silent -buffer-name=ag grep:.<CR>
-"" *: grep with word under cursor
-map <leader>u* :UniteWithCursorWord grep:.<CR>
-"" hc: history/command
-map <leader>uhc :Unite -toggle history/command<CR>
-"" m: mappings
-map <leader>um :Unite  -auto-resize -buffer-name=mappings mapping<CR>
-"" o: outline
-map <leader>uo :Unite -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
-"" p: process
-map <leader>up :Unite -toggle -start-insert process<CR>
-"" q: quit
-map <leader>uq :UniteClose<CR>
-"" r: recent (mru)
-map <leader>ur :Unite -toggle file_mru<CR>
-"" t: tab
-map <leader>ut :Unite -toggle -quick-match tab<CR>
-"" u: resume last search
-map <leader>uu :UniteResume<CR>
-"" x: command
-map <leader>ux :Unite command<CR>
-"" y: history/yank
-map <leader>uy :Unite -toggle history/yank<CR>
+nnoremap <leader>ub  :Unite -buffer-name=buffer   buffer<CR>
+nnoremap <leader>uc  :Unite -buffer-name=colors   colorscheme -auto-preview<CR>
+nnoremap <leader>uf  :Unite -buffer-name=async    -toggle -start-insert file_rec/async<CR>
+nnoremap <leader>ug  :Unite -buffer-name=ag       grep:.<CR>
+nnoremap <leader>uhc :Unite -buffer-name=command  history/command<CR>
+nnoremap <leader>um  :Unite -buffer-name=mappings -auto-resize mapping<CR>
+nnoremap <leader>uo  :Unite -buffer-name=outline -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
+nnoremap <leader>up  :Unite -buffer-name=process -start-insert process<CR>
+nnoremap <leader>ur  :Unite -buffer-name=mru file_mru<CR>
+nnoremap <leader>ut  :Unite -buffer-name=tab tab<CR>
+nnoremap <leader>ux  :Unite -buffer-name=command command<CR>
+nnoremap <leader>uy  :Unite -buffer-name=history history/yank<CR>
 
+nnoremap <leader>u*  :UniteWithCursorWord grep:.<CR>
+nnoremap <leader>uq  :UniteClose<CR>
+nnoremap <leader>uu  :UniteResume<CR>
 
 
 " nnoremap <leader>um  :Unite -silent menu    <CR>
@@ -535,9 +535,10 @@ let g:jsx_ext_required = 0
 "" https://github.com/hail2u/vim-css3-syntax
 Plugin 'hail2u/vim-css3-syntax'
 
+"" 20150907: turned off as this was suddenly folding json files on open
 "" vim-json: Syntax highlighting for JSON in Vim """""""""""""""""""""""""""""""
 "" https://github.com/leshill/vim-json
-Plugin 'leshill/vim-json'
+" Plugin 'leshill/vim-json'
 "" (no config}
 
 "" HTML-AutoCloseTag: Automatically closes HTML tags once you finish typing
@@ -557,8 +558,24 @@ Plugin 'tpope/vim-markdown'
 "" Syntastic : Automatic syntax checking """""""""""""""""""""""""""""""""""""""
 "" http://www.vim.org/scripts/script.php?script_id=2736
 Plugin 'Syntastic'
-" let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_javascript_checkers = ['eslint']
+"" Better :sign interface symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
+let g:syntastic_style_error_symbol = '☡'
+let g:syntastic_style_warning_symbol = '¡'
+
+"" Check on buffer open
+let g:syntastic_check_on_open = 1
+
+"" Always put errors in the location list
+let g:syntastic_always_populate_loc_list = 1
+
+"" Aggregate errors for multiple checkers
+let g:syntastic_aggregate_errors = 1
+
+"" Don't check on write+quit
+let g:syntastic_check_on_wq = 0
 
 "" surround.vim : Delete/change/add parentheses/quotes/XML-tags/much """""""""""
 "" more with ease
@@ -617,15 +634,14 @@ nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
-"" Vim plugin that provides additional text objects """"""""""""""""""""""""""
+"" Vim plugin that provides additional text objects """"""""""""""""""""""""""""
 "" https://github.com/wellle/targets.vim
 Plugin 'wellle/targets.vim'
 
 Plugin 'mattn/emmet-vim'
 Plugin 'jordwalke/flatlandia'
 
-
-"" https://github.com/unblevable/quick-scope
+"" https://github.com/unblevable/quick-scope """""""""""""""""""""""""""""""""""
 "" Lightning fast left-right movement in Vim
 Plugin 'unblevable/quick-scope'
 "" https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
@@ -658,6 +674,9 @@ vnoremap <expr> <silent> F Quick_scope_selective('F')
 vnoremap <expr> <silent> t Quick_scope_selective('t')
 vnoremap <expr> <silent> T Quick_scope_selective('T')
 
+
+
+" Plugin 'nathanaelkane/vim-indent-guides'
 
 
 Plugin 'Yggdroot/indentLine'
@@ -781,7 +800,8 @@ if has("gui_running")
     "colorscheme wombat256
     "colorscheme jellybeans
     colo flatlandia
-    set guifont=Monospace\ 9
+    colo apprentice
+    set guifont=Hack\ 9
     let g:NERDTreeWinSize = 50
 else
     "colo 256-grayvim
@@ -791,6 +811,7 @@ else
     "colo mustang
     "colo up
     "colo xoria256
+    " colo apprentice
     colo fhwrdh
 endif
 

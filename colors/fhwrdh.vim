@@ -1,6 +1,6 @@
 " Maintainer:   Franklin Henderson / fhwrdh
-" Version:      0.1
-" Last Change:  28 Nov 2014
+" Version:      0.2
+" Last Change:  09 Sep 2015
 " Credits:      Vim color scheme "fhwrdh" originaly based on "Up" colorscheme create by Sasha Koss
 
 set background=dark
@@ -32,7 +32,7 @@ hi Key             guifg=#FBDE2D   guibg=NONE      gui=NONE             ctermfg=
 
 hi Cursor          guifg=#000000   guibg=#DEFF8E   gui=none            ctermbg=241     ctermbg=NONE    cterm=NONE
 hi CursorColumn    guifg=NONE      guibg=#202020                                       ctermbg=232     cterm=NONE
-hi CursorLine      guifg=NONE      guibg=#202020                                       ctermbg=4       cterm=NONE
+hi CursorLine      guifg=NONE      guibg=#202020                                       ctermbg=234     cterm=NONE
 hi MatchParen      guifg=#d0ffc0   guibg=#202020   gui=bold            ctermfg=157     ctermbg=237     cterm=bold
 hi Pmenu           guifg=#ffffff   guibg=#444444                       ctermfg=255     ctermbg=238     cterm=NONE
 hi PmenuSel        guifg=#000000   guibg=#b1d631                       ctermfg=0       ctermbg=148     cterm=NONE
@@ -42,7 +42,7 @@ hi PmenuThumb      guifg=#ffffff   guibg=#000000                       ctermfg=0
 hi Normal          guifg=#e2e2e5   guibg=#1B1B1B   gui=none            ctermfg=253     ctermbg=232     cterm=NONE
 hi NonText         guifg=#333333   guibg=#232323   gui=none            ctermfg=244     ctermbg=232     cterm=NONE
 
-hi LineNr          guifg=#707070   guibg=#3E3E3E   gui=none            ctermfg=244     ctermbg=232     cterm=NONE
+hi LineNr          guifg=#707070   guibg=#3E3E3E   gui=none            ctermfg=240     ctermbg=232     cterm=NONE
 hi CursorLineNr    guifg=#FBDE2D                                       ctermfg=Yellow  ctermbg=NONE
 
 hi StatusLine      guifg=#0e0e0e   guibg=#fe9e21   gui=none            ctermfg=253     ctermbg=238     cterm=NONE
@@ -161,15 +161,15 @@ hi link hamlInterpolationDelimiter hamlRubyChar
 hi link cssTagName    htmlTagName
 hi link cssClassName  hamlClass
 hi link cssInentifier hamlId
-hi cssBoxProp  guifg=#9BA789
+hi      cssBoxProp                    guifg=#9BA789
 hi link cssColorProp cssBoxProp
 hi link cssRenderProp cssBoxProp
 hi link cssFontProp cssBoxProp
 hi link cssTextProp cssBoxProp
 
-hi cssImportant guifg=#E8D1D1
+hi      cssImportant guifg=#E8D1D1
 
-hi cssUIAttr   guifg=#F5F0C7
+hi      cssUIAttr   guifg=#F5F0C7
 hi link cssValueLength cssUIAttr
 hi link cssColor cssUIAttr
 hi link cssColorAttr cssUIAttr
@@ -193,7 +193,7 @@ hi link sassProperty  cssDefinition
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 hi SignColumn            ctermbg=232 ctermfg=227
 hi GitGutterAdd          ctermbg=118 ctermfg=232
-hi GitGutterChange       ctermbg=226 ctermfg=232
+hi GitGutterChange       ctermbg=190 ctermfg=232
 hi GitGutterDelete       ctermbg=196 ctermfg=232
 hi GitGutterChangeDelete ctermbg=27  ctermfg=232
 
