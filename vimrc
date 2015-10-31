@@ -203,7 +203,7 @@ noremap Q !!$SHELL<CR>
 
 " Map alt-v in command-line mode to replace the commandline
 " with the Ex command-line beneath the cursor in the buffer
-cnoremap     <Esc>v <C-\>esubstitute(getline('.'), '^\s*\(' . escape(substitute(&commentstring, '%s.*$', '', ''), '*') . '\)*\s*:*' , '', '')<CR>
+cnoremap <Esc>v <C-\>esubstitute(getline('.'), '^\s*\(' . escape(substitute(&commentstring, '%s.*$', '', ''), '*') . '\)*\s*:*' , '', '')<CR>
 
 "" (from Steve Losh?)
 "" split line - opposite of J
@@ -570,6 +570,9 @@ let g:syntastic_check_on_open = 1
 
 "" Always put errors in the location list
 let g:syntastic_always_populate_loc_list = 1
+
+"" Auto pop the quickfix split
+let g:syntastic_auto_loc_list = 1
 
 "" Aggregate errors for multiple checkers
 let g:syntastic_aggregate_errors = 1
