@@ -220,7 +220,7 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>
 "" see :h vundle for more details or wiki for FAQ
 "" NOTE: comments after Plugin commands are not allowed.
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/vundle
 call vundle#begin()
 
 "" Vundle.vim: Vundle, the plug-in manager for Vim """""""""""""""""""""""""""""
