@@ -10,7 +10,7 @@ set ttyfast                   " Better redraw for large files?
 
 set autowriteall              " save all files when switching buffers
 :au FocusLost * :wa           " save all files with losing focus
-
+set mouse=a
 
 "" Backup
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -96,7 +96,7 @@ map <space> <leader>
 nmap <leader>w :w!<cr>
 
 "" handy buffer list
-" nmap <leader>b :ls<CR>:b<Space>
+nmap <leader>b :ls<CR>:b<Space>
 
 "" call :sudow FILENAME when bit by a file you don't own
 cnoremap sudow w !sudo tee % >/dev/null
@@ -109,10 +109,10 @@ nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
 
 "" Bubble lines
-nnoremap <silent> <C-Up>   :move-2<CR>==
-nnoremap <silent> <C-Down> :move+<CR>==
-xnoremap <silent> <C-Up>   :move-2<CR>gv=gv
-xnoremap <silent> <C-Down> :move'>+<CR>gv=gv
+" nnoremap <silent> <C-Up>   :move-2<CR>==
+" nnoremap <silent> <C-Down> :move+<CR>==
+" xnoremap <silent> <C-Up>   :move-2<CR>gv=gv
+" xnoremap <silent> <C-Down> :move'>+<CR>gv=gv
 
 "" remove trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -124,9 +124,10 @@ noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 map <leader>pp :setlocal paste!<cr>
 nnoremap <silent> <F5> :setlocal paste!<CR>
 
-"" open splits
+"" open/close splits
 nnoremap <leader>vs :sp<CR>
 nnoremap <leader>vv :vsp<CR>
+" nnoremap <leader>vq :q<CR>
 
 "" toggle relative/absolute line numbers
 " nnoremap <silent><leader>n :set rnu! rnu? <cr>
@@ -136,7 +137,6 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 "" SPELLING
 "" toggle spell checking
-
 map <leader>ss :setlocal spell!<cr>
 "" spelling: next
 map <leader>sn ]s
@@ -228,8 +228,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 "" eunuch.vim : Helpers for UNIX
-"" http://www.vim.org/scripts/script.php?script_id=4300
-Plugin 'tpope/vim-eunuch'
+"" https://github.com/tpope/vim-eunuch
+" Plugin 'tpope/vim-eunuch'
 
 "" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""""
 "" https://github.com/mileszs/ack.vim
@@ -259,19 +259,19 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('jade',   'green',   'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini',    'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md',     'blue',    'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl',   'cyan',    'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red',     'none', 'red', '#151515')
+call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php',    'Magenta', 'none', '#ff00ff', '#151515')
 
 "" this opens nerdtree pointing to the location of the file in the current
 "" buffer
@@ -285,14 +285,14 @@ Plugin 'tpope/vim-commentary'
 "" fugitive.vim: a Git wrapper so awesome, it should be illegal
 "" http://www.vim.org/scripts/script.php?script_id=2975
 Plugin 'tpope/vim-fugitive'
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
 "nnoremap <silent> <leader>ga :Git add -A<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
 "nnoremap <silent> <leader>gc :Gcommit<CR>
 "nnoremap <silent> <leader>gp :Git push<CR>
 "nnoremap <silent> <leader>gl :Git pull<CR>
 "nnoremap <silent> <leader>gr :Gremove<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
 
 "" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""""
 "" (sign column) and stages/reverts hunks.
@@ -306,14 +306,13 @@ let g:gitgutter_sign_modified_removed = 'ww'
 
 "" Don't map any keys by default
 let g:gitgutter_map_keys = 0
-
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
 "" 'You don't have to do anything: it just works.' """""""""""""""""""""""""""""
 "" gitv: gitk for Vim.
 "" https://github.com/gregsexton/gitv
-Plugin 'gitv'
+" Plugin 'gitv'
 "" :gitv  - browser mode
 "" :gitv! - file mode
 
@@ -339,12 +338,12 @@ endif
 "" tmuxline.vim: Simple tmux statusline generator with support for powerline
 "" symbols and statusline / airline / lightline integration
 "" https://github.com/edkolev/tmuline.vim
-Plugin 'edkolev/tmuxline.vim'
-let g:tmuxline_preset = 'nightly_fox'
+" Plugin 'edkolev/tmuxline.vim'
+" let g:tmuxline_preset = 'nightly_fox'
 
 "" vim-colorschemes: one colorscheme pack to rule them all!  """""""""""""""""""
 "" https://github.com/flazz/vim-colorschemes
-Plugin 'flazz/vim-colorschemes'
+" Plugin 'flazz/vim-colorschemes'
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Unite: Unite and create user interfaces
@@ -404,18 +403,16 @@ nnoremap <leader>uf  :Unite -buffer-name=async    -toggle -start-insert file_rec
 nnoremap <leader>ug  :Unite -buffer-name=ag       grep:.<CR>
 nnoremap <leader>uhc :Unite -buffer-name=command  history/command<CR>
 nnoremap <leader>um  :Unite -buffer-name=mappings -auto-resize mapping<CR>
-nnoremap <leader>uo  :Unite -buffer-name=outline -silent -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
-nnoremap <leader>up  :Unite -buffer-name=process -start-insert process<CR>
-nnoremap <leader>ur  :Unite -buffer-name=mru file_mru<CR>
-nnoremap <leader>ut  :Unite -buffer-name=tab tab<CR>
-nnoremap <leader>ux  :Unite -buffer-name=command command<CR>
-nnoremap <leader>uy  :Unite -buffer-name=history history/yank<CR>
+nnoremap <leader>uo  :Unite -buffer-name=outline  -silent -vertical -winwidth=40 -direction=botright -toggle outline<CR>
+nnoremap <leader>up  :Unite -buffer-name=process  -start-insert process<CR>
+nnoremap <leader>ur  :Unite -buffer-name=mru      file_mru<CR>
+nnoremap <leader>ut  :Unite -buffer-name=tab      tab<CR>
+nnoremap <leader>ux  :Unite -buffer-name=command  command<CR>
+nnoremap <leader>uy  :Unite -buffer-name=history  history/yank<CR>
 
 nnoremap <leader>u*  :UniteWithCursorWord grep:.<CR>
 nnoremap <leader>uq  :UniteClose<CR>
 nnoremap <leader>uu  :UniteResume<CR>
-
-
 " nnoremap <leader>um  :Unite -silent menu    <CR>
 " nnoremap <leader>umg :Unite -silent menu:git<CR>
 " let g:unite_source_menu_menus = {}
@@ -468,19 +465,35 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 "" stop the annoying popping up of scratch/preview in the modeline
 set completeopt-=preview
 
-"" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-"" <CR> closes popup
-inoremap <expr><CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
-"" <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <C-h>, <BS>: close popup and delete backword char.
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><space> pumvisible() ? neocomplete#smart_close_popup()."\<space>" : "\<space>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
+" <space> completion
+inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+" "" Plugin key-mappings.
+" inoremap <expr><C-g>     neocomplete#undo_completion()
+" inoremap <expr><C-l>     neocomplete#complete_common_string()
+" "" <CR> closes popup
+" inoremap <expr><CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
+" "" <TAB>: completion.
+" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" "" <C-h>, <BS>: close popup and delete backword char.
+" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><space> pumvisible() ? neocomplete#smart_close_popup()."\<space>" : "\<space>"
+" inoremap <expr><C-y>  neocomplete#close_popup()
+" inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 "" Enable omni completion.
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
@@ -491,32 +504,29 @@ autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" neosnippet: neo-snippet plugin contains neocomplcache snippets source
 "" https://github.com/Shougo/neosnippet.vim
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
+" Plugin 'Shougo/neosnippet'
+" Plugin 'Shougo/neosnippet-snippets'
 "let g:neosnippet#snippets_directory='~/path/to/above/snippets/'
+" "" Plugin key-mappings.
+" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k>     <Plug>(neosnippet_expand_target)
+" "" SuperTab like snippets behavior.
+" imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: pumvisible() ? "\<C-n>" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: "\<TAB>"
 
-"" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-"" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
-
-"" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
+" "" For snippet_complete marker.
+" if has('conceal')
+"   set conceallevel=2 concealcursor=i
+" endif
 
 "" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""""
 "" https://github.com/sheerun/vim-polyglot
 Plugin 'sheerun/vim-polyglot'
-
 "" vim-javascript: Vastly improved Javascript indentation and syntax support
 "" in Vim.
 "" https://github.com/pangloss/vim-javascript
@@ -564,19 +574,14 @@ let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 let g:syntastic_style_error_symbol = '☡'
 let g:syntastic_style_warning_symbol = '¡'
-
 "" Check on buffer open
 let g:syntastic_check_on_open = 1
-
 "" Always put errors in the location list
-let g:syntastic_always_populate_loc_list = 1
-
+" let g:syntastic_always_populate_loc_list = 1
 "" Auto pop the quickfix split
-let g:syntastic_auto_loc_list = 1
-
+" let g:syntastic_auto_loc_list = 1
 "" Aggregate errors for multiple checkers
 let g:syntastic_aggregate_errors = 1
-
 "" Don't check on write+quit
 let g:syntastic_check_on_wq = 0
 
@@ -586,27 +591,12 @@ let g:syntastic_check_on_wq = 0
 Plugin 'surround.vim'
 "" Examples : cs"' --> converts from double to single quotes
 
-Plugin 'tpope/vim-ragtag'
-let g:ragtag_global_maps = 1
-
 "" livedown: Live Markdown previews for your favourite editor.""""""""""""""""""
-"" https://github.com/shime/livedown
+"" https://github.com/shime/vim-livedown
 "" requires livedown app: npm install -g livedown
 "" ./livedown start <file> --open
-Plugin 'shime/livedown'
-"" this does not seem to work?
-"map gm :call LivedownPreview()<CR>
-
-"" vim-expand-region """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" https://github.com/terryma/vim-expand-region
-"" '+'/'-' to expand/contract
-Plugin 'terryma/vim-expand-region'
-
-"" ZoomWin: Zoom in/out of windows """""""""""""""""""""""""""""""""""""""""""""
-"" https://github.com/vim-scripts/ZoomWin
-"" Press <c-w>o : the current window zooms into a full screen
-"" Press <c-w>o again: the previous set of windows is restored
-" Plugin 'vim-scripts/ZoomWin'
+Plugin 'shime/vim-livedown'
+nmap gm :LivedownToggle<CR>
 
 "" tern_for_vim: Tern plugin for vim """""""""""""""""""""""""""""""""""""""""""
 "" https://github.com/marijnh/tern_for_vim
@@ -620,29 +610,29 @@ let g:tern_show_argument_hints='on_hold'
 Plugin 'editorconfig/editorconfig-vim'
 " To ensure that this plugin works well with Tim Pope's fugitive,
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:EditorConfig_max_line_indicator = "fill"
+let g:EditorConfig_verbose = 1
 
 "" Numbers """""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'myusuf3/numbers.vim'
-nnoremap <silent><leader>n :NumbersToggle<CR>
+" Plugin 'myusuf3/numbers.vim'
+" nnoremap <silent><leader>n :NumbersToggle<CR>
+" set norelativenumber
 
 "" CtrlSF: An ack.vim alternative mimics Ctrl-Shift-F """"""""""""""""""""""""""
 "" https://github.com/dyng/ctrlsf.vim
-Plugin 'dyng/ctrlsf.vim'
-nmap     <C-F>f <Plug>CtrlSFPrompt
-vmap     <C-F>f <Plug>CtrlSFVwordPath
-vmap     <C-F>F <Plug>CtrlSFVwordExec
-nmap     <C-F>n <Plug>CtrlSFCwordPath
-nmap     <C-F>p <Plug>CtrlSFPwordPath
-nnoremap <C-F>o :CtrlSFOpen<CR>
-nnoremap <C-F>t :CtrlSFToggle<CR>
-inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+" Plugin 'dyng/ctrlsf.vim'
+" nmap     <C-F>f <Plug>CtrlSFPrompt
+" vmap     <C-F>f <Plug>CtrlSFVwordPath
+" vmap     <C-F>F <Plug>CtrlSFVwordExec
+" nmap     <C-F>n <Plug>CtrlSFCwordPath
+" nmap     <C-F>p <Plug>CtrlSFPwordPath
+" nnoremap <C-F>o :CtrlSFOpen<CR>
+" nnoremap <C-F>t :CtrlSFToggle<CR>
+" inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 "" Vim plugin that provides additional text objects """"""""""""""""""""""""""""
 "" https://github.com/wellle/targets.vim
 Plugin 'wellle/targets.vim'
-
-Plugin 'mattn/emmet-vim'
-Plugin 'jordwalke/flatlandia'
 
 "" https://github.com/unblevable/quick-scope """""""""""""""""""""""""""""""""""
 "" Lightning fast left-right movement in Vim
@@ -677,11 +667,8 @@ vnoremap <expr> <silent> F Quick_scope_selective('F')
 vnoremap <expr> <silent> t Quick_scope_selective('t')
 vnoremap <expr> <silent> T Quick_scope_selective('T')
 
-
-
-" Plugin 'nathanaelkane/vim-indent-guides'
-
-
+"" https://github.com/Yggdroot/indentLine """""""""""""""""""""""""""""""""""
+"" A vim plugin to display the indention levels with thin vertical lines
 Plugin 'Yggdroot/indentLine'
 " Vim
 let g:indentLine_color_term = 239
@@ -689,22 +676,22 @@ let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#A4E57E'
 " none X terminal
 let g:indentLine_color_tty_light = 6 " (default: 4)
-let g:indentLine_color_dark = 1 " (default: 2)
+let g:indentLine_color_dark = 4 " (default: 2)
 let g:indentLine_char = '|'
-
 
 "" FUTURES LIST //////////////////////////////////////
 " Plugin 'majutsushi/tagbar'
-" Plugin 'nathanaelkane/vim-indent-guides'
-" Plugin 'tpope/unimpaired'
+" nmap <F8> :TagbarToggle<CR>
 
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'einars/js-beautify'
+" Plugin 'maksimr/vim-jsbeautify'
+" " Plugin 'einars/js-beautify'
 " autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-" " for html
- autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-" " for css or scss
-" autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+" " " for html
+"  autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" " " for css or scss
+" " autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
+Plugin 'sotte/presenting.vim'
 
 
 call vundle#end()
@@ -800,32 +787,26 @@ if has("gui_running")
     set guioptions-=R
     set lines=999 columns=999
     autocmd GUIEnter * set vb t_vb=
-    "colorscheme wombat256
-    "colorscheme jellybeans
-    colo flatlandia
-    colo apprentice
-    set guifont=Hack\ 9
+    colorscheme wombat256
+    " colorscheme jellybeans
+    "colo flatlandia
+    " colo apprentice
     let g:NERDTreeWinSize = 50
+    set guifont=Droid\ Sans\ Mono\ for\ Powerline
 else
-    "colo 256-grayvim
-    "colo busybee
-    "colo darkburn
-    "colo ir_black
-    "colo mustang
-    "colo up
-    "colo xoria256
+    " colo ir_black
+    " colo mustang
+    " colo up
     " colo apprentice
     colo fhwrdh
 endif
 
-"if exists('+colorcolumn')
-"  set colorcolumn=80,120 " Color the 80th column differently as a wrapping guide.
-"endif
+" if exists('+colorcolumn')
+"   set colorcolumn=80,120 " Color the 80th column differently as a wrapping guide.
+" endif
 
 "" enable syntax highlighting
 syntax on
-
-
 
 
 
