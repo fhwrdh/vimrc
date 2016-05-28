@@ -7,6 +7,7 @@ set hidden
 set history=1000
 set undolevels=1000
 set ttyfast                   " Better redraw for large files?
+set encoding=utf8
 
 set autowriteall              " save all files when switching buffers
 :au FocusLost * :wa           " save all files with losing focus
@@ -227,10 +228,6 @@ call vundle#begin()
 "" https://github.com/gmarik/Vundle.vim
 Plugin 'gmarik/Vundle.vim'
 
-"" eunuch.vim : Helpers for UNIX
-"" https://github.com/tpope/vim-eunuch
-" Plugin 'tpope/vim-eunuch'
-
 "" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""""
 "" https://github.com/mileszs/ack.vim
 "" USAGE: :Ack
@@ -334,6 +331,10 @@ if has("gui_running")
 else
     let g:airline_theme             = 'fhwrdh'
 endif
+
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plugin 'vim-airline/vim-airline-themes'
+" let g:airline_theme             = 'apprentice'
 
 "" tmuxline.vim: Simple tmux statusline generator with support for powerline
 "" symbols and statusline / airline / lightline integration
@@ -469,9 +470,9 @@ set completeopt-=preview
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
   " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
+  return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -479,7 +480,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " <space> completion
-inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+" inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
 " "" Plugin key-mappings.
 " inoremap <expr><C-g>     neocomplete#undo_completion()
@@ -691,7 +692,21 @@ let g:indentLine_char = '|'
 " " " for css or scss
 " " autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
-Plugin 'sotte/presenting.vim'
+" Plugin 'sotte/presenting.vim'
+
+" Plugin 'ctrlpvim/ctrlp.vim'
+" let g:ctrlp_working_path_mode = 'ra'
+
+" Plugin 'easymotion/vim-easymotion'
+
+
+"" https://github.com/samuelsimoes/vim-jsx-utils """"""""""""""""""""""""""""""""
+"" Plugin with some utilities (like extract partial render) to folks who work with JSX on Vim.
+Plugin 'samuelsimoes/vim-jsx-utils'
+nnoremap <leader>ja :call JSXEncloseReturn()<CR>
+nnoremap <leader>ji :call JSXEachAttributeInLine()<CR>
+nnoremap <leader>je :call JSXExtractPartialPrompt()<CR>
+nnoremap vat :call JSXSelectTag()<CR>
 
 
 call vundle#end()
@@ -792,7 +807,7 @@ if has("gui_running")
     "colo flatlandia
     " colo apprentice
     let g:NERDTreeWinSize = 50
-    set guifont=Droid\ Sans\ Mono\ for\ Powerline
+    " set guifont=Droid\ Sans\ Mono\ for\ Powerline
 else
     " colo ir_black
     " colo mustang
