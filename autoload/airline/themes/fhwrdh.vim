@@ -68,7 +68,7 @@ let g:airline#themes#fhwrdh#palette.visual_modified = {
       \ }
 
 """ INACTIVE
-let s:IA1 = [ '#4e4e4e' , '#1c1c1c' , 244 , 235 , '' ]
+let s:IA1 = [ '#4e4e4e' , '#1c1c1c' , 244 , 225 , '' ]
 let s:IA2 = [ '#4e4e4e' , '#262626' , 244 , 235 , '' ]
 let s:IA3 = [ '#4e4e4e' , '#303030' , 244 , 235 , '' ]
 let g:airline#themes#fhwrdh#palette.inactive = airline#themes#generate_color_map(s:IA1, s:IA2, s:IA3)

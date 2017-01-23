@@ -74,6 +74,7 @@ set nosmarttab
 "" map semi to colon. saves the shift
 " nnoremap ; :
 " noremap <M-;> ;
+map q: :q
 
 "" map escape key to jj
 imap jj <esc>
@@ -109,12 +110,6 @@ nnoremap <leader>/ :nohls<CR>
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
 
-"" Bubble lines
-" nnoremap <silent> <C-Up>   :move-2<CR>==
-" nnoremap <silent> <C-Down> :move+<CR>==
-" xnoremap <silent> <C-Up>   :move-2<CR>gv=gv
-" xnoremap <silent> <C-Down> :move'>+<CR>gv=gv
-
 "" remove trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
@@ -128,7 +123,6 @@ nnoremap <silent> <F5> :setlocal paste!<CR>
 "" open/close splits
 nnoremap <leader>vs :sp<CR>
 nnoremap <leader>vv :vsp<CR>
-" nnoremap <leader>vq :q<CR>
 
 "" toggle relative/absolute line numbers
 " nnoremap <silent><leader>n :set rnu! rnu? <cr>
@@ -152,16 +146,10 @@ map <leader>s? z=
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bd :bd<CR>
-" nnoremap <leader>ba :1,1000 bd!<cr>
 
 "" cycle through buffers
 nnoremap <C-Tab>   :bn<CR>
 nnoremap <C-S-Tab> :bp<CR>
-
-"" Tabs
-" noremap <silent> <S-t> :tabnew<CR>
-" nnoremap <Tab> gt
-" nnoremap <S-Tab> gT
 
 "" windows
 nnoremap <C-h> <C-w>h
@@ -173,6 +161,10 @@ nnoremap <C-l> <C-w>l
 "" Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
+
+"" Move visual blocks
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 "" Quickly close the current window
 nnoremap <leader>Q :q<CR>
@@ -192,23 +184,16 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-"" expand region. S-v to kill. Ctrl-v to shrink.
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
-
 "" quickly select the text just pasted
 noremap gV `[v`]
-
-"" execute the current line of text as a shell command
-noremap Q !!$SHELL<CR>
-
-" Map alt-v in command-line mode to replace the commandline
-" with the Ex command-line beneath the cursor in the buffer
-cnoremap <Esc>v <C-\>esubstitute(getline('.'), '^\s*\(' . escape(substitute(&commentstring, '%s.*$', '', ''), '*') . '\)*\s*:*' , '', '')<CR>
 
 "" (from Steve Losh?)
 "" split line - opposite of J
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>
+
+"" open in split from unite buffer??????
+" inoremap <silent><buffer><expr> <C-s>     unite#do_action('split')
+" inoremap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Plugins
@@ -250,7 +235,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 "" This closes vim if the only window open is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-" NERDTress File highlighting
+" NERDTree File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
@@ -306,13 +291,6 @@ let g:gitgutter_map_keys = 0
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
-"" 'You don't have to do anything: it just works.' """""""""""""""""""""""""""""
-"" gitv: gitk for Vim.
-"" https://github.com/gregsexton/gitv
-" Plugin 'gitv'
-"" :gitv  - browser mode
-"" :gitv! - file mode
-
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
@@ -329,7 +307,7 @@ if !exists('g:airline_symbols')
 if has("gui_running")
     let g:airline_theme             = 'apprentice'
 else
-    let g:airline_theme             = 'fhwrdh'
+    let g:airline_theme             = 'dark'
 endif
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -524,6 +502,14 @@ autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 " if has('conceal')
 "   set conceallevel=2 concealcursor=i
 " endif
+"
+" Track the engine.
+" Plugin 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+" Plugin 'honza/vim-snippets'
+
+
 
 "" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""""
 "" https://github.com/sheerun/vim-polyglot
@@ -533,14 +519,24 @@ Plugin 'sheerun/vim-polyglot'
 "" https://github.com/pangloss/vim-javascript
 "" INCLUDED IN VIM-POLYGLOT "Plugin 'pangloss/vim-javascript'
 let javascript_enable_domhtmlcss=1
+" let g:javascript_conceal_function       = "ƒ"
+" let g:javascript_conceal_null           = "ø"
+" let g:javascript_conceal_this           = "@"
+" let g:javascript_conceal_return         = "⇚"
+" let g:javascript_conceal_undefined      = "¿"
+" let g:javascript_conceal_NaN            = "ℕ"
+" let g:javascript_conceal_prototype      = "¶"
+" let g:javascript_conceal_static         = "•"
+" let g:javascript_conceal_super          = "Ω"
+" let g:javascript_conceal_arrow_function = "⇒"
 
 "" vim-jsx: React JSX syntax highlighting and indenting for vim. """""""""""""""
 "" https://github.com/mxw/vim-jsx
 "" This bundle requires pangloss's vim-javascript syntax highlighting.
-Plugin 'mxw/vim-jsx'
+" Plugin 'mxw/vim-jsx'
 "" By default, JSX syntax highlighting and indenting will be enabled only for
 "" files with the .jsx extension. If you would like JSX in .js files, add:
-let g:jsx_ext_required = 0
+" let g:jsx_ext_required = 0
 
 "" vim-css3-syntax: Add CSS3 syntax support to vim's built-in `syntax/css.vim`
 "" https://github.com/hail2u/vim-css3-syntax
@@ -562,10 +558,6 @@ Plugin 'hail2u/vim-css3-syntax'
 "" http://www.vim.org/scripts/script.php?script_id=2075
 Plugin 'indenthtml.vim'
 
-"" vim-markdown: Vim Markdown runtime files """"""""""""""""""""""""""""""""""""
-"" https://github.com/tpope/vim-markdown
-Plugin 'tpope/vim-markdown'
-
 "" Syntastic : Automatic syntax checking """""""""""""""""""""""""""""""""""""""
 "" http://www.vim.org/scripts/script.php?script_id=2736
 Plugin 'Syntastic'
@@ -578,7 +570,7 @@ let g:syntastic_style_warning_symbol = '¡'
 "" Check on buffer open
 let g:syntastic_check_on_open = 1
 "" Always put errors in the location list
-" let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_always_populate_loc_list = 1
 "" Auto pop the quickfix split
 " let g:syntastic_auto_loc_list = 1
 "" Aggregate errors for multiple checkers
@@ -586,11 +578,19 @@ let g:syntastic_aggregate_errors = 1
 "" Don't check on write+quit
 let g:syntastic_check_on_wq = 0
 
+"" syntastic-local-eslint : """"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Prefer local repo install of eslint over global install with syntastic
+Plugin 'mtscout6/syntastic-local-eslint.vim'
+
 "" surround.vim : Delete/change/add parentheses/quotes/XML-tags/much """""""""""
 "" more with ease
 "" http://www.vim.org/scripts/script.php?script_id=1697
 Plugin 'surround.vim'
 "" Examples : cs"' --> converts from double to single quotes
+
+"" vim-markdown: Vim Markdown runtime files """"""""""""""""""""""""""""""""""""
+"" https://github.com/tpope/vim-markdown
+Plugin 'tpope/vim-markdown'
 
 "" livedown: Live Markdown previews for your favourite editor.""""""""""""""""""
 "" https://github.com/shime/vim-livedown
@@ -612,24 +612,7 @@ Plugin 'editorconfig/editorconfig-vim'
 " To ensure that this plugin works well with Tim Pope's fugitive,
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_max_line_indicator = "fill"
-let g:EditorConfig_verbose = 1
-
-"" Numbers """""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin 'myusuf3/numbers.vim'
-" nnoremap <silent><leader>n :NumbersToggle<CR>
-" set norelativenumber
-
-"" CtrlSF: An ack.vim alternative mimics Ctrl-Shift-F """"""""""""""""""""""""""
-"" https://github.com/dyng/ctrlsf.vim
-" Plugin 'dyng/ctrlsf.vim'
-" nmap     <C-F>f <Plug>CtrlSFPrompt
-" vmap     <C-F>f <Plug>CtrlSFVwordPath
-" vmap     <C-F>F <Plug>CtrlSFVwordExec
-" nmap     <C-F>n <Plug>CtrlSFCwordPath
-" nmap     <C-F>p <Plug>CtrlSFPwordPath
-" nnoremap <C-F>o :CtrlSFOpen<CR>
-" nnoremap <C-F>t :CtrlSFToggle<CR>
-" inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+let g:EditorConfig_verbose = 0
 
 "" Vim plugin that provides additional text objects """"""""""""""""""""""""""""
 "" https://github.com/wellle/targets.vim
@@ -668,6 +651,12 @@ vnoremap <expr> <silent> F Quick_scope_selective('F')
 vnoremap <expr> <silent> t Quick_scope_selective('t')
 vnoremap <expr> <silent> T Quick_scope_selective('T')
 
+"" https://github.com/terryma/vim-expand-region """""""""""""""""""""""""""""""""""
+"" expand region. S-v to kill. Ctrl-v to shrink.
+Plugin 'terryma/vim-expand-region'
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
 "" https://github.com/Yggdroot/indentLine """""""""""""""""""""""""""""""""""
 "" A vim plugin to display the indention levels with thin vertical lines
 Plugin 'Yggdroot/indentLine'
@@ -678,27 +667,7 @@ let g:indentLine_color_gui = '#A4E57E'
 " none X terminal
 let g:indentLine_color_tty_light = 6 " (default: 4)
 let g:indentLine_color_dark = 4 " (default: 2)
-let g:indentLine_char = '|'
-
-"" FUTURES LIST //////////////////////////////////////
-" Plugin 'majutsushi/tagbar'
-" nmap <F8> :TagbarToggle<CR>
-
-" Plugin 'maksimr/vim-jsbeautify'
-" " Plugin 'einars/js-beautify'
-" autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-" " " for html
-"  autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-" " " for css or scss
-" " autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-
-" Plugin 'sotte/presenting.vim'
-
-" Plugin 'ctrlpvim/ctrlp.vim'
-" let g:ctrlp_working_path_mode = 'ra'
-
-" Plugin 'easymotion/vim-easymotion'
-
+let g:indentLine_char = '│'
 
 "" https://github.com/samuelsimoes/vim-jsx-utils """"""""""""""""""""""""""""""""
 "" Plugin with some utilities (like extract partial render) to folks who work with JSX on Vim.
@@ -708,6 +677,23 @@ nnoremap <leader>ji :call JSXEachAttributeInLine()<CR>
 nnoremap <leader>je :call JSXExtractPartialPrompt()<CR>
 nnoremap vat :call JSXSelectTag()<CR>
 
+"" FUTURES LIST //////////////////////////////////////
+" Plugin 'maksimr/vim-jsbeautify'
+" " Plugin 'einars/js-beautify'
+" autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" " " for html
+"  autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" " " for css or scss
+" " autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
+" Plugin 'sotte/presenting.vim'
+" Plugin 'easymotion/vim-easymotion'
+" Plugin 'wincent/command-t'
+
+Plugin 'flowtype/vim-flow'
+let g:flow#enable = 0
+
+Plugin 'mvolkmann/vim-react'
 
 call vundle#end()
 filetype plugin indent on
@@ -812,7 +798,7 @@ else
     " colo ir_black
     " colo mustang
     " colo up
-    " colo apprentice
+    " colo mythos
     colo fhwrdh
 endif
 
@@ -822,6 +808,3 @@ endif
 
 "" enable syntax highlighting
 syntax on
-
-
-
