@@ -487,7 +487,7 @@ autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 "" prettier integration
 "" requires a global prettier install
 "" this hooks into 'gq' command
-autocmd FileType javascript set formatprg=prettier\ --single-quote\ --trailing-comma\ all\ --stdin
+" autocmd FileType javascript set formatprg=prettier\ --single-quote\ --trailing-comma\ all\ --stdin
 "" format on save
 " autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
 
@@ -509,7 +509,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-
 
 "" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""""
 "" https://github.com/sheerun/vim-polyglot
@@ -678,22 +677,16 @@ nnoremap <leader>je :call JSXExtractPartialPrompt()<CR>
 nnoremap vat :call JSXSelectTag()<CR>
 
 "" FUTURES LIST //////////////////////////////////////
-" Plugin 'maksimr/vim-jsbeautify'
-" " Plugin 'einars/js-beautify'
-" autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-" " " for html
-"  autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-" " " for css or scss
-" " autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-
 " Plugin 'sotte/presenting.vim'
 " Plugin 'easymotion/vim-easymotion'
-" Plugin 'wincent/command-t'
 
 Plugin 'flowtype/vim-flow'
 let g:flow#enable = 0
 
 Plugin 'mvolkmann/vim-react'
+
+Plugin 'junegunn/fzf.vim'
+
 
 call vundle#end()
 filetype plugin indent on
