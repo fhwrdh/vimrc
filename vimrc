@@ -157,6 +157,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+nnoremap <leader>gq gggqG<C-o><C-o>
+
 "" Visual mode pressing * or # searches for the current selection
 "" Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
@@ -481,34 +483,32 @@ autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" neosnippet: neo-snippet plugin contains neocomplcache snippets source
-"" https://github.com/Shougo/neosnippet.vim
-" Plugin 'Shougo/neosnippet'
-" Plugin 'Shougo/neosnippet-snippets'
-"let g:neosnippet#snippets_directory='~/path/to/above/snippets/'
-" "" Plugin key-mappings.
-" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k>     <Plug>(neosnippet_expand_target)
-" "" SuperTab like snippets behavior.
-" imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-" \ "\<Plug>(neosnippet_expand_or_jump)"
-" \: pumvisible() ? "\<C-n>" : "\<TAB>"
-" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-" \ "\<Plug>(neosnippet_expand_or_jump)"
-" \: "\<TAB>"
 
-" "" For snippet_complete marker.
-" if has('conceal')
-"   set conceallevel=2 concealcursor=i
-" endif
-"
-" Track the engine.
-" Plugin 'SirVer/ultisnips'
+"" prettier integration
+"" requires a global prettier install
+"" this hooks into 'gq' command
+autocmd FileType javascript set formatprg=prettier\ --single-quote\ --trailing-comma\ all\ --stdin
+"" format on save
+" autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
+
+Plugin 'SirVer/ultisnips'
 
 " Snippets are separated from the engine. Add this if you want them:
-" Plugin 'honza/vim-snippets'
+Plugin 'honza/vim-snippets'
 
+" ES2015 code snippets (Optional)
+Plugin 'epilande/vim-es2015-snippets'
+
+" React code snippets
+Plugin 'epilande/vim-react-snippets'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<C-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 
 "" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""""
