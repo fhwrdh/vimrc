@@ -1,4 +1,4 @@
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" fhwrdh | vimrc
 "" URL: http://www.github.com/fhwrdh/vimrc
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -197,6 +197,60 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>
 " inoremap <silent><buffer><expr> <C-s>     unite#do_action('split')
 " inoremap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
 
+
+
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" plug.vim
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.vim/plugged')
+
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'osyo-manga/unite-quickfix'
+Plug 'ujihisa/unite-colorscheme'
+Plug 'Shougo/vimfiler.vim'
+Plug 'rking/ag.vim'
+Plug 'Shougo/neocomplete'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'epilande/vim-es2015-snippets'
+Plug 'epilande/vim-react-snippets'
+Plug 'sheerun/vim-polyglot'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'indenthtml.vim'
+Plug 'Syntastic'
+Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'surround.vim'
+Plug 'tpope/vim-markdown'
+Plug 'shime/vim-livedown'
+Plug 'marijnh/tern_for_vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'wellle/targets.vim'
+Plug 'unblevable/quick-scope'
+Plug 'terryma/vim-expand-region'
+Plug 'Yggdroot/indentLine'
+Plug 'samuelsimoes/vim-jsx-utils'
+Plug 'flowtype/vim-flow'
+
+"" FUTURES LIST //////////////////////////////////////
+" Plug 'sotte/presenting.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'mvolkmann/vim-react'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/gv.vim'
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
+
+call plug#end()
+
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Plugins
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -204,27 +258,27 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>
 "" :PluginInstall(!)    - install (update) bundles
 "" :PluginSearch(!) foo - search (or refresh cache first) for foo
 "" :PluginClean(!)      - confirm (or auto-approve) removal of unused bundles
-"
+
 "" see :h vundle for more details or wiki for FAQ
 "" NOTE: comments after Plugin commands are not allowed.
-filetype off
-set rtp+=~/.vim/bundle/vundle
-call vundle#begin()
+" filetype off
+" set rtp+=~/.vim/bundle/vundle
+" call vundle#begin()
 
 "" Vundle.vim: Vundle, the plug-in manager for Vim """""""""""""""""""""""""""""
 "" https://github.com/gmarik/Vundle.vim
-Plugin 'gmarik/Vundle.vim'
+" Plugin 'gmarik/Vundle.vim'
 
 "" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""""
 "" https://github.com/mileszs/ack.vim
 "" USAGE: :Ack
-Plugin 'ack.vim'
-"" let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
-let g:ackprg = "ag --nocolor --nogroup --column"
+" Plugin 'ack.vim'
+" "" let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
+" let g:ackprg = "ag --nocolor --nogroup --column"
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" The NERD tree : A tree explorer plugin for navigating the filesystem.
-Plugin 'scrooloose/nerdtree'
+" Plugin 'scrooloose/nerdtree'
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache_    _']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
@@ -264,11 +318,11 @@ noremap <F3> :NERDTreeToggle<CR>
 
 "" vim-commentary: comment stuff out """""""""""""""""""""""""""""""""""""""""""
 "" https://github.com/tpope/vim-commentary
-Plugin 'tpope/vim-commentary'
+" Plugin 'tpope/vim-commentary'
 
 "" fugitive.vim: a Git wrapper so awesome, it should be illegal
 "" http://www.vim.org/scripts/script.php?script_id=2975
-Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-fugitive'
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -281,7 +335,7 @@ nnoremap <silent> <leader>gs :Gstatus<CR>
 "" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""""
 "" (sign column) and stages/reverts hunks.
 "" https://github.com/airblade/vim-gitgutter
-Plugin 'airblade/vim-gitgutter'
+" Plugin 'airblade/vim-gitgutter'
 let g:gitgutter_sign_added = '++'
 let g:gitgutter_sign_modified = '~~'
 let g:gitgutter_sign_removed = '--'
@@ -296,7 +350,7 @@ nmap [h <Plug>GitGutterPrevHunk
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 "" https://github.com/bling/vim-airline
-Plugin 'bling/vim-airline'
+" Plugin 'bling/vim-airline'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -313,7 +367,7 @@ else
 endif
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'vim-airline/vim-airline-themes'
 " let g:airline_theme             = 'apprentice'
 
 "" tmuxline.vim: Simple tmux statusline generator with support for powerline
@@ -329,20 +383,20 @@ Plugin 'vim-airline/vim-airline-themes'
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Unite: Unite and create user interfaces
 "" https://github.com/Shougo/unite.vim
-Plugin 'Shougo/unite.vim'
-"" https://github.com/Shougo/neomru.vim
-Plugin 'Shougo/neomru.vim'
-"" unite-outline
-"" https://github.com/shougo/unite-outline
-Plugin 'Shougo/unite-outline'
-"'" vimproc.vim :
-"" requires building lib
-Plugin 'Shougo/vimproc.vim'
-"" Unite plugin for quickfix buffer
-Plugin 'osyo-manga/unite-quickfix'
-Plugin 'ujihisa/unite-colorscheme'
-Plugin 'Shougo/vimfiler.vim'
-Plugin 'rking/ag.vim'
+" Plugin 'Shougo/unite.vim'
+" "" https://github.com/Shougo/neomru.vim
+" Plugin 'Shougo/neomru.vim'
+" "" unite-outline
+" "" https://github.com/shougo/unite-outline
+" Plugin 'Shougo/unite-outline'
+" "'" vimproc.vim :
+" "" requires building lib
+" Plugin 'Shougo/vimproc.vim'
+" "" Unite plugin for quickfix buffer
+" Plugin 'osyo-manga/unite-quickfix'
+" Plugin 'ujihisa/unite-colorscheme'
+" Plugin 'Shougo/vimfiler.vim'
+" Plugin 'rking/ag.vim'
 
 "" NOTE SEE POST-VUNDLE CONFIG SECTION BELOW
 let g:vimfiler_as_default_explorer = 1
@@ -432,7 +486,7 @@ nnoremap <leader>uu  :UniteResume<CR>
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" neocomplete: Next generation completion framework after neocomplcache
 "" https://github.com/Shougo/neocomplete.vim
-Plugin 'Shougo/neocomplete'
+" Plugin 'Shougo/neocomplete'
 "" Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 "" Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -491,16 +545,16 @@ autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 "" format on save
 " autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
 
-Plugin 'SirVer/ultisnips'
+" Plugin 'SirVer/ultisnips'
 
-" Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
+" " Snippets are separated from the engine. Add this if you want them:
+" Plugin 'honza/vim-snippets'
 
-" ES2015 code snippets (Optional)
-Plugin 'epilande/vim-es2015-snippets'
+" " ES2015 code snippets (Optional)
+" Plugin 'epilande/vim-es2015-snippets'
 
-" React code snippets
-Plugin 'epilande/vim-react-snippets'
+" " React code snippets
+" Plugin 'epilande/vim-react-snippets'
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<C-l>"
@@ -512,7 +566,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 "" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""""
 "" https://github.com/sheerun/vim-polyglot
-Plugin 'sheerun/vim-polyglot'
+" Plugin 'sheerun/vim-polyglot'
 "" vim-javascript: Vastly improved Javascript indentation and syntax support
 "" in Vim.
 "" https://github.com/pangloss/vim-javascript
@@ -539,7 +593,7 @@ let javascript_enable_domhtmlcss=1
 
 "" vim-css3-syntax: Add CSS3 syntax support to vim's built-in `syntax/css.vim`
 "" https://github.com/hail2u/vim-css3-syntax
-Plugin 'hail2u/vim-css3-syntax'
+" Plugin 'hail2u/vim-css3-syntax'
 
 "" 20150907: turned off as this was suddenly folding json files on open
 "" vim-json: Syntax highlighting for JSON in Vim """""""""""""""""""""""""""""""
@@ -555,11 +609,11 @@ Plugin 'hail2u/vim-css3-syntax'
 
 "" indent/html.vim : alternative html indent script """"""""""""""""""""""""""""
 "" http://www.vim.org/scripts/script.php?script_id=2075
-Plugin 'indenthtml.vim'
+" Plugin 'indenthtml.vim'
 
 "" Syntastic : Automatic syntax checking """""""""""""""""""""""""""""""""""""""
 "" http://www.vim.org/scripts/script.php?script_id=2736
-Plugin 'Syntastic'
+" Plugin 'Syntastic'
 let g:syntastic_javascript_checkers = ['eslint']
 "" Better :sign interface symbols
 let g:syntastic_error_symbol = '✗'
@@ -579,35 +633,35 @@ let g:syntastic_check_on_wq = 0
 
 "" syntastic-local-eslint : """"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Prefer local repo install of eslint over global install with syntastic
-Plugin 'mtscout6/syntastic-local-eslint.vim'
+" Plugin 'mtscout6/syntastic-local-eslint.vim'
 
 "" surround.vim : Delete/change/add parentheses/quotes/XML-tags/much """""""""""
 "" more with ease
 "" http://www.vim.org/scripts/script.php?script_id=1697
-Plugin 'surround.vim'
+" Plugin 'surround.vim'
 "" Examples : cs"' --> converts from double to single quotes
 
 "" vim-markdown: Vim Markdown runtime files """"""""""""""""""""""""""""""""""""
 "" https://github.com/tpope/vim-markdown
-Plugin 'tpope/vim-markdown'
+" Plugin 'tpope/vim-markdown'
 
 "" livedown: Live Markdown previews for your favourite editor.""""""""""""""""""
 "" https://github.com/shime/vim-livedown
 "" requires livedown app: npm install -g livedown
 "" ./livedown start <file> --open
-Plugin 'shime/vim-livedown'
+" Plugin 'shime/vim-livedown'
 nmap gm :LivedownToggle<CR>
 
 "" tern_for_vim: Tern plugin for vim """""""""""""""""""""""""""""""""""""""""""
 "" https://github.com/marijnh/tern_for_vim
 "" Install the tern server by running npm install in the bundle/tern_for_vim
 "" directory.
-Plugin 'marijnh/tern_for_vim'
+" Plugin 'marijnh/tern_for_vim'
 let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
 
 "" EditorConfig Vim Plugin """""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'editorconfig/editorconfig-vim'
+" Plugin 'editorconfig/editorconfig-vim'
 " To ensure that this plugin works well with Tim Pope's fugitive,
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_max_line_indicator = "fill"
@@ -615,11 +669,11 @@ let g:EditorConfig_verbose = 0
 
 "" Vim plugin that provides additional text objects """"""""""""""""""""""""""""
 "" https://github.com/wellle/targets.vim
-Plugin 'wellle/targets.vim'
+" Plugin 'wellle/targets.vim'
 
 "" https://github.com/unblevable/quick-scope """""""""""""""""""""""""""""""""""
 "" Lightning fast left-right movement in Vim
-Plugin 'unblevable/quick-scope'
+" Plugin 'unblevable/quick-scope'
 "" https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
 "" Only enable the quick-scope plugin's highlighting when using the f/F/t/T movements
 function! Quick_scope_selective(movement)
@@ -652,13 +706,13 @@ vnoremap <expr> <silent> T Quick_scope_selective('T')
 
 "" https://github.com/terryma/vim-expand-region """""""""""""""""""""""""""""""""""
 "" expand region. S-v to kill. Ctrl-v to shrink.
-Plugin 'terryma/vim-expand-region'
+" Plugin 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 "" https://github.com/Yggdroot/indentLine """""""""""""""""""""""""""""""""""
 "" A vim plugin to display the indention levels with thin vertical lines
-Plugin 'Yggdroot/indentLine'
+" Plugin 'Yggdroot/indentLine'
 " Vim
 let g:indentLine_color_term = 239
 "GVim
@@ -670,26 +724,25 @@ let g:indentLine_char = '│'
 
 "" https://github.com/samuelsimoes/vim-jsx-utils """"""""""""""""""""""""""""""""
 "" Plugin with some utilities (like extract partial render) to folks who work with JSX on Vim.
-Plugin 'samuelsimoes/vim-jsx-utils'
+" Plugin 'samuelsimoes/vim-jsx-utils'
 nnoremap <leader>ja :call JSXEncloseReturn()<CR>
 nnoremap <leader>ji :call JSXEachAttributeInLine()<CR>
 nnoremap <leader>je :call JSXExtractPartialPrompt()<CR>
 nnoremap vat :call JSXSelectTag()<CR>
 
+" Plugin 'flowtype/vim-flow'
+let g:flow#enable = 0
+
 "" FUTURES LIST //////////////////////////////////////
 " Plugin 'sotte/presenting.vim'
 " Plugin 'easymotion/vim-easymotion'
+" Plugin 'mvolkmann/vim-react'
+" Plugin 'junegunn/fzf.vim'
 
-Plugin 'flowtype/vim-flow'
-let g:flow#enable = 0
+silent noremap <Leader>gut :GundoToggle<CR>
 
-Plugin 'mvolkmann/vim-react'
-
-Plugin 'junegunn/fzf.vim'
-
-
-call vundle#end()
-filetype plugin indent on
+" call vundle#end()
+" filetype plugin indent on
 
 "" POST-VUNDLE CONFIG
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -697,8 +750,8 @@ filetype plugin indent on
 "" done (vundle#end()).
 "" see https://github.com/Shougo/neobundle.vim/issues/330
 "" TODO: think about batching the "Plugin ..." calls, then doing config?
-call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '\(target/\|ztest-container-member/\)')
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '\(target/\|ztest-container-member/\)')
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "
 "" Functions
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

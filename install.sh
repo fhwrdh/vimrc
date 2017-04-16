@@ -40,12 +40,13 @@ done
 
 echo "Ensuring backup directory exists"
 mkdir -p "$HOME/.vim/backup"
+mkdir -p "$HOME/.vim/tmp"
 
-echo "Download Vundle"
-mkdir -p "$HOME/.vim/bundle"
-if [[ ! -d "$HOME/.vim/bundle/vundle" ]]
+echo "Download plug.vim"
+if [[ ! -d "$HOME/.vim/autoload/plug.vim" ]]
 then
-    git clone https://github.com/gmarik/vundle.git "$HOME/.vim/bundle/vundle"
+    curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
 echo "Link vimrc, gvimrc"
@@ -66,17 +67,9 @@ mkdir -p "$HOME/.vim/autoload/airline/themes/"
 # ln -s -f "$PWD/autoload/airline/themes/fhwrdh.vim" "$HOME/.vim/autoload/airline/themes/fhwrdh.vim"
 cp "$PWD/autoload/airline/themes/fhwrdh.vim" "$HOME/.vim/autoload/airline/themes/fhwrdh.vim"
 
-echo "Instruct Vundle to download all the scripts"
-vim +BundleInstall +qall
 
-echo "Custom snippets"
-if [[ -d "$HOME/.vim/bundle/snipmate.vim" ]]
-then
-    for snippet_file in $(ls snippets/*.snippets)
-    do
-        cat "$snippet_file"  >> "$HOME/.vim/bundle/snipmate.vim/$snippet_file"
-    done
-fi
+vim +PlugUpgrade +qa || { echo 'Error upgrading Plug. Will continue.'; }
+vim +PlugInstall +qa || { echo 'Error installing vim plugins'; return 1; }
 
 echo "Custom ftplugins"
 mkdir -p "$HOME/.vim/ftplugin"
