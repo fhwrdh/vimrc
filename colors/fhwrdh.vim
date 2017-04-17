@@ -53,6 +53,8 @@ hi Title           guifg=#f6f3e8   guibg=NONE      gui=bold            ctermfg=2
 hi Visual          guifg=#faf4c6   guibg=#3c414c   gui=none            ctermfg=254     ctermbg=4       cterm=NONE
 hi SpecialKey      guifg=#808080   guibg=#343434   gui=none            ctermfg=244     ctermbg=236     cterm=NONE
 
+hi Search          guifg=#808080   guibg=#343434   gui=none            ctermfg=253     ctermbg=22 cterm=NONE
+
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 " VimL related colors
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"

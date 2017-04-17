@@ -98,7 +98,7 @@ map <space> <leader>
 nmap <leader>w :w!<cr>
 
 "" handy buffer list
-nmap <leader>b :ls<CR>:b<Space>
+" nmap <leader>b :ls<CR>:b<Space>
 
 "" call :sudow FILENAME when bit by a file you don't own
 cnoremap sudow w !sudo tee % >/dev/null
@@ -197,53 +197,61 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>
 " inoremap <silent><buffer><expr> <C-s>     unite#do_action('split')
 " inoremap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
 
-
-
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" plug.vim
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'guns/xterm-color-table.vim'
+Plug 'mru.vim'
+Plug 'bling/vim-airline'
+Plug 'wincent/terminus'
+Plug 'wincent/ferret'
+Plug 'wincent/command-t', { 'do': 'cd ruby/command-t && ruby extconf.rb && make' }
+
+Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/unite-outline'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'osyo-manga/unite-quickfix'
-Plug 'ujihisa/unite-colorscheme'
-Plug 'Shougo/vimfiler.vim'
-Plug 'rking/ag.vim'
-Plug 'Shougo/neocomplete'
+Plug 'editorconfig/editorconfig-vim'
+
+Plug 'Chun-Yang/vim-action-ag'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --term-completer --clang-completer' }
+
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
-Plug 'sheerun/vim-polyglot'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'indenthtml.vim'
-Plug 'Syntastic'
-Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'surround.vim'
-Plug 'tpope/vim-markdown'
-Plug 'shime/vim-livedown'
-Plug 'marijnh/tern_for_vim'
-Plug 'editorconfig/editorconfig-vim'
+
 Plug 'wellle/targets.vim'
 Plug 'unblevable/quick-scope'
 Plug 'terryma/vim-expand-region'
 Plug 'Yggdroot/indentLine'
+
+Plug 'tpope/vim-commentary'
+
+Plug 'surround.vim'
+Plug 'sheerun/vim-polyglot'
+
+Plug 'Syntastic'
+Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+
+"" React
+Plug 'mvolkmann/vim-react'
 Plug 'samuelsimoes/vim-jsx-utils'
-Plug 'flowtype/vim-flow'
+" Plug 'flowtype/vim-flow'
+
+Plug 'hail2u/vim-css3-syntax'
+Plug 'indenthtml.vim'
+
+"" Markdown
+Plug 'tpope/vim-markdown'
+Plug 'shime/vim-livedown'
 
 "" FUTURES LIST //////////////////////////////////////
 " Plug 'sotte/presenting.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'mvolkmann/vim-react'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
@@ -251,30 +259,20 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 
 call plug#end()
 
-"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Plugins
-"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Brief help
-"" :PluginInstall(!)    - install (update) bundles
-"" :PluginSearch(!) foo - search (or refresh cache first) for foo
-"" :PluginClean(!)      - confirm (or auto-approve) removal of unused bundles
+"" mru.vim """ http://www.vim.org/scripts/script.php?script_id=521 """""""""""""
+" nnoremap <leader>ur  :MRU<CR>
+let MRU_Filename_Format={'formatter':'v:val', 'parser':'.*'}
 
-"" see :h vundle for more details or wiki for FAQ
-"" NOTE: comments after Plugin commands are not allowed.
-" filetype off
-" set rtp+=~/.vim/bundle/vundle
-" call vundle#begin()
 
-"" Vundle.vim: Vundle, the plug-in manager for Vim """""""""""""""""""""""""""""
-"" https://github.com/gmarik/Vundle.vim
-" Plugin 'gmarik/Vundle.vim'
+"" command-t' """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>ub  :CommandTBuffer<CR>
+nnoremap <leader>uf  :CommandT<CR>
+nnoremap <leader>uh  :CommandTHistory<CR>
+nnoremap <leader>ur  :CommandTMRU<CR>
 
-"" ack.vim: Vim plugin for the Perl module / CLI script 'ack' """"""""""""""""""
-"" https://github.com/mileszs/ack.vim
-"" USAGE: :Ack
-" Plugin 'ack.vim'
-" "" let g:ackprg = "/usr/bin/ack-grep -H --nocolor --nogroup --column"
-" let g:ackprg = "ag --nocolor --nogroup --column"
+
+"" vim-commentary: comment stuff out """""""""""""""""""""""""""""""""""""""""""
+"" https://github.com/tpope/vim-commentary
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" The NERD tree : A tree explorer plugin for navigating the filesystem.
@@ -316,11 +314,9 @@ call NERDTreeHighlightFile('php',    'Magenta', 'none', '#ff00ff', '#151515')
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
-"" vim-commentary: comment stuff out """""""""""""""""""""""""""""""""""""""""""
-"" https://github.com/tpope/vim-commentary
 " Plugin 'tpope/vim-commentary'
 
-"" fugitive.vim: a Git wrapper so awesome, it should be illegal
+"" fugitive.vim: a Git wrapper so awesome, it should be illegal """"""""""""""
 "" http://www.vim.org/scripts/script.php?script_id=2975
 " Plugin 'tpope/vim-fugitive'
 nnoremap <silent> <leader>gb :Gblame<CR>
@@ -398,56 +394,56 @@ endif
 " Plugin 'Shougo/vimfiler.vim'
 " Plugin 'rking/ag.vim'
 
-"" NOTE SEE POST-VUNDLE CONFIG SECTION BELOW
-let g:vimfiler_as_default_explorer = 1
-let g:unite_source_file_mru_limit = 200
-let g:unite_source_history_yank_enable = 1
-let g:unite_prompt='» '
-let g:unite_abbr_highlight = 'Keyword'
-let g:unite_split_rule = "botright"
-" let g:unite_source_file_mru_filename_format = ':~:.'
-" let g:unite_source_file_mru_time_format = ''
-let g:unite_source_rec_max_cache_files = 0
+" "" NOTE SEE POST-VUNDLE CONFIG SECTION BELOW
+" let g:vimfiler_as_default_explorer = 1
+" let g:unite_source_file_mru_limit = 200
+" let g:unite_source_history_yank_enable = 1
+" let g:unite_prompt='» '
+" let g:unite_abbr_highlight = 'Keyword'
+" let g:unite_split_rule = "botright"
+" " let g:unite_source_file_mru_filename_format = ':~:.'
+" " let g:unite_source_file_mru_time_format = ''
+" let g:unite_source_rec_max_cache_files = 0
 
-if executable('ag')
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts =
-          \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
-          \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' ' .
-          \ '--ignore ''**/*.pyc'''
-    let g:unite_source_grep_recursive_opt = ''
-elseif executable('ack-grep')
-    let g:unite_source_grep_command = 'ack-grep'
-    " Match whole word only. This might/might not be a good idea
-    let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
-    "let g:unite_source_grep_default_opts = '--no-heading --no-color -a -w'
-    let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
-    let g:unite_source_grep_recursive_opt = ''
-    let g:unite_source_grep_search_word_highlight = 1
-elseif executable('ack')
-    let g:unite_source_grep_command = 'ack'
-    let g:unite_source_grep_default_opts = '--no-heading --no-color -a -w'
-    let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
-    let g:unite_source_grep_recursive_opt = ''
-    let g:unite_source_grep_search_word_highlight = 1
-endif
+" if executable('ag')
+"     let g:unite_source_grep_command = 'ag'
+"     let g:unite_source_grep_default_opts =
+"           \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
+"           \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' ' .
+"           \ '--ignore ''**/*.pyc'''
+"     let g:unite_source_grep_recursive_opt = ''
+" elseif executable('ack-grep')
+"     let g:unite_source_grep_command = 'ack-grep'
+"     " Match whole word only. This might/might not be a good idea
+"     let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
+"     "let g:unite_source_grep_default_opts = '--no-heading --no-color -a -w'
+"     let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
+"     let g:unite_source_grep_recursive_opt = ''
+"     let g:unite_source_grep_search_word_highlight = 1
+" elseif executable('ack')
+"     let g:unite_source_grep_command = 'ack'
+"     let g:unite_source_grep_default_opts = '--no-heading --no-color -a -w'
+"     let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
+"     let g:unite_source_grep_recursive_opt = ''
+"     let g:unite_source_grep_search_word_highlight = 1
+" endif
 
-nnoremap <leader>ub  :Unite -buffer-name=buffer   buffer<CR>
-nnoremap <leader>uc  :Unite -buffer-name=colors   colorscheme -auto-preview<CR>
-nnoremap <leader>uf  :Unite -buffer-name=async    -toggle -start-insert file_rec/async<CR>
-nnoremap <leader>ug  :Unite -buffer-name=ag       grep:.<CR>
-nnoremap <leader>uhc :Unite -buffer-name=command  history/command<CR>
-nnoremap <leader>um  :Unite -buffer-name=mappings -auto-resize mapping<CR>
-nnoremap <leader>uo  :Unite -buffer-name=outline  -silent -vertical -winwidth=40 -direction=botright -toggle outline<CR>
-nnoremap <leader>up  :Unite -buffer-name=process  -start-insert process<CR>
-nnoremap <leader>ur  :Unite -buffer-name=mru      file_mru<CR>
-nnoremap <leader>ut  :Unite -buffer-name=tab      tab<CR>
-nnoremap <leader>ux  :Unite -buffer-name=command  command<CR>
-nnoremap <leader>uy  :Unite -buffer-name=history  history/yank<CR>
+" nnoremap <leader>ub  :Unite -buffer-name=buffer   buffer<CR>
+" nnoremap <leader>uc  :Unite -buffer-name=colors   colorscheme -auto-preview<CR>
+" nnoremap <leader>uf  :Unite -buffer-name=async    -toggle -start-insert file_rec/async<CR>
+" nnoremap <leader>ug  :Unite -buffer-name=ag       grep:.<CR>
+" nnoremap <leader>uhc :Unite -buffer-name=command  history/command<CR>
+" nnoremap <leader>um  :Unite -buffer-name=mappings -auto-resize mapping<CR>
+" nnoremap <leader>uo  :Unite -buffer-name=outline  -silent -vertical -winwidth=40 -direction=botright -toggle outline<CR>
+" nnoremap <leader>up  :Unite -buffer-name=process  -start-insert process<CR>
+" nnoremap <leader>ur  :Unite -buffer-name=mru      file_mru<CR>
+" nnoremap <leader>ut  :Unite -buffer-name=tab      tab<CR>
+" nnoremap <leader>ux  :Unite -buffer-name=command  command<CR>
+" nnoremap <leader>uy  :Unite -buffer-name=history  history/yank<CR>
 
-nnoremap <leader>u*  :UniteWithCursorWord grep:.<CR>
-nnoremap <leader>uq  :UniteClose<CR>
-nnoremap <leader>uu  :UniteResume<CR>
+" nnoremap <leader>u*  :UniteWithCursorWord grep:.<CR>
+" nnoremap <leader>uq  :UniteClose<CR>
+" nnoremap <leader>uu  :UniteResume<CR>
 " nnoremap <leader>um  :Unite -silent menu    <CR>
 " nnoremap <leader>umg :Unite -silent menu:git<CR>
 " let g:unite_source_menu_menus = {}
@@ -484,58 +480,58 @@ nnoremap <leader>uu  :UniteResume<CR>
 " \]
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" neocomplete: Next generation completion framework after neocomplcache
-"" https://github.com/Shougo/neocomplete.vim
-" Plugin 'Shougo/neocomplete'
-"" Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-"" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-"" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-"" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-"" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-"" stop the annoying popping up of scratch/preview in the modeline
-set completeopt-=preview
+" "" neocomplete: Next generation completion framework after neocomplcache
+" "" https://github.com/Shougo/neocomplete.vim
+" " Plugin 'Shougo/neocomplete'
+" "" Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" "" Disable AutoComplPop.
+" let g:acp_enableAtStartup = 0
+" "" Use neocomplete.
+" let g:neocomplete#enable_at_startup = 1
+" "" Use smartcase.
+" let g:neocomplete#enable_smart_case = 1
+" "" Set minimum syntax keyword length.
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
+" "let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" "" stop the annoying popping up of scratch/preview in the modeline
+" set completeopt-=preview
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" <space> completion
-" inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-" "" Plugin key-mappings.
-" inoremap <expr><C-g>     neocomplete#undo_completion()
-" inoremap <expr><C-l>     neocomplete#complete_common_string()
-" "" <CR> closes popup
-" inoremap <expr><CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
-" "" <TAB>: completion.
-" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-" "" <C-h>, <BS>: close popup and delete backword char.
+" " Recommended key-mappings.
+" " <CR>: close popup and save indent.
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+"   " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+"   " For no inserting <CR> key.
+"   return pumvisible() ? "\<C-y>" : "\<CR>"
+" endfunction
+" " <TAB>: completion.
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" " <C-h>, <BS>: close popup and delete backword char.
 " inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 " inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" inoremap <expr><space> pumvisible() ? neocomplete#smart_close_popup()."\<space>" : "\<space>"
-" inoremap <expr><C-y>  neocomplete#close_popup()
-" inoremap <expr><C-e>  neocomplete#cancel_popup()
+" " <space> completion
+" " inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
-"" Enable omni completion.
-autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+" " "" Plugin key-mappings.
+" " inoremap <expr><C-g>     neocomplete#undo_completion()
+" " inoremap <expr><C-l>     neocomplete#complete_common_string()
+" " "" <CR> closes popup
+" " inoremap <expr><CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
+" " "" <TAB>: completion.
+" " inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" " "" <C-h>, <BS>: close popup and delete backword char.
+" " inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+" " inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" " inoremap <expr><space> pumvisible() ? neocomplete#smart_close_popup()."\<space>" : "\<space>"
+" " inoremap <expr><C-y>  neocomplete#close_popup()
+" " inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+" "" Enable omni completion.
+" autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "" prettier integration
@@ -731,13 +727,7 @@ nnoremap <leader>je :call JSXExtractPartialPrompt()<CR>
 nnoremap vat :call JSXSelectTag()<CR>
 
 " Plugin 'flowtype/vim-flow'
-let g:flow#enable = 0
-
-"" FUTURES LIST //////////////////////////////////////
-" Plugin 'sotte/presenting.vim'
-" Plugin 'easymotion/vim-easymotion'
-" Plugin 'mvolkmann/vim-react'
-" Plugin 'junegunn/fzf.vim'
+" let g:flow#enable = 0
 
 silent noremap <Leader>gut :GundoToggle<CR>
 
