@@ -169,9 +169,9 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 "" Quickly close the current window
-nnoremap <leader>Q :q<CR>
+"nnoremap <leader>Q :q<CR>
 "" Quickly close the current buffer
-nnoremap <leader>q :bd<CR>
+"nnoremap <leader>q :bd<CR>
 
 "" copy / paste to the system clipboard
 vmap <leader>y "+y
@@ -256,20 +256,33 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
+Plug 'ctrlpvim/ctrlp.vim'
+
+Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 
 call plug#end()
+
+"" vim-sayonara """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Quickly close the current window
+nnoremap <leader>Q :Sayonara<CR>
+"" Quickly close the current buffer without quiting
+nnoremap <leader>q :Sayonara!<CR>
+
+"" ctrlp.vim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>ur :CtrlPMRU<CR>
 
 "" mru.vim """ http://www.vim.org/scripts/script.php?script_id=521 """""""""""""
 " nnoremap <leader>ur  :MRU<CR>
 let MRU_Filename_Format={'formatter':'v:val', 'parser':'.*'}
-
+let MRU_Max_Entries = 1000
 
 "" command-t' """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>ub  :CommandTBuffer<CR>
 nnoremap <leader>uf  :CommandT<CR>
 nnoremap <leader>uh  :CommandTHistory<CR>
-nnoremap <leader>ur  :CommandTMRU<CR>
-
+"" This does NOT do the same things as mru.vim
+"" Instead, this only reorders the buffer list
+" nnoremap <leader>ur  :CommandTMRU<CR>
 
 "" vim-commentary: comment stuff out """""""""""""""""""""""""""""""""""""""""""
 "" https://github.com/tpope/vim-commentary
