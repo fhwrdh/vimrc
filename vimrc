@@ -237,7 +237,7 @@ Plug 'gregsexton/gitv', {'on': ['Gitv']}
 """" Code
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'Syntastic'
+" Plug 'Syntastic'
 Plug 'sheerun/vim-polyglot'
 Plug 'majutsushi/tagbar'
 Plug 'hail2u/vim-css3-syntax'
@@ -266,13 +266,20 @@ Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-peekaboo'
 
 "" FUTURES LIST //////////////////////////////////////
+Plug 'w0rp/ale'
+let g:ale_sign_column_always = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_completion_enabled = 1
+let g:ale_linters = {
+\   'javascript': ['eslint', 'flow'],
+\}
 
 call plug#end()
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" vim-airline: lean & mean status/tabline for vim that's light as air.
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
+" let g:airline#extensions#syntastic#enabled = 1
 "" Automatically displays all buffers when there's only one tab open.
 let g:airline#extensions#tabline#enabled = 1
 
@@ -454,25 +461,25 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_max_line_indicator = "fill"
 let g:EditorConfig_verbose = 0
 
-"" Syntastic : Automatic syntax checking """""""""""""""""""""""""""""""""""""""
-"" http://www.vim.org/scripts/script.php?script_id=2736
-" Plugin 'Syntastic'
-let g:syntastic_javascript_checkers = ['eslint']
-"" Better :sign interface symbols
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '!'
-let g:syntastic_style_error_symbol = '☡'
-let g:syntastic_style_warning_symbol = '¡'
-"" Check on buffer open
-let g:syntastic_check_on_open = 1
-"" Always put errors in the location list
-let g:syntastic_always_populate_loc_list = 1
-"" Auto pop the quickfix split
-let g:syntastic_auto_loc_list = 1
-"" Aggregate errors for multiple checkers
-let g:syntastic_aggregate_errors = 1
-"" Don't check on write+quit
-let g:syntastic_check_on_wq = 0
+" "" Syntastic : Automatic syntax checking """""""""""""""""""""""""""""""""""""""
+" "" http://www.vim.org/scripts/script.php?script_id=2736
+" " Plugin 'Syntastic'
+" let g:syntastic_javascript_checkers = ['eslint']
+" "" Better :sign interface symbols
+" let g:syntastic_error_symbol = '✗'
+" let g:syntastic_warning_symbol = '!'
+" let g:syntastic_style_error_symbol = '☡'
+" let g:syntastic_style_warning_symbol = '¡'
+" "" Check on buffer open
+" let g:syntastic_check_on_open = 1
+" "" Always put errors in the location list
+" let g:syntastic_always_populate_loc_list = 1
+" "" Auto pop the quickfix split
+" let g:syntastic_auto_loc_list = 1
+" "" Aggregate errors for multiple checkers
+" let g:syntastic_aggregate_errors = 1
+" "" Don't check on write+quit
+" let g:syntastic_check_on_wq = 0
 
 "" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""""
 "" INCLUDED IN VIM-POLYGLOT "Plugin 'pangloss/vim-javascript'
