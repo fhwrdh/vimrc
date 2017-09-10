@@ -497,6 +497,11 @@ let javascript_enable_domhtmlcss=1
 " Plugin 'marijnh/tern_for_vim'
 let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
+nnoremap <leader>td :TernDef<CR>
+nnoremap <leader>tn :TernRename<CR>
+nnoremap <leader>tr :TernRefs<CR>
+nnoremap <leader>tt :TernType<CR>
+
 
 "" vim-jsx: React JSX syntax highlighting and indenting for vim. """""""""""""""
 "" This bundle requires pangloss's vim-javascript syntax highlighting.
