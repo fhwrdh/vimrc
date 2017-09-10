@@ -210,7 +210,6 @@ Plug 'wincent/terminus'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Yggdroot/indentLine'
-
 """" Files
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons' " must load after nerdtree
@@ -264,6 +263,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'unblevable/quick-scope'
 Plug 'wellle/targets.vim'
+Plug 'junegunn/vim-peekaboo'
 
 "" FUTURES LIST //////////////////////////////////////
 
@@ -563,32 +563,8 @@ vnoremap <expr> <silent> F Quick_scope_selective('F')
 vnoremap <expr> <silent> t Quick_scope_selective('t')
 vnoremap <expr> <silent> T Quick_scope_selective('T')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" prettier integration
@@ -597,18 +573,6 @@ vnoremap <expr> <silent> T Quick_scope_selective('T')
 " autocmd FileType javascript set formatprg=prettier\ --single-quote\ --trailing-comma\ all\ --stdin
 "" format on save
 " autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
-
-
-
-
-
-
-
-
-
-
-
-
 
 "" Functions
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -632,6 +596,8 @@ function! ListLeaders()
   silent! normal <esc>
 endfunction
 command! ListLeaders :call ListLeaders()
+nnoremap <leader>ll  :ListLeaders<CR>
+
 
 "" Clobber the cursor line styling, regardless of what the
 "" coloscheme does
