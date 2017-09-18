@@ -171,7 +171,6 @@ vmap <leader>p "+p
 vmap <leader>P "+P
 
 "" toggle paste mode
-map <leader>pp :setlocal paste!<cr>
 nnoremap <silent> <F5> :setlocal paste!<CR>
 
 "" quickly select the text just pasted
@@ -241,6 +240,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'majutsushi/tagbar'
 Plug 'hail2u/vim-css3-syntax'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
 
 """" JavaScript
 "" Prefer local repo install of eslint over global install with syntastic
@@ -271,7 +273,7 @@ let g:ale_sign_column_always = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
 let g:ale_linters = {
-\   'javascript': ['eslint', 'flow'],
+\   'javascript': ['eslint'],
 \}
 
 call plug#end()
@@ -461,26 +463,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_max_line_indicator = "fill"
 let g:EditorConfig_verbose = 0
 
-" "" Syntastic : Automatic syntax checking """""""""""""""""""""""""""""""""""""""
-" "" http://www.vim.org/scripts/script.php?script_id=2736
-" " Plugin 'Syntastic'
-" let g:syntastic_javascript_checkers = ['eslint']
-" "" Better :sign interface symbols
-" let g:syntastic_error_symbol = '✗'
-" let g:syntastic_warning_symbol = '!'
-" let g:syntastic_style_error_symbol = '☡'
-" let g:syntastic_style_warning_symbol = '¡'
-" "" Check on buffer open
-" let g:syntastic_check_on_open = 1
-" "" Always put errors in the location list
-" let g:syntastic_always_populate_loc_list = 1
-" "" Auto pop the quickfix split
-" let g:syntastic_auto_loc_list = 1
-" "" Aggregate errors for multiple checkers
-" let g:syntastic_aggregate_errors = 1
-" "" Don't check on write+quit
-" let g:syntastic_check_on_wq = 0
-
 "" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""""
 "" INCLUDED IN VIM-POLYGLOT "Plugin 'pangloss/vim-javascript'
 "" to disable individual language packs:
@@ -497,8 +479,10 @@ let javascript_enable_domhtmlcss=1
 " let g:javascript_conceal_super          = "Ω"
 " let g:javascript_conceal_arrow_function = "⇒"
 
+"" vim-prettier """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>pp :PrettierAsync<CR>
+
 "" tern_for_vim: Tern plugin for vim """""""""""""""""""""""""""""""""""""""""""
-"" https://github.com/marijnh/tern_for_vim
 "" Install the tern server by running npm install in the bundle/tern_for_vim
 "" directory.
 " Plugin 'marijnh/tern_for_vim'
