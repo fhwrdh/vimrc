@@ -216,7 +216,8 @@ Plug 'mru.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 """" Completion
-Plug 'ajh17/VimCompletesMe'
+Plug 'Shougo/neocomplete'
+" Plug 'ajh17/VimCompletesMe'
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --term-completer --clang-completer' }
 """" Snippets
 Plug 'SirVer/ultisnips'
@@ -420,6 +421,45 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
 
+
+"" neocomplete """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+" AutoComplPop like behavior.
+let g:neocomplete#enable_auto_select = 1
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+" inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+
+
+
 "" Ultisnips """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<C-l>"
@@ -456,6 +496,10 @@ let g:gitgutter_sign_modified_removed = 'ww'
 let g:gitgutter_map_keys = 0
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
+nnoremap <silent><leader>gn :GitGutterNextHunk<CR>
+nnoremap <silent><leader>gp :GitGutterPrevHunk<CR>
+nnoremap <silent><leader>gu :GitGutterUndoHunk<CR>
+nnoremap <silent><leader>gv :GitGutterPreviewHunk<CR>
 
 "" EditorConfig Vim Plugin """""""""""""""""""""""""""""""""""""""""""""""""""
 "" To ensure that this plugin works well with Tim Pope's fugitive,
