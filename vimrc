@@ -401,6 +401,8 @@ command! FZFMru call fzf#run({
 \  'down':    '40%'})
 nnoremap <Leader>fa  :FZFAg<Space>
 nnoremap <Leader>faa :FZFAg!<Space>
+" find word under cursor
+nnoremap <Leader>fac :call fzf#vim#tags(expand('<cword>'))<CR>
 nnoremap <Leader>fb  :FZFBuffers<CR>
 nnoremap <Leader>fc  :FZFCommits<CR>
 nnoremap <Leader>fcb :FZFBCommits<CR>
@@ -420,7 +422,6 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
-
 
 "" neocomplete """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Disable AutoComplPop.
