@@ -205,9 +205,10 @@ nnoremap <silent> <leader>z :call <sid>zoom()<cr>
 call plug#begin('~/.vim/plugged')
 """" Env
 Plug 'wincent/terminus'
+Plug 'tpope/vim-obsession'
 """" UI
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'bling/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'Yggdroot/indentLine'
 """" Files
 Plug 'scrooloose/nerdtree'
@@ -245,7 +246,7 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
 
-"""" JavaScript
+""" JavaScript
 "" Prefer local repo install of eslint over global install with syntastic
 Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
@@ -271,7 +272,7 @@ Plug 'junegunn/vim-peekaboo'
 "" FUTURES LIST //////////////////////////////////////
 Plug 'w0rp/ale'
 let g:ale_sign_column_always = 1
-let g:airline#extensions#ale#enabled = 1
+" let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
@@ -280,22 +281,23 @@ let g:ale_linters = {
 call plug#end()
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" vim-airline: lean & mean status/tabline for vim that's light as air.
-let g:airline#extensions#branch#enabled = 1
-" let g:airline#extensions#syntastic#enabled = 1
-"" Automatically displays all buffers when there's only one tab open.
-let g:airline#extensions#tabline#enabled = 1
+" "" vim-airline: lean & mean status/tabline for vim that's light as air.
+" let g:airline#extensions#branch#enabled = 1
+" " let g:airline#extensions#syntastic#enabled = 1
+" "" Automatically displays all buffers when there's only one tab open.
+" let g:airline#extensions#tabline#enabled = 1
 
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-      let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-if has("gui_running")
-    let g:airline_theme             = 'apprentice'
-else
-    let g:airline_theme             = 'dark'
-endif
+" let g:airline_powerline_fonts = 1
+" if !exists('g:airline_symbols')
+"       let g:airline_symbols = {}
+" endif
+" let g:airline_symbols.space = "\ua0"
+" if has("gui_running")
+"     let g:airline_theme             = 'apprentice'
+" else
+"     let g:airline_theme             = 'dark'
+" endif
+" let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 
 "" https://github.com/Yggdroot/indentLine """""""""""""""""""""""""""""""""""
 "" A vim plugin to display the indention levels with thin vertical lines
