@@ -15,7 +15,7 @@ set autowriteall              " save all files when switching buffers
 :au FocusLost * :wa           " save all files with losing focus
 set mouse=a
 
-"" Backup
+"" [ Backup ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set directory=~/.vim/tmp/     " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
 set nowritebackup             " no backups on write
@@ -29,14 +29,14 @@ if exists("&undodir")
 endif
 set viminfo+=n$HOME/.vim/tmp/viminfo
 
-"" Match and search
+"" [ Match and search ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set hlsearch              " highlight search
 set ignorecase            " Do case in sensitive matching with
 set smartcase             " be sensitive when there's a capital letter
 set incsearch             " Search as you type
 
-"" Visual
+"" [ Visual ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number                " Show line numbers
 set showmatch             " Show matching brackets.
@@ -61,7 +61,7 @@ set wildmenu
 " set colorcolumn=100,120     " highlight column 79 as a soft reminder
 set cursorline
 
-"" Text Formatting
+"" [ Text Formatting ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autoindent
 set smartindent
@@ -71,7 +71,7 @@ set shiftwidth=4          " Width of '<' '>' indentation
 set expandtab             " Insert spaces when <TAB>ing
 set nosmarttab
 
-"" Keybindings
+"" [ Keybindings ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" map semi to colon. saves the shift
 " nnoremap ; :
@@ -210,10 +210,20 @@ Plug 'tpope/vim-obsession'
 " Plug 'bling/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 Plug 'Yggdroot/indentLine'
+Plug 'itchyny/lightline.vim'
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 """" Files
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons' " must load after nerdtree
-Plug 'mru.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 """" Completion
@@ -242,9 +252,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'majutsushi/tagbar'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 """ JavaScript
 "" Prefer local repo install of eslint over global install with syntastic
@@ -257,7 +265,7 @@ Plug 'samuelsimoes/vim-jsx-utils'
 Plug 'styled-components/vim-styled-components'
 """" Markdown
 Plug 'tpope/vim-markdown'
-Plug 'shime/vim-livedown'
+" Plug 'shime/vim-livedown'
 """" Utils
 Plug 'guns/xterm-color-table.vim'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
@@ -269,16 +277,20 @@ Plug 'unblevable/quick-scope'
 Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-peekaboo'
 
-"" FUTURES LIST //////////////////////////////////////
 Plug 'w0rp/ale'
+
+"" FUTURES LIST //////////////////////////////////////
+Plug 'justinmk/vim-sneak'
+let g:sneak#label = 1
+
+call plug#end()
+
 let g:ale_sign_column_always = 1
 " let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \}
-
-call plug#end()
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " "" vim-airline: lean & mean status/tabline for vim that's light as air.
@@ -355,11 +367,6 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 " whether or not to show the nerdtree brackets around flags
 let g:webdevicons_conceal_nerdtree_brackets = 1
 
-"" mru.vim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" nnoremap <leader>ur :MRU<CR>
-let MRU_Filename_Format={'formatter':'v:val', 'parser':'.*'}
-let MRU_Max_Entries = 1000
-
 "" fzf.vim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:fzf_command_prefix = 'FZF'
 " This is the default extra key bindings
@@ -369,7 +376,7 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 " Default fzf layout
 " - down / up / left / right
-let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_layout = { 'down': '~40%' }
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
@@ -396,11 +403,11 @@ nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 
-command! FZFMru call fzf#run({
-\  'source':  v:oldfiles,
-\  'sink':    'e',
-\  'options': '-m -x +s',
-\  'down':    '40%'})
+" command! FZFMru call fzf#run({
+" \  'source':  v:oldfiles,
+" \  'sink':    'e',
+" \  'options': '-m -x +s',
+" \  'down':    '40%'})
 nnoremap <Leader>fa  :FZFAg<Space>
 nnoremap <Leader>faa :FZFAg!<Space>
 " find word under cursor
@@ -413,8 +420,7 @@ nnoremap <Leader>fff :FZFFiles<CR>
 nnoremap <Leader>fg  :FZFGFiles? --exclude-standard --cached --others<CR>
 nnoremap <Leader>fgg :FZFGFiles<CR>
 nnoremap <Leader>fh  :FZFHistory<CR>
-nnoremap <Leader>fm  :FZFMru<CR>
-nnoremap <leader>ur  :FZFMru<CR>
+nnoremap <Leader>fm  :FZFHistory<CR>
 nnoremap <Leader>fs  :FZFSnippets<CR>
 nnoremap <Leader>fw  :FZFWindows<CR>
 
@@ -560,7 +566,7 @@ nnoremap vat :call JSXSelectTag()<CR>
 "" livedown: """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" requires livedown app: npm install -g livedown
 "" ./livedown start <file> --open
-nmap gm :LivedownToggle<CR>
+" nmap gm :LivedownToggle<CR>
 
 "" vim-sayonara """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Quickly close the current window
@@ -603,14 +609,6 @@ vnoremap <expr> <silent> T Quick_scope_selective('T')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" prettier integration
-"" requires a global prettier install
-"" this hooks into 'gq' command
-" autocmd FileType javascript set formatprg=prettier\ --single-quote\ --trailing-comma\ all\ --stdin
-"" format on save
-" autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
 
 "" Functions
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
