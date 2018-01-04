@@ -421,6 +421,7 @@ nnoremap <Leader>fff :FZFFiles<CR>
 nnoremap <Leader>fg  :FZFGFiles? --exclude-standard --cached --others<CR>
 nnoremap <Leader>fgg :FZFGFiles<CR>
 nnoremap <Leader>fh  :FZFHistory<CR>
+nnoremap <Leader>fl  :FZFLines<CR>
 nnoremap <Leader>fm  :FZFHistory<CR>
 nnoremap <Leader>fs  :FZFSnippets<CR>
 nnoremap <Leader>fw  :FZFWindows<CR>
