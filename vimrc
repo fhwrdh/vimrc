@@ -281,6 +281,7 @@ Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-peekaboo'
 
 Plug 'w0rp/ale'
+Plug 'machakann/vim-highlightedyank'
 
 "" FUTURES LIST //////////////////////////////////////
 Plug 'justinmk/vim-sneak'
