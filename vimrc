@@ -118,12 +118,12 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 "" remove the ^M from wonky windows encodings
 noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-"" open/close splits
+"" open splits
 nnoremap <leader>vs :sp<CR>
 nnoremap <leader>vv :vsp<CR>
 
 "" toggle relative/absolute line numbers
-" nnoremap <silent><leader>n :set rnu! rnu? <cr>
+nnoremap <silent><leader>n :set rnu! rnu? <cr>
 
 "" Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
