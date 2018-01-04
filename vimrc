@@ -162,6 +162,9 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
+" let terminal resize scale the internal windows
+autocmd VimResized * :wincmd =
+
 "" copy / paste to the system clipboard
 vmap <leader>y "+y
 vmap <leader>d "+d
