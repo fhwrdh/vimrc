@@ -99,18 +99,27 @@ map <space> <leader>
 "" fast saving a buffer
 nmap <leader>w :wa!<cr>
 
-"" handy buffer list
-" nmap <leader>b :ls<CR>:b<Space>
+"" map backspace to last buffer
+nnoremap <bs> <c-^>
+
+"" format file without losing position
+nnoremap g= mmgg=G`m
+
+"" insert newline in normal mode
+nnoremap <CR> :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
 "" call :sudow FILENAME when bit by a file you don't own
 cnoremap sudow w !sudo tee % >/dev/null
+
+"" search/replace with selection
+xnoremap gr y:%s/<C-r>"//g<Left><Left>
 
 "" clear the highlighting of :set hlsearch.
 nnoremap <leader>/ :nohls<CR>
 
 "" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
 
 "" remove trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -197,6 +206,10 @@ function! s:zoom()
 endfunction
 nnoremap <silent> <leader>z :call <sid>zoom()<cr>
 
+"" insert current date
+"" map F3 to insert current date
+nnoremap <F4> "=strftime("%Y-%m-%d")<CR>
+inoremap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" plug.vim | https://github.com/junegunn/vim-plug
