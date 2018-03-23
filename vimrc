@@ -223,8 +223,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'wincent/terminus'
 Plug 'tpope/vim-obsession'
 """" UI
-" Plug 'bling/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
@@ -300,6 +300,10 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'justinmk/vim-sneak'
 let g:sneak#label = 1
 
+" Increment dates, times, and more
+Plug 'tpope/vim-speeddating', { 'for': 'org' }
+
+Plug 'mattn/emmet-vim'
 call plug#end()
 
 let g:ale_sign_column_always = 1
