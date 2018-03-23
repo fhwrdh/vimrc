@@ -50,7 +50,7 @@ hi StatusLineNC    guifg=#f0f6e6   guibg=#68774f   gui=none            ctermfg=2
 hi VertSplit       guifg=#828282   guibg=#828282   gui=none            ctermfg=238     ctermbg=238     cterm=NONE
 hi Folded          guifg=#a0a8b0   guibg=#384048   gui=none            ctermfg=248     ctermbg=4       cterm=NONE
 hi Title           guifg=#f6f3e8   guibg=NONE      gui=bold            ctermfg=254                     cterm=NONE
-hi Visual          guifg=#faf4c6   guibg=#3c414c   gui=none            ctermfg=254     ctermbg=4       cterm=NONE
+hi Visual          guifg=#faf4c6   guibg=#3c414c   gui=none            ctermfg=254     ctermbg=241     cterm=NONE
 hi SpecialKey      guifg=#808080   guibg=#343434   gui=none            ctermfg=244     ctermbg=236     cterm=NONE
 
 hi Search          guifg=#808080   guibg=#343434   gui=none            ctermfg=253     ctermbg=22 cterm=NONE
