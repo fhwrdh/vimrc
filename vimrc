@@ -60,6 +60,7 @@ set splitright
 set wildmenu
 " set colorcolumn=100,120     " highlight column 79 as a soft reminder
 set cursorline
+set cursorcolumn
 
 "" [ Text Formatting ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -264,6 +265,8 @@ Plug 'gregsexton/gitv', {'on': ['Gitv']}
 """" Code
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'kristijanhusak/vim-js-file-import'
 " Plug 'Syntastic'
 Plug 'sheerun/vim-polyglot'
 Plug 'majutsushi/tagbar'
@@ -349,6 +352,8 @@ let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycach
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:NERDTreeShowHidden=1
+let g:NERDTreeMinimalUI=1
+" let g:NERDTreeDirArrows=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 30
