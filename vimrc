@@ -441,6 +441,7 @@ nnoremap <Leader>fac :call fzf#vim#tags(expand('<cword>'))<CR>
 nnoremap <Leader>fb  :FZFBuffers<CR>
 nnoremap <Leader>fc  :FZFCommits<CR>
 nnoremap <Leader>fcb :FZFBCommits<CR>
+" https://github.com/junegunn/fzf.vim/issues/364
 nnoremap <Leader>ff  :Files<CR>
 nnoremap <Leader>fff :FZFFiles<CR>
 nnoremap <Leader>fg  :FZFGFiles? --exclude-standard --cached --others<CR>
