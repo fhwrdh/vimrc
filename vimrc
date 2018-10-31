@@ -240,7 +240,11 @@ let g:lightline = {
       \ }
 """" Files
 Plug 'scrooloose/nerdtree'
-Plug 'ryanoasis/vim-devicons' " must load after nerdtree
+"" Requires nerd-font versions of fonts:
+""   brew tap homebrew/cask-fonts
+""   brew cask install font-monoid-nerd-font-mono
+"" must load after nerdtree
+Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 """" Completion
