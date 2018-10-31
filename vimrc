@@ -380,8 +380,10 @@ call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
 
 "" this opens nerdtree pointing to the location of the file in the current
 "" buffer
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-noremap <F3> :NERDTreeToggle<CR>
+" nnoremap <silent> <F2> :NERDTreeFind<CR>
+" noremap <F3> :NERDTreeToggle<CR>
+nnoremap <Leader>nf  :NERDTreeFind<CR>
+nnoremap <Leader>nn  :NERDTreeToggle<CR>
 
 "" ryanoasis/vim-devicons """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" enable for nerdtree
