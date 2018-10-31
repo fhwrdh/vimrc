@@ -559,6 +559,8 @@ let javascript_enable_domhtmlcss=1
 
 "" vim-prettier """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>pp :PrettierAsync<CR>
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 
 "" tern_for_vim: Tern plugin for vim """""""""""""""""""""""""""""""""""""""""""
 "" Install the tern server by running npm install in the bundle/tern_for_vim
