@@ -194,10 +194,10 @@ hi link sassProperty  cssDefinition
 " GitGutter
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 hi SignColumn            ctermbg=232 ctermfg=227
-hi GitGutterAdd          ctermbg=118 ctermfg=232
-hi GitGutterChange       ctermbg=190 ctermfg=232
-hi GitGutterDelete       ctermbg=196 ctermfg=232
-hi GitGutterChangeDelete ctermbg=27  ctermfg=232
+hi GitGutterAdd          ctermbg=233 ctermfg=118
+hi GitGutterChange       ctermbg=233 ctermfg=190
+hi GitGutterDelete       ctermbg=233 ctermfg=196
+hi GitGutterChangeDelete ctermbg=233 ctermfg=27
 
 
 
