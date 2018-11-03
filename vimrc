@@ -527,11 +527,11 @@ nnoremap <silent> <leader>gs :Gstatus<CR>
 
 "" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""""
 "" (sign column) and stages/reverts hunks.
-let g:gitgutter_sign_added = '++'
-let g:gitgutter_sign_modified = '~~'
-let g:gitgutter_sign_removed = '--'
-let g:gitgutter_sign_removed_first_line = '^^'
-let g:gitgutter_sign_modified_removed = 'ww'
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '·'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '~'
 
 "" Don't map any keys by default
 let g:gitgutter_map_keys = 0
