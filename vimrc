@@ -403,8 +403,7 @@ let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:fzf_command_prefix = 'FZF'
 " This is the default extra key bindings
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
+  \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
 " Default fzf layout
 " - down / up / left / right
@@ -444,12 +443,14 @@ nnoremap <Leader>fa  :FZFAg<Space>
 nnoremap <Leader>faa :FZFAg!<Space>
 " find word under cursor
 nnoremap <Leader>fac :call fzf#vim#tags(expand('<cword>'))<CR>
+nnoremap ;  :FZFBuffers<CR>
 nnoremap <Leader>fb  :FZFBuffers<CR>
 nnoremap <Leader>fc  :FZFCommits<CR>
 nnoremap <Leader>fcb :FZFBCommits<CR>
 " https://github.com/junegunn/fzf.vim/issues/364
 nnoremap <Leader>ff  :Files<CR>
-nnoremap <Leader>fff :FZFFiles<CR>
+" nnoremap <Leader>fff :FZFFiles<CR>
+nnoremap <Leader>fff :call fzf#vim#files('.', {'options':'--query '.expand('<cword>')})<CR>
 nnoremap <Leader>fg  :FZFGFiles? --exclude-standard --cached --others<CR>
 nnoremap <Leader>fgg :FZFGFiles<CR>
 nnoremap <Leader>fh  :FZFHistory<CR>
