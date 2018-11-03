@@ -101,7 +101,9 @@ map <space> <leader>
 nmap <leader>w :wa!<cr>
 
 "" map backspace to last buffer
-nnoremap <bs> <c-^>
+" nnoremap <bs> <c-^>
+"" go to most recent buffer
+nmap <leader>e :e#<CR>
 
 "" format file without losing position
 nnoremap g= mmgg=G`m
@@ -151,9 +153,9 @@ map <leader>sa zg
 map <leader>s? z=
 
 "" buffer mgmt: next/prev/delete/closeall
-nnoremap <leader>bp :bp<CR>
-nnoremap <leader>bn :bn<CR>
-nnoremap <leader>bd :bd<CR>
+" nnoremap <leader>bp :bp<CR>
+" nnoremap <leader>bn :bn<CR>
+" nnoremap <leader>bd :bd<CR>
 
 "" windows
 nnoremap <C-h> <C-w>h
