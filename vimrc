@@ -226,11 +226,11 @@ inoremap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
 call plug#begin('~/.vim/plugged')
 """" Env
 Plug 'wincent/terminus'
-Plug 'tpope/vim-obsession'
+" Plug 'tpope/vim-obsession'
 """" UI
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'Yggdroot/indentLine'
+" Plug 'bling/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -248,7 +248,7 @@ Plug 'scrooloose/nerdtree'
 ""   brew tap homebrew/cask-fonts
 ""   brew cask install font-monoid-nerd-font-mono
 "" must load after nerdtree
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 """" Completion
@@ -343,15 +343,15 @@ let g:ale_linters = {
 " endif
 " let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 
-"" https://github.com/Yggdroot/indentLine """""""""""""""""""""""""""""""""""
-"" A vim plugin to display the indention levels with thin vertical lines
-let g:indentLine_enabled = 1
-" Vim
-let g:indentLine_color_term = 16
-" none X terminal
-" let g:indentLine_color_tty_light = 4 " (default: 4)
-" let g:indentLine_color_dark = 2 " (default: 2)
-let g:indentLine_char = '│'
+" "" https://github.com/Yggdroot/indentLine """""""""""""""""""""""""""""""""""
+" "" A vim plugin to display the indention levels with thin vertical lines
+" let g:indentLine_enabled = 0
+" " Vim
+" let g:indentLine_color_term = 16
+" " none X terminal
+" " let g:indentLine_color_tty_light = 4 " (default: 4)
+" " let g:indentLine_color_dark = 2 " (default: 2)
+" let g:indentLine_char = '│'
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" The NERD tree : A tree explorer plugin for navigating the filesystem.
