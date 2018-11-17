@@ -261,6 +261,7 @@ Plug 'honza/vim-snippets'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
 """" Search
+"" Ferret provides an :Ack command for searching across multiple files
 Plug 'wincent/ferret'
 Plug 'Chun-Yang/vim-action-ag'
 Plug 'easymotion/vim-easymotion'
