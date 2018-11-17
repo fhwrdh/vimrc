@@ -123,6 +123,8 @@ nnoremap <leader>/ :nohls<CR>
 "" Quickly edit/reload the vimrc file
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
+" reload on save
+autocmd BufWritePost .vimrc source $MYVIMRC
 
 "" remove trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
