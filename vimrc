@@ -226,22 +226,31 @@ inoremap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
 call plug#begin('~/.vim/plugged')
 """" Env
 Plug 'wincent/terminus'
-" Plug 'tpope/vim-obsession'
+
 """" UI
-" Plug 'bling/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
+Plug 'maximbaz/lightline-ale'
+let g:lightline = {}
+let g:lightline.colorscheme = 'wombat'
+let g:lightline.component_function = {
       \   'gitbranch': 'fugitive#head'
-      \ },
       \ }
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+let g:lightline.component_type = {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
+      \ }
+let g:lightline.active = {
+      \   'left': [ [ 'mode', 'paste' ]],
+      \   'right': [[ 'gitbranch', 'readonly', 'filename', 'modified', 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+
 """" Files
 Plug 'scrooloose/nerdtree'
 "" Requires nerd-font versions of fonts:
