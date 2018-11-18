@@ -67,9 +67,15 @@ mkdir -p "$HOME/.vim/autoload/airline/themes/"
 # ln -s -f "$PWD/autoload/airline/themes/fhwrdh.vim" "$HOME/.vim/autoload/airline/themes/fhwrdh.vim"
 cp "$PWD/autoload/airline/themes/fhwrdh.vim" "$HOME/.vim/autoload/airline/themes/fhwrdh.vim"
 
-
 vim +PlugUpgrade +qa || { echo 'Error upgrading Plug. Will continue.'; }
 vim +PlugInstall +qa || { echo 'Error installing vim plugins'; return 1; }
+
+echo "Custom snippets"
+mkdir -p "$HOME/.vim/UltiSnips"
+for f in $(ls UltiSnips/*)
+do
+    ln -s -f "$PWD/$f" "$HOME/.vim/UltiSnips"
+done
 
 echo "Custom ftplugins"
 mkdir -p "$HOME/.vim/ftplugin"

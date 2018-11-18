@@ -490,11 +490,12 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "" Ultisnips """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<C-l>"
-let g:UltiSnipsListSnippets = "<c-n>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsListSnippets = "<C-x>"
+let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="horizontal"
+let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
 
 "" vim-action-ag """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" use * to search current word in normal mode
