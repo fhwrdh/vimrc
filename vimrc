@@ -249,7 +249,7 @@ let g:lightline.component_type = {
       \ }
 let g:lightline.active = {
       \   'left': [ [ 'mode', 'paste' ]],
-      \   'right': [[ 'gitbranch', 'readonly', 'filename', 'modified', 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+      \   'right': [[ 'gitbranch', 'readonly', 'filename', 'modified'  ]] }
 
 """" Files
 Plug 'scrooloose/nerdtree'
