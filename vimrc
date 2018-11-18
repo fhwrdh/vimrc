@@ -251,40 +251,40 @@ Plug 'scrooloose/nerdtree'
 " Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
 """" Completion
 Plug 'Shougo/neocomplete'
-" Plug 'ajh17/VimCompletesMe'
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --term-completer --clang-completer' }
+
 """" Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
-"""" Search
+
+"""" Search / Motion
 "" Ferret provides an :Ack command for searching across multiple files
 Plug 'wincent/ferret'
-Plug 'Chun-Yang/vim-action-ag'
+"" try: ,,w
 Plug 'easymotion/vim-easymotion'
+
 """" Git
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/gv.vim'
-Plug 'kablamo/vim-git-log'
+Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv', {'on': ['Gitv']}
+
 """" Code
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'kristijanhusak/vim-js-file-import'
-" Plug 'Syntastic'
+Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
-Plug 'majutsushi/tagbar'
+
 Plug 'hail2u/vim-css3-syntax'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 """ JavaScript
 "" Prefer local repo install of eslint over global install with syntastic
-Plug 'mtscout6/syntastic-local-eslint.vim'
+" Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 """" React
 Plug 'mvolkmann/vim-react'
@@ -306,7 +306,6 @@ Plug 'unblevable/quick-scope'
 Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-peekaboo'
 
-Plug 'w0rp/ale'
 Plug 'machakann/vim-highlightedyank'
 
 "" FUTURES LIST //////////////////////////////////////
@@ -319,41 +318,12 @@ Plug 'tpope/vim-speeddating', { 'for': 'org' }
 Plug 'mattn/emmet-vim'
 call plug#end()
 
-let g:ale_sign_column_always = 1
-" let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \}
-
-"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" "" vim-airline: lean & mean status/tabline for vim that's light as air.
-" let g:airline#extensions#branch#enabled = 1
-" " let g:airline#extensions#syntastic#enabled = 1
-" "" Automatically displays all buffers when there's only one tab open.
-" let g:airline#extensions#tabline#enabled = 1
-
-" let g:airline_powerline_fonts = 1
-" if !exists('g:airline_symbols')
-"       let g:airline_symbols = {}
-" endif
-" let g:airline_symbols.space = "\ua0"
-" if has("gui_running")
-"     let g:airline_theme             = 'apprentice'
-" else
-"     let g:airline_theme             = 'dark'
-" endif
-" let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
-
-" "" https://github.com/Yggdroot/indentLine """""""""""""""""""""""""""""""""""
-" "" A vim plugin to display the indention levels with thin vertical lines
-" let g:indentLine_enabled = 0
-" " Vim
-" let g:indentLine_color_term = 16
-" " none X terminal
-" " let g:indentLine_color_tty_light = 4 " (default: 4)
-" " let g:indentLine_color_dark = 2 " (default: 2)
-" let g:indentLine_char = '│'
+let g:ale_set_loclist = 1
+let g:ale_list_window_size = 5
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" The NERD tree : A tree explorer plugin for navigating the filesystem.
@@ -597,7 +567,6 @@ let g:jsx_ext_required = 0
 
 "" https://github.com/samuelsimoes/vim-jsx-utils """"""""""""""""""""""""""""""""
 "" Plugin with some utilities (like extract partial render) to folks who work with JSX on Vim.
-" Plugin 'samuelsimoes/vim-jsx-utils'
 nnoremap <leader>je :call JSXExtractPartialPrompt()<CR>
 nnoremap <leader>ji :call JSXEachAttributeInLine()<CR>
 nnoremap <leader>jr :call JSXEncloseReturn()<CR>
