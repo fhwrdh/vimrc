@@ -263,6 +263,9 @@ Plug 'junegunn/fzf.vim'
 
 """" Completion
 Plug 'Shougo/neocomplete'
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
 
 """" Snippets
 Plug 'SirVer/ultisnips'
@@ -452,6 +455,7 @@ let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=.git'
 "" neocomplete """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
+" let g:deoplete#enable_at_startup = 1
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
@@ -460,6 +464,10 @@ let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 " AutoComplPop like behavior.
 let g:neocomplete#enable_auto_select = 1
+
+" call deoplete#custom#option({
+" \ 'smart_case': v:true,
+" \ })
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -474,6 +482,8 @@ inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 " Close popup by <Space>.
 " inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
@@ -483,8 +493,6 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-
 
 
 "" Ultisnips """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
