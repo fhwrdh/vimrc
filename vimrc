@@ -262,10 +262,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 """" Completion
-Plug 'Shougo/neocomplete'
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'roxma/nvim-yarp'
-" Plug 'roxma/vim-hug-neovim-rpc'
+" Plug 'Shougo/neocomplete'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 """" Snippets
 Plug 'SirVer/ultisnips'
@@ -317,7 +317,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'unblevable/quick-scope'
 Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-peekaboo'
-
 Plug 'machakann/vim-highlightedyank'
 
 "" FUTURES LIST //////////////////////////////////////
@@ -328,6 +327,7 @@ let g:sneak#label = 1
 Plug 'tpope/vim-speeddating', { 'for': 'org' }
 
 Plug 'mattn/emmet-vim'
+Plug 'itchyny/vim-cursorword'
 call plug#end()
 
 let g:ale_completion_enabled = 1
@@ -455,19 +455,19 @@ let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=.git'
 "" neocomplete """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-" let g:deoplete#enable_at_startup = 1
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-" AutoComplPop like behavior.
-let g:neocomplete#enable_auto_select = 1
+let g:deoplete#enable_at_startup = 1
+" " Use neocomplete.
+" let g:neocomplete#enable_at_startup = 1
+" " Use smartcase.
+" let g:neocomplete#enable_smart_case = 1
+" " Set minimum syntax keyword length.
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
+" " AutoComplPop like behavior.
+" let g:neocomplete#enable_auto_select = 1
 
-" call deoplete#custom#option({
-" \ 'smart_case': v:true,
-" \ })
+call deoplete#custom#option({
+\ 'smart_case': v:true,
+\ })
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -482,8 +482,8 @@ inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 " Close popup by <Space>.
 " inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
