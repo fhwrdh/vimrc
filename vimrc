@@ -1,4 +1,5 @@
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "" fhwrdh | vimrc
 "" URL: http://www.github.com/fhwrdh/vimrc
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -328,6 +329,10 @@ Plug 'tpope/vim-speeddating', { 'for': 'org' }
 
 Plug 'mattn/emmet-vim'
 Plug 'itchyny/vim-cursorword'
+
+Plug 'alvan/vim-closetag'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
+
 call plug#end()
 
 let g:ale_completion_enabled = 1
