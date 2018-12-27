@@ -30,6 +30,7 @@ hi Key             guifg=#FBDE2D   guibg=NONE      gui=NONE             ctermfg=
 " Interface                                                                                                          "
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 
+
 hi Cursor          guifg=#000000   guibg=#DEFF8E   gui=none            ctermbg=241     ctermbg=NONE    cterm=NONE
 hi CursorColumn    guifg=NONE      guibg=#202020                                       ctermbg=233     cterm=NONE
 hi CursorLine      guifg=NONE      guibg=#202020                                       ctermbg=233     cterm=NONE
@@ -52,8 +53,11 @@ hi Folded          guifg=#a0a8b0   guibg=#384048   gui=none            ctermfg=2
 hi Title           guifg=#f6f3e8   guibg=NONE      gui=bold            ctermfg=254                     cterm=NONE
 hi Visual          guifg=#faf4c6   guibg=#3c414c   gui=none            ctermfg=254     ctermbg=241     cterm=NONE
 hi SpecialKey      guifg=#808080   guibg=#343434   gui=none            ctermfg=244     ctermbg=236     cterm=NONE
-
 hi Search          guifg=#808080   guibg=#343434   gui=none            ctermfg=253     ctermbg=22 cterm=NONE
+"" SpellBad is the alias for ALE errors
+hi SpellBad        guifg=#870000                                       ctermfg=NONE    ctermbg=88
+hi ErrorMsg        guifg=#870000                                       ctermfg=NONE    ctermbg=88
+hi Error           guifg=#870000                                       ctermfg=NONE    ctermbg=88
 
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 " VimL related colors
