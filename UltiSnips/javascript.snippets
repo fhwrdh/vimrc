@@ -1,5 +1,5 @@
 snippet cll "console.log"
-console.log(${1});
+console.log('${1}');
 endsnippet
 
 snippet il "import named local"
@@ -10,14 +10,21 @@ snippet inm "import node module"
 import ${1} from '${2:$1}';
 endsnippet
 
+snippet react "import react"
+import React from 'react';
+endsnippet
+
 snippet irr "import react"
 import React from 'react';
 endsnippet
 
-snippet isc "import styled-components"
-import styled from 'styled-components';
+snippet isc "import styled-components/macro"
+import styled from 'styled-components/macro';
 endsnippet
 
+snippet iramda "import ramda"
+import * as R from 'ramda';
+endsnippet
 
 snippet rsf "react s-c func"
 import React from 'react';
@@ -30,3 +37,10 @@ export const ${1} = ${2:()} => {
 }
 
 endsnippet
+
+snippet scd "s-c div"
+const ${1} = styled.div\`
+  ${2}
+\`;
+endsnippet
+
