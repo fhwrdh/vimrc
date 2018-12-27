@@ -327,6 +327,7 @@ let g:sneak#label = 1
 " Increment dates, times, and more
 Plug 'tpope/vim-speeddating', { 'for': 'org' }
 
+"Then type <c-y>, (Ctrly,)
 Plug 'mattn/emmet-vim'
 Plug 'itchyny/vim-cursorword'
 
@@ -422,19 +423,19 @@ command! -bang -nargs=? -complete=dir Files
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
+command! -bang -nargs=* Find
+  \ call fzf#vim#grep(
+  \   'rg --smart-case --column --line-number --no-heading --color=always --colors=match:style:bold --colors=path:fg:green --colors=line:fg:yellow --glob=!*.lock --glob=!tags.temp '.shellescape(expand('<cword>')), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 
-" command! FZFMru call fzf#run({
-" \  'source':  v:oldfiles,
-" \  'sink':    'e',
-" \  'options': '-m -x +s',
-" \  'down':    '40%'})
 nnoremap <Leader>fa  :FZFAg<Space>
 nnoremap <Leader>faa :FZFAg!<Space>
 " find word under cursor
 nnoremap <Leader>fac :call fzf#vim#tags(expand('<cword>'))<CR>
-nnoremap ;  :FZFBuffers<CR>
 nnoremap <Leader>fb  :FZFBuffers<CR>
 nnoremap <Leader>fc  :FZFCommits<CR>
 nnoremap <Leader>fcb :FZFBCommits<CR>
@@ -447,6 +448,8 @@ nnoremap <Leader>fgg :FZFGFiles<CR>
 nnoremap <Leader>fl  :FZFLines<CR>
 nnoremap <Leader>fh  :FZFHistory<CR>
 nnoremap <Leader>fm  :FZFHistory<CR>
+nnoremap <Leader>fn  :Find<CR>
+
 nnoremap <Leader>fs  :FZFSnippets<CR>
 nnoremap <Leader>fw  :FZFWindows<CR>
 
