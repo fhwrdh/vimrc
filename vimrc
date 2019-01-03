@@ -1,5 +1,4 @@
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 "" fhwrdh | vimrc
 "" URL: http://www.github.com/fhwrdh/vimrc
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -441,7 +440,6 @@ nnoremap <Leader>fc  :FZFCommits<CR>
 nnoremap <Leader>fcb :FZFBCommits<CR>
 " https://github.com/junegunn/fzf.vim/issues/364
 nnoremap <Leader>ff  :Files<CR>
-" nnoremap <Leader>fff :FZFFiles<CR>
 nnoremap <Leader>fff :call fzf#vim#files('.', {'options':'--query '.expand('<cword>')})<CR>
 nnoremap <Leader>fg  :FZFGFiles? --exclude-standard --cached --others<CR>
 nnoremap <Leader>fgg :FZFGFiles<CR>
@@ -449,7 +447,6 @@ nnoremap <Leader>fl  :FZFLines<CR>
 nnoremap <Leader>fh  :FZFHistory<CR>
 nnoremap <Leader>fm  :FZFHistory<CR>
 nnoremap <Leader>fn  :Find<CR>
-
 nnoremap <Leader>fs  :FZFSnippets<CR>
 nnoremap <Leader>fw  :FZFWindows<CR>
 
