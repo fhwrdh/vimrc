@@ -429,7 +429,7 @@ command! -bang -nargs=* Find
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
-
+nnoremap <Leader>fn  :Find<CR>
 
 nnoremap <Leader>fa  :FZFAg<Space>
 nnoremap <Leader>faa :FZFAg!<Space>
@@ -445,8 +445,7 @@ nnoremap <Leader>fg  :FZFGFiles? --exclude-standard --cached --others<CR>
 nnoremap <Leader>fgg :FZFGFiles<CR>
 nnoremap <Leader>fl  :FZFLines<CR>
 nnoremap <Leader>fh  :FZFHistory<CR>
-nnoremap <Leader>fm  :FZFHistory<CR>
-nnoremap <Leader>fn  :Find<CR>
+" nnoremap <Leader>fm  :FZFHistory<CR>
 nnoremap <Leader>fs  :FZFSnippets<CR>
 nnoremap <Leader>fw  :FZFWindows<CR>
 
