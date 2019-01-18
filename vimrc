@@ -449,14 +449,16 @@ nnoremap <Leader>fh  :FZFHistory<CR>
 nnoremap <Leader>fs  :FZFSnippets<CR>
 nnoremap <Leader>fw  :FZFWindows<CR>
 
+" insert mode only
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=.git'
 
-"" neocomplete """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" deoplete """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 let g:deoplete#enable_at_startup = 1
