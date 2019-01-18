@@ -1,6 +1,4 @@
 " Maintainer:   Franklin Henderson / fhwrdh
-" Version:      0.2
-" Last Change:  09 Sep 2015
 " Credits:      Vim color scheme "fhwrdh" originaly based on "Up" colorscheme create by Sasha Koss
 
 set background=dark
@@ -18,19 +16,14 @@ let colors_name = "fhwrdh"
 "      TYPE      +———————————————+———————————————+———————————————+———+———————————————+———————————————+———————————————"
 "                | foreground    | background    |               |   | foreground    | background    |               "
 "————————————————+———————————————+———————————————+———————————————+———+———————————————+———————————————+———————————————"
-
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 " Guideline
-"————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 
 hi Action          guifg=#FBDE2D   guibg=NONE      gui=NONE             ctermfg=NONE    ctermbg=NONE    cterm=NONE
 hi Key             guifg=#FBDE2D   guibg=NONE      gui=NONE             ctermfg=NONE    ctermbg=NONE    cterm=NONE
-
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 " Interface                                                                                                          "
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
-
-
 hi Cursor          guifg=#000000   guibg=#DEFF8E   gui=none            ctermbg=241     ctermbg=NONE    cterm=NONE
 hi CursorColumn    guifg=NONE      guibg=#202020                                       ctermbg=233     cterm=NONE
 hi CursorLine      guifg=NONE      guibg=#202020                                       ctermbg=233     cterm=NONE
@@ -71,9 +64,6 @@ hi link vimGroup Action
 
 hi link vimHiGroup Action
 hi vimHiGuiRgb     guifg=#ABB78D   guibg=NONE      gui=NONE             ctermfg=NONE    ctermbg=NONE    cterm=NONE
-
-" 7.3 features
-
 hi ColorColumn     guifg=NONE      guibg=#323232   gui=NONE             ctermfg=NONE    ctermbg=236    cterm=NONE
 
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
@@ -108,12 +98,9 @@ hi Delimiter       guifg=#ff9800   guibg=NONE      gui=NONE            ctermfg=1
 
 hi Directory       guifg=#4784AA
 hi treeCWD         guifg=#BBE7FB
-
 hi treeDirSlash    guifg=#4D4D4D
 hi treePart        guifg=#919191
-
 hi treeUp          guifg=#4D4D4D
-
 hi treeHelp        guifg=#4D4D4D
 
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
@@ -142,23 +129,6 @@ hi rubyLocalVariableOrMethod guifg=#F5F0C7
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 
 hi def link javaScript Normal
-
-"————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
-" HAML
-"————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
-
-hi link hamlTag       htmlTagName
-
-hi link hamlClass     Action
-hi link hamlClassChar hamlClass
-
-hi hamlId         guifg=#9FDC42
-hi link hamlIdChar    hamlId
-
-
-hi hamlRubyChar guifg=#C86161
-hi link hamlInterpolationDelimiter hamlRubyChar
-
 
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 " CSS
@@ -203,6 +173,12 @@ hi GitGutterChange       ctermbg=233 ctermfg=190
 hi GitGutterDelete       ctermbg=233 ctermfg=196
 hi GitGutterChangeDelete ctermbg=233 ctermfg=27
 
-
+"————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
+" Diff
+"————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
+hi DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+hi DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+hi DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+hi DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
 
 
