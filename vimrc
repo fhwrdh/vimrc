@@ -305,7 +305,7 @@ Plug 'samuelsimoes/vim-jsx-utils'
 Plug 'styled-components/vim-styled-components'
 """" Markdown
 Plug 'tpope/vim-markdown'
-" Plug 'shime/vim-livedown'
+Plug 'shime/vim-livedown'
 """" Utils
 Plug 'guns/xterm-color-table.vim'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
