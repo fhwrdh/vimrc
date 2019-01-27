@@ -249,7 +249,7 @@ let g:lightline.component_type = {
       \ }
 let g:lightline.active = {
       \   'left': [ [ 'mode', 'paste' ]],
-      \   'right': [[ 'gitbranch', 'readonly', 'filename', 'modified'  ]] }
+      \   'right': [['lineinfo'],['percent'],[ 'gitbranch', 'readonly', 'filename', 'modified'  ]] }
 
 """" Files
 Plug 'scrooloose/nerdtree'
@@ -275,7 +275,7 @@ Plug 'epilande/vim-react-snippets'
 
 """" Search / Motion
 "" Ferret provides an :Ack command for searching across multiple files
-Plug 'wincent/ferret'
+" Plug 'wincent/ferret'
 "" try: ,,w
 Plug 'easymotion/vim-easymotion'
 
