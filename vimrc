@@ -248,8 +248,9 @@ let g:lightline.component_type = {
       \     'linter_ok': 'left',
       \ }
 let g:lightline.active = {
-      \   'left': [ [ 'mode', 'paste' ]],
-      \   'right': [['lineinfo'],['percent'],[ 'gitbranch', 'readonly', 'filename', 'modified'  ]] }
+      \   'left': [ [ 'mode', 'paste' ], ['filename', 'modified']],
+      \   'right': [['lineinfo'],['percent'], ['gitbranch', 'readonly' ], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']] }
+
 
 """" Files
 Plug 'scrooloose/nerdtree'
@@ -339,8 +340,15 @@ let g:ale_completion_enabled = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \}
-let g:ale_set_loclist = 1
-let g:ale_list_window_size = 5
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 0
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" nmap <silent> <leader>aj :ALENext<cr>
+" nmap <silent> <leader>ak :ALEPrevious<cr>
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" The NERD tree : A tree explorer plugin for navigating the filesystem.
