@@ -529,11 +529,6 @@ vmap & <Plug>AgActionVisual
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
-"nnoremap <silent> <leader>ga :Git add -A<CR>
-"nnoremap <silent> <leader>gc :Gcommit<CR>
-"nnoremap <silent> <leader>gp :Git push<CR>
-"nnoremap <silent> <leader>gl :Git pull<CR>
-"nnoremap <silent> <leader>gr :Gremove<CR>
 
 "" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""""
 "" (sign column) and stages/reverts hunks.
@@ -543,7 +538,7 @@ let g:gitgutter_sign_removed = '-'
 let g:gitgutter_sign_removed_first_line = '^'
 let g:gitgutter_sign_modified_removed = '~'
 
-"" Don't map any keys by default
+"" Doesn't map any keys by default
 let g:gitgutter_map_keys = 0
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
