@@ -573,6 +573,8 @@ let javascript_enable_domhtmlcss=1
 map <leader>pp :PrettierAsync<CR>
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+let g:prettier#quickfix_enabled = 0
+" let g:prettier#quickfix_auto_focus = 0
 
 "" tern_for_vim: Tern plugin for vim """""""""""""""""""""""""""""""""""""""""""
 "" Install the tern server by running npm install in the bundle/tern_for_vim
@@ -584,7 +586,6 @@ nnoremap <leader>td :TernDef<CR>
 nnoremap <leader>tn :TernRename<CR>
 nnoremap <leader>tr :TernRefs<CR>
 nnoremap <leader>tt :TernType<CR>
-
 
 "" vim-jsx: React JSX syntax highlighting and indenting for vim. """""""""""""""
 "" This bundle requires pangloss's vim-javascript syntax highlighting.
@@ -599,7 +600,6 @@ nnoremap <leader>ji :call JSXEachAttributeInLine()<CR>
 nnoremap <leader>jr :call JSXEncloseReturn()<CR>
 nnoremap <leader>jt :call JSXChangeTagPrompt()<CR>
 nnoremap vat :call JSXSelectTag()<CR>
-
 
 "" livedown: """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" requires livedown app: npm install -g livedown
@@ -671,7 +671,6 @@ function! ListLeaders()
 endfunction
 command! ListLeaders :call ListLeaders()
 nnoremap <leader>ll  :ListLeaders<CR>
-
 
 "" Clobber the cursor line styling, regardless of what the
 "" coloscheme does
