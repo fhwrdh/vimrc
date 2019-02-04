@@ -30,6 +30,17 @@ snippet iram "import ramda"
 import * as R from 'ramda';
 endsnippet
 
+snippet rff "react functional component"
+const ${1} = ${2:()} => {
+  return (
+    ${3}
+  );
+}
+${4:$1}.propTypes = {
+};
+
+endsnippet
+
 snippet rsf "react s-c func"
 import React from 'react';
 import styled from 'styled-components';
