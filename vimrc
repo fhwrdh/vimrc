@@ -327,15 +327,12 @@ Plug 'machakann/vim-highlightedyank'
 "" FUTURES LIST //////////////////////////////////////
 Plug 'justinmk/vim-sneak'
 let g:sneak#label = 1
-
-" Increment dates, times, and more
-Plug 'tpope/vim-speeddating', { 'for': 'org' }
-
 Plug 'itchyny/vim-cursorword'
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
 
 call plug#end()
+"" /////////////////////////////////////////////////////////////////
 
 let g:ale_completion_enabled = 1
 let g:ale_linters = {
