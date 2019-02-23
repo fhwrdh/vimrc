@@ -263,7 +263,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 """" Completion
-" Plug 'Shougo/neocomplete'
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -298,7 +297,9 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 """ JavaScript
 "" Prefer local repo install of eslint over global install with syntastic
 " Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+" Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+" Plug 'othree/yajs.vim'
+" Plug 'HerringtonDarkholme/yats.vim'
 """" React
 Plug 'mvolkmann/vim-react'
 Plug 'mxw/vim-jsx'
@@ -571,10 +572,9 @@ let javascript_enable_domhtmlcss=1
 
 "" vim-prettier """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>pp :PrettierAsync<CR>
-let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 let g:prettier#quickfix_enabled = 0
-" let g:prettier#quickfix_auto_focus = 0
+" let g:prettier#exec_cmd_async = 1
 
 "" tern_for_vim: Tern plugin for vim """""""""""""""""""""""""""""""""""""""""""
 "" Install the tern server by running npm install in the bundle/tern_for_vim
