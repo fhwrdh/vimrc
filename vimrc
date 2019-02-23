@@ -294,6 +294,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
+"Then type <c-y>, (Ctrly,)
+Plug 'mattn/emmet-vim'
+
 """ JavaScript
 "" Prefer local repo install of eslint over global install with syntastic
 " Plug 'mtscout6/syntastic-local-eslint.vim'
@@ -328,10 +331,7 @@ let g:sneak#label = 1
 " Increment dates, times, and more
 Plug 'tpope/vim-speeddating', { 'for': 'org' }
 
-"Then type <c-y>, (Ctrly,)
-Plug 'mattn/emmet-vim'
 Plug 'itchyny/vim-cursorword'
-
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
 
