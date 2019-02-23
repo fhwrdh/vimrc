@@ -137,7 +137,7 @@ nnoremap <leader>vs :sp<CR>
 nnoremap <leader>vv :vsp<CR>
 
 "" toggle relative/absolute line numbers
-nnoremap <silent><leader>n :set rnu! rnu? <cr>
+" nnoremap <silent><leader>n :set rnu! rnu? <cr>
 
 "" Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
