@@ -261,6 +261,7 @@ Plug 'scrooloose/nerdtree'
 " Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
 
 """" Completion
 Plug 'Shougo/deoplete.nvim'
@@ -451,7 +452,7 @@ nnoremap <Leader>fg  :FZFGFiles? --exclude-standard --cached --others<CR>
 nnoremap <Leader>fgg :FZFGFiles<CR>
 nnoremap <Leader>fl  :FZFLines<CR>
 nnoremap <Leader>fh  :FZFHistory<CR>
-" nnoremap <Leader>fm  :FZFHistory<CR>
+nnoremap <Leader>fm  :FZFMru<CR>
 nnoremap <Leader>fs  :FZFSnippets<CR>
 nnoremap <Leader>fw  :FZFWindows<CR>
 
