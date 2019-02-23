@@ -346,8 +346,8 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
-" nmap <silent> <leader>aj :ALENext<cr>
-" nmap <silent> <leader>ak :ALEPrevious<cr>
+nmap <silent> <leader>an :ALENextWrap<cr>
+nmap <silent> <leader>ap :ALEPreviousWrap<cr>
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" The NERD tree : A tree explorer plugin for navigating the filesystem.
@@ -479,6 +479,7 @@ let g:deoplete#enable_at_startup = 1
 " let g:neocomplete#enable_auto_select = 1
 
 call deoplete#custom#option({
+\ 'auto_complete_delay': 200,
 \ 'smart_case': v:true,
 \ })
 
