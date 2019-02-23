@@ -602,7 +602,7 @@ nnoremap vat :call JSXSelectTag()<CR>
 "" livedown: """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" requires livedown app: npm install -g livedown
 "" ./livedown start <file> --open
-" nmap gm :LivedownToggle<CR>
+nmap <leader>md :LivedownToggle<CR>
 
 "" vim-sayonara """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Quickly close the current window
