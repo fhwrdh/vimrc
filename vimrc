@@ -94,16 +94,16 @@ map 0 ^
 noremap K <nop>
 
 "" map ',' and spacebar to leader.
-let mapleader = ","
-map <space> <leader>
+let mapleader = " "
+" map <space> <Leader>
 
 "" fast saving a buffer
-nmap <leader>w :wa!<cr>
+nmap <Leader>w :wa!<cr>
 
 "" map backspace to last buffer
 " nnoremap <bs> <c-^>
 "" go to most recent buffer
-nmap <leader>e :e#<CR>
+nmap <Leader>e :e#<CR>
 
 "" format file without losing position
 nnoremap g= mmgg=G`m
@@ -118,46 +118,46 @@ cnoremap sudow w !sudo tee % >/dev/null
 xnoremap gr y:%s/<C-r>"//g<Left><Left>
 
 "" clear the highlighting of :set hlsearch.
-nnoremap <leader>/ :nohls<CR>
+nnoremap <Leader>/ :nohls<CR>
 
 "" Quickly edit/reload the vimrc file
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
-nnoremap <silent> <leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
+nnoremap <silent> <Leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
 " reload on save
 autocmd BufWritePost .vimrc source $MYVIMRC
 
 "" remove trailing whitespace
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+nnoremap <Leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 "" remove the ^M from wonky windows encodings
-noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 "" open splits
-nnoremap <leader>vs :sp<CR>
-nnoremap <leader>vv :vsp<CR>
+nnoremap <Leader>vs :sp<CR>
+nnoremap <Leader>vv :vsp<CR>
 
 "" toggle relative/absolute line numbers
-" nnoremap <silent><leader>n :set rnu! rnu? <cr>
+" nnoremap <silent><Leader>n :set rnu! rnu? <cr>
 
 "" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+map <Leader>cd :cd %:p:h<cr>:pwd<cr>
 
 "" SPELLING
 "" toggle spell checking
-map <leader>ss :setlocal spell!<cr>
+map <Leader>ss :setlocal spell!<cr>
 "" spelling: next
-map <leader>sn ]s
+map <Leader>sn ]s
 "" spelling: prev
-map <leader>sp [s
+map <Leader>sp [s
 "" spelling: add word
-map <leader>sa zg
+map <Leader>sa zg
 "" spelling: suggest word
-map <leader>s? z=
+map <Leader>s? z=
 
 "" buffer mgmt: next/prev/delete/closeall
-" nnoremap <leader>bp :bp<CR>
-" nnoremap <leader>bn :bn<CR>
-" nnoremap <leader>bd :bd<CR>
+" nnoremap <Leader>bp :bp<CR>
+" nnoremap <Leader>bn :bn<CR>
+" nnoremap <Leader>bd :bd<CR>
 
 "" windows
 nnoremap <C-h> <C-w>h
@@ -165,7 +165,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" nnoremap <leader>gq gggqG<C-o><C-o>
+" nnoremap <Leader>gq gggqG<C-o><C-o>
 
 "" Visual mode pressing * or # searches for the current selection
 "" Super useful! From an idea by Michael Naumann
@@ -180,12 +180,12 @@ vnoremap K :m '<-2<CR>gv=gv
 autocmd VimResized * :wincmd =
 
 "" copy / paste to the system clipboard
-vmap <leader>y "+y
-vmap <leader>d "+d
-nmap <leader>p "+p
-nmap <leader>P "+P
-vmap <leader>p "+p
-vmap <leader>P "+P
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
 
 "" toggle paste mode
 nnoremap <silent> <F5> :setlocal paste!<CR>
@@ -209,7 +209,7 @@ function! s:zoom()
     tabclose
   endif
 endfunction
-nnoremap <silent> <leader>z :call <sid>zoom()<cr>
+nnoremap <silent> <Leader>z :call <sid>zoom()<cr>
 
 "" insert current date
 "" map F3 to insert current date
@@ -220,7 +220,7 @@ inoremap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
 "" plug.vim | https://github.com/junegunn/vim-plug
 "" To install new plugin:
 "" 1. add entry to this file
-"" 2. reload .vimrc  / <leader>-s-v
+"" 2. reload .vimrc  / <Leader>-s-v
 "" 3. :PlugInstall
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
@@ -346,8 +346,8 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <leader>an :ALENextWrap<cr>
-nmap <silent> <leader>ap :ALEPreviousWrap<cr>
+nmap <silent> <Leader>an :ALENextWrap<cr>
+nmap <silent> <Leader>ap :ALEPreviousWrap<cr>
 
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" The NERD tree : A tree explorer plugin for navigating the filesystem.
@@ -526,9 +526,9 @@ nmap & <Plug>AgActionWord
 vmap & <Plug>AgActionVisual
 
 "" fugitive.vim """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <Leader>gb :Gblame<CR>
+nnoremap <silent> <Leader>gd :Gdiff<CR>
+nnoremap <silent> <Leader>gs :Gstatus<CR>
 
 "" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""""
 "" (sign column) and stages/reverts hunks.
@@ -542,10 +542,10 @@ let g:gitgutter_sign_modified_removed = '~'
 let g:gitgutter_map_keys = 0
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
-nnoremap <silent><leader>gn :GitGutterNextHunk<CR>
-nnoremap <silent><leader>gp :GitGutterPrevHunk<CR>
-nnoremap <silent><leader>gu :GitGutterUndoHunk<CR>
-nnoremap <silent><leader>gv :GitGutterPreviewHunk<CR>
+nnoremap <silent><Leader>gn :GitGutterNextHunk<CR>
+nnoremap <silent><Leader>gp :GitGutterPrevHunk<CR>
+nnoremap <silent><Leader>gu :GitGutterUndoHunk<CR>
+nnoremap <silent><Leader>gv :GitGutterPreviewHunk<CR>
 
 "" EditorConfig Vim Plugin """""""""""""""""""""""""""""""""""""""""""""""""""
 "" To ensure that this plugin works well with Tim Pope's fugitive,
@@ -570,7 +570,7 @@ let javascript_enable_domhtmlcss=1
 " let g:javascript_conceal_arrow_function = "⇒"
 
 "" vim-prettier """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>pp :PrettierAsync<CR>
+map <Leader>pp :PrettierAsync<CR>
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 let g:prettier#quickfix_enabled = 0
 " let g:prettier#exec_cmd_async = 1
@@ -581,10 +581,10 @@ let g:prettier#quickfix_enabled = 0
 " Plugin 'marijnh/tern_for_vim'
 let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
-nnoremap <leader>td :TernDef<CR>
-nnoremap <leader>tn :TernRename<CR>
-nnoremap <leader>tr :TernRefs<CR>
-nnoremap <leader>tt :TernType<CR>
+nnoremap <Leader>td :TernDef<CR>
+nnoremap <Leader>tn :TernRename<CR>
+nnoremap <Leader>tr :TernRefs<CR>
+nnoremap <Leader>tt :TernType<CR>
 
 "" vim-jsx: React JSX syntax highlighting and indenting for vim. """""""""""""""
 "" This bundle requires pangloss's vim-javascript syntax highlighting.
@@ -594,22 +594,22 @@ let g:jsx_ext_required = 0
 
 "" https://github.com/samuelsimoes/vim-jsx-utils """"""""""""""""""""""""""""""""
 "" Plugin with some utilities (like extract partial render) to folks who work with JSX on Vim.
-nnoremap <leader>je :call JSXExtractPartialPrompt()<CR>
-nnoremap <leader>ji :call JSXEachAttributeInLine()<CR>
-nnoremap <leader>jr :call JSXEncloseReturn()<CR>
-nnoremap <leader>jt :call JSXChangeTagPrompt()<CR>
+nnoremap <Leader>je :call JSXExtractPartialPrompt()<CR>
+nnoremap <Leader>ji :call JSXEachAttributeInLine()<CR>
+nnoremap <Leader>jr :call JSXEncloseReturn()<CR>
+nnoremap <Leader>jt :call JSXChangeTagPrompt()<CR>
 nnoremap vat :call JSXSelectTag()<CR>
 
 "" livedown: """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" requires livedown app: npm install -g livedown
 "" ./livedown start <file> --open
-nmap <leader>md :LivedownToggle<CR>
+nmap <Leader>md :LivedownToggle<CR>
 
 "" vim-sayonara """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Quickly close the current window
-nnoremap <leader>q :Sayonara<CR>
+nnoremap <Leader>q :Sayonara<CR>
 "" Quickly close the current buffer without quiting
-nnoremap <leader>Q :Sayonara!<CR>
+nnoremap <Leader>Q :Sayonara!<CR>
 
 "" sjl/gundo.vim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 silent noremap <Leader>gut :GundoToggle<CR>
@@ -669,7 +669,7 @@ function! ListLeaders()
   silent! normal <esc>
 endfunction
 command! ListLeaders :call ListLeaders()
-nnoremap <leader>ll  :ListLeaders<CR>
+nnoremap <Leader>ll  :ListLeaders<CR>
 
 "" Clobber the cursor line styling, regardless of what the
 "" coloscheme does
