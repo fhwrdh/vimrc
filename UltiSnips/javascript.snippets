@@ -31,9 +31,9 @@ import * as R from 'ramda';
 endsnippet
 
 snippet rff "react functional component"
-const ${1} = ${2:()} => {
+const $1 = ${2:()} => {
   return (
-    ${3}
+    $0
   );
 }
 ${4:$1}.propTypes = {
@@ -54,23 +54,31 @@ export const ${1} = ${2:()} => {
 endsnippet
 
 snippet scd "s-c div"
-const ${1} = styled.div\`
-  ${2}
+const ${1:Component} = styled.${2:div}\`
+  ${0:styles}
 \`;
 endsnippet
 
 snippet desc "test describe block"
-describe('${1}', () => {
-  it('should ${2}', () => {
-	${3}
+describe('${1:should...}', () => {
+  it('should $2', () => {
+	$0
   });
 });
 endsnippet
 
 snippet it "test block"
-it('should ${1}', () => {
+it('should $1', () => {
   //
-  ${2}
+  $0
 });
+endsnippet
+
+snippet bg "background"
+background: ${1:yellow};
+endsnippet
+
+snippet bd "border"
+border: 1px solid ${1:black};
 endsnippet
 
