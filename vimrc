@@ -159,7 +159,7 @@ map <Leader>s? z=
 " nnoremap <Leader>bn :bn<CR>
 " nnoremap <Leader>bd :bd<CR>
 
-"" windows
+"" navigate splits with C-direction
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
