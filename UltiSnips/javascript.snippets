@@ -6,12 +6,20 @@ snippet cll "console.log"
 console.log('${1}');
 endsnippet
 
+snippet clt "console.log template string"
+console.log(\`\$\{$1\}\`);
+endsnippet
+
 snippet il "import named local"
 import {${1}} from '${2:./}${3:$1}';
 endsnippet
 
 snippet inm "import node module"
 import ${1} from '${2:$1}';
+endsnippet
+
+snippet ipt "import PropTypes"
+import PropTypes from 'prop-types';
 endsnippet
 
 snippet react "import react"
@@ -82,3 +90,8 @@ snippet bd "border"
 border: 1px solid ${1:black};
 endsnippet
 
+snippet ue "useEffect"
+useEffect(() => {
+  $0
+}, [$1]);
+endsnippet
