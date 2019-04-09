@@ -332,6 +332,9 @@ Plug 'itchyny/vim-cursorword'
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
 
+Plug 'RRethy/vim-hexokinase'
+let g:Hexokinase_ftAutoload = ['css', 'js']
+
 call plug#end()
 "" /////////////////////////////////////////////////////////////////
 
