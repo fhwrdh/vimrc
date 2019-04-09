@@ -160,10 +160,10 @@ map <Leader>s? z=
 " nnoremap <Leader>bd :bd<CR>
 
 "" navigate splits with C-direction
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-l> <C-w>l
 
 " nnoremap <Leader>gq gggqG<C-o><C-o>
 
@@ -328,12 +328,17 @@ Plug 'machakann/vim-highlightedyank'
 "" FUTURES LIST //////////////////////////////////////
 Plug 'justinmk/vim-sneak'
 let g:sneak#label = 1
+
 Plug 'itchyny/vim-cursorword'
+
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
 
 Plug 'RRethy/vim-hexokinase'
 let g:Hexokinase_ftAutoload = ['css', 'js']
+
+Plug 'christoomey/vim-tmux-navigator'
+
 
 call plug#end()
 "" /////////////////////////////////////////////////////////////////
