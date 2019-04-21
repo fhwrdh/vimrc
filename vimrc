@@ -338,7 +338,7 @@ Plug 'RRethy/vim-hexokinase'
 let g:Hexokinase_ftAutoload = ['css', 'js']
 
 Plug 'christoomey/vim-tmux-navigator'
-
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 "" /////////////////////////////////////////////////////////////////
