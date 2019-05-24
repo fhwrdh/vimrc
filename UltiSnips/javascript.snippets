@@ -34,6 +34,10 @@ snippet isc "import styled-components/macro"
 import styled from 'styled-components/macro';
 endsnippet
 
+snippet irtl "import react-testing-library"
+import { render$0 } from 'react-testing-library';
+endsnippet
+
 snippet iram "import ramda"
 import * as R from 'ramda';
 endsnippet
@@ -68,7 +72,7 @@ const ${1:Component} = styled.${2:div}\`
 endsnippet
 
 snippet desc "test describe block"
-describe('${1:should...}', () => {
+describe('${1:<Component/>}', () => {
   it('should $2', () => {
 	$0
   });
