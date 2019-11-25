@@ -24,7 +24,7 @@ hi Key             guifg=#FBDE2D   guibg=NONE      gui=NONE             ctermfg=
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 " Interface                                                                                                          "
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
-hi Cursor          guifg=#000000   guibg=#DEFF8E   gui=none            ctermbg=241     ctermbg=NONE    cterm=NONE
+hi Cursor          guifg=#000000   guibg=#DEFF8E   gui=none            ctermbg=226     ctermbg=NONE    cterm=NONE
 hi CursorColumn    guifg=NONE      guibg=#202020                                       ctermbg=233     cterm=NONE
 hi CursorLine      guifg=NONE      guibg=#202020                                       ctermbg=233     cterm=NONE
 hi MatchParen      guifg=#d0ffc0   guibg=#202020   gui=bold            ctermfg=157     ctermbg=237     cterm=bold
@@ -176,10 +176,9 @@ hi GitGutterChangeDelete ctermbg=233 ctermfg=27
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 " Diff
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
-hi DiffAdd    cterm=none ctermfg=22  ctermbg=234 gui=none guifg=bg guibg=Red
-hi DiffDelete cterm=none ctermfg=88 ctermbg=234 gui=none guifg=bg guibg=Red
-
-hi DiffChange cterm=none ctermfg=245 ctermbg=234 gui=none guifg=bg guibg=Red
-hi DiffText   cterm=bold ctermfg=232 ctermbg=227  gui=none guifg=bg guibg=Red
+hi DiffAdd    cterm=none ctermfg=22  ctermbg=none gui=none guifg=bg guibg=Red
+hi DiffDelete cterm=none ctermfg=88 ctermbg=none gui=none guifg=bg guibg=Red
+hi DiffChange cterm=none ctermfg=227 ctermbg=none gui=none guifg=bg guibg=Red
+hi DiffText   cterm=none ctermfg=75 ctermbg=none  gui=none guifg=bg guibg=Red
 
 
