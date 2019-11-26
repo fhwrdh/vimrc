@@ -52,6 +52,7 @@ fi
 echo "Link vimrc, gvimrc"
 ln -s -f "$PWD/vimrc" "$HOME/.vimrc"
 ln -s -f "$PWD/gvimrc" "$HOME/.gvimrc"
+ln -s -f "$PWD/coc-settings.json" "$HOME/.config/coc/coc-settings.json"
 if [[ -f "$PWD/vimrc.local" ]]
 then
     ln -s -f "$PWD/vimrc.local" "$HOME/.vimrc.local"

@@ -1,0 +1,25 @@
+{
+  "coc.preferences.currentFunctionSymbolAutoUpdate": false,
+  "diagnostic.displayByAle": true,
+  "javascript.showUnused": false,
+  "javascript.suggestionActions.enabled": false,
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  },
+  "list.insertMappings": {
+    "<C-c>": "do:exit"
+  },
+  "list.normalMappings": {
+    "<C-c>": "do:exit"
+  },
+  "suggest.enablePreview": true,
+  "suggest.noselect": false,
+  "tsserver.disableAutomaticTypeAcquisition": true,
+  "typescript.format.enabled": false,
+  "typescript.validate.enable": false
+}
