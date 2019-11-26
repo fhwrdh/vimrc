@@ -232,6 +232,8 @@ inoremap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
 call plug#begin('~/.vim/plugged')
 """" Env
 Plug 'wincent/terminus'
+Plug 'godlygeek/tabular'
+vnoremap <silent> <Leader>tt :Tab /\|<CR>
 
 """" UI
 Plug 'itchyny/lightline.vim'
