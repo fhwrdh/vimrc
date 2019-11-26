@@ -272,9 +272,55 @@ Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 
 """" Completion
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+autocmd FileType json syntax match Comment +\/\/.\+$+
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" " remap keys for gotos
+nmap <silent> cgd <Plug>(coc-definition)
+nmap <silent> cgy <Plug>(coc-type-definition)
+nmap <silent> cgi <Plug>(coc-implementation)
+nmap <silent> cgr <Plug>(coc-references)
+
+" " use <c-space>for trigger completion
+" " inoremap <silent><expr> <c-space> coc#refresh()
+
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" nmap <silent> [c <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" " Show all diagnostics for the file
+" nnoremap <silent> <space>cd :<C-u>CocList diagnostics<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>cj  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>ck  :<C-u>CocPrev<CR>
+" " Resume latest coc list
+" nnoremap <silent> <space>cp  :<C-u>CocListResume<CR>
+" " yank list
+" nnoremap <silent> <space>cy  :<C-u>CocList -A --normal yank<cr>
+
+""""""""""  /coc
+
 
 """" Snippets
 Plug 'SirVer/ultisnips'
