@@ -395,6 +395,7 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 imap <C-l> <Plug>(coc-snippets-expand)
+nnoremap <silent> <space>cy :<C-u>CocList -A --normal yank<cr>
 
 " " remap keys for gotos
 nmap <silent> cgd <Plug>(coc-definition)
