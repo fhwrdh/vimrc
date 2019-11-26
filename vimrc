@@ -58,9 +58,9 @@ set backspace=indent,eol,start
 set splitbelow            " default split locations
 set splitright
 set wildmenu
-" set colorcolumn=100,120     " highlight column 79 as a soft reminder
 set cursorline
-set cursorcolumn
+" set colorcolumn=100,120     " highlight column 79 as a soft reminder
+" set cursorcolumn
 
 "" [ Text Formatting ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
