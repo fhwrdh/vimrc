@@ -27,7 +27,9 @@ if exists("&undodir")
     set undolevels=500
     set undoreload=500
 endif
-set viminfo+=n$HOME/.vim/tmp/viminfo
+if !has('nvim')
+    set viminfo+=n$HOME/.vim/tmp/viminfo
+endif
 
 "" [ Match and search ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
