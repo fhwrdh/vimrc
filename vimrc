@@ -638,7 +638,8 @@ let javascript_enable_domhtmlcss=1
 " let g:javascript_conceal_arrow_function = "⇒"
 
 "" vim-prettier """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <Leader>pp :PrettierAsync<CR>
+map <Leader>pp :Prettier<CR>
+map <Leader>pa :PrettierAsync<CR>
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 let g:prettier#quickfix_enabled = 0
 " let g:prettier#exec_cmd_async = 1
