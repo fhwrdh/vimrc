@@ -716,19 +716,6 @@ endfunction
 command! ListLeaders :call ListLeaders()
 nnoremap <Leader>ll  :ListLeaders<CR>
 
-"" Clobber the cursor line styling, regardless of what the
-"" coloscheme does
-"" ---------------------------------------------------------
-function! s:updateCursorLine()
-    if &background == "dark"
-        highlight CursorLineNr guifg=#839496 guibg=#002b36 gui=NONE
-    else
-        highlight CursorLineNr guifg=#073642 guibg=#fdf6e3 gui=NONE
-    endif
-endf
-autocmd ColorScheme * call s:updateCursorLine()
-
-""
 "" ---------------------------------------------------------
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
@@ -775,18 +762,11 @@ if has("gui_running")
     set lines=999 columns=999
     autocmd GUIEnter * set vb t_vb=
     colorscheme wombat256
-    " colorscheme jellybeans
-    "colo flatlandia
-    " colo apprentice
     let g:NERDTreeWinSize = 50
-    " set guifont=Droid\ Sans\ Mono\ for\ Powerline
 else
     colo fhwrdh
 endif
 
-" if exists('+colorcolumn')
-"   set colorcolumn=80,120 " Color the 80th column differently as a wrapping guide.
-" endif
 
 "" enable syntax highlighting
 syntax on
