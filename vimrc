@@ -130,7 +130,7 @@ nnoremap <Leader>/ :nohls<CR>
 nnoremap <silent> <Leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>:redraw<CR>:echo $MYVIMRC 'reloaded'<CR>
 " reload on save
-autocmd BufWritePost .vimrc source $MYVIMRC
+" autocmd BufWritePost .vimrc source $MYVIMRC
 
 "" remove trailing whitespace
 nnoremap <Leader>W :%s/\s\+$//<cr>:let @/=''<CR>
