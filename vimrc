@@ -360,7 +360,7 @@ Plug 'gregsexton/gitv', {'on': ['Gitv']}
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'hail2u/vim-css3-syntax'
