@@ -626,7 +626,7 @@ Plug 'itchyny/vim-cursorword'
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
 
-Plug 'RRethy/vim-hexokinase'
+Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 let g:Hexokinase_ftAutoload = ['css', 'js']
 
 Plug 'christoomey/vim-tmux-navigator'
