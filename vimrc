@@ -397,6 +397,14 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'machakann/vim-highlightedyank'
 
 "" FUTURES LIST //////////////////////////////////////
+
+Plug 'ruanyl/coverage.vim'
+let g:coverage_json_report_path = 'coverage/coverage-final.json'
+let g:coverage_sign_covered = '⦿'
+let g:coverage_interval = 5000
+let g:coverage_show_covered = 0
+let g:coverage_show_uncovered = 1
+
 Plug 'justinmk/vim-sneak'
 let g:sneak#label = 1
 
@@ -410,6 +418,12 @@ let g:Hexokinase_ftAutoload = ['css', 'js']
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+Plug 'felixhummel/setcolors.vim'
+
+Plug 'jparise/vim-graphql'
+
+Plug 'chr4/nginx.vim'
 
 call plug#end()
 "" /////////////////////////////////////////////////////////////////
