@@ -205,7 +205,6 @@ xnoremap <F1> "zy:!open "http://www.google.com/search?q=<c-r>=substitute(@z,' ',
 "" split line - opposite of J
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>
 
-
 " Zoom
 function! s:zoom()
   if winnr('$') > 1
@@ -218,7 +217,7 @@ endfunction
 nnoremap <silent> <Leader>z :call <sid>zoom()<cr>
 
 "" insert current date
-"" map F3 to insert current date
+"" map F4 to insert current date
 nnoremap <F4> "=strftime("%Y-%m-%d")<CR>
 inoremap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
 
@@ -262,9 +261,48 @@ let g:lightline.active = {
       \   'left': [ [ 'mode', 'paste' ], ['gitbranch'], ['filename', 'modified'], ['currentfunction']],
       \   'right': [['lineinfo'],['percent'], ['readonly' ], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok'], ['cocstatus']] }
 
-
 """" Files
 Plug 'scrooloose/nerdtree'
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" The NERD tree : A tree explorer plugin for navigating the filesystem.
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache_    _']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:NERDTreeShowHidden=1
+let g:NERDTreeMinimalUI=1
+" let g:NERDTreeDirArrows=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 30
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+"" This closes vim if the only window open is nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" NERDTree File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('ini',    'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md',     'blue',    'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red',     'none', 'red', '#151515')
+call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
+
+"" this opens nerdtree pointing to the location of the file in the current
+"" buffer
+" nnoremap <silent> <F2> :NERDTreeFind<CR>
+" noremap <F3> :NERDTreeToggle<CR>
+nnoremap <Leader>nf  :NERDTreeFind<CR>
+nnoremap <Leader>nn  :NERDTreeToggle<CR>
+
 Plug 'Xuyuanp/nerdtree-git-plugin'
 let g:NERDTreeShowIgnoredStatus = 1
 let g:NERDTreeIndicatorMapCustom = {
@@ -279,14 +317,75 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : '☒',
     \ "Unknown"   : "?"
     \ }
-"" Requires nerd-font versions of fonts:
-""   brew tap homebrew/cask-fonts
-""   brew cask install font-monoid-nerd-font-mono
-"" must load after nerdtree
-" Plug 'ryanoasis/vim-devicons'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
+
+"" fzf.vim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:fzf_command_prefix = 'FZF'
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" Files with preview
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+
+command! -bang -nargs=* Find
+  \ call fzf#vim#grep(
+  \   'rg --smart-case --column --line-number --no-heading --color=always --colors=match:style:bold --colors=path:fg:green --colors=line:fg:yellow --glob=!*.lock --glob=!tags.temp '.shellescape(expand('<cword>')), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+nnoremap <Leader>fn  :Find<CR>
+
+nnoremap <Leader>fa  :FZFRg<Space>
+" find word under cursor
+nnoremap <Leader>fac :call fzf#vim#tags(expand('<cword>'))<CR>
+nnoremap <Leader>fb  :FZFBuffers<CR>
+nnoremap <Leader>fc  :FZFCommits<CR>
+nnoremap <Leader>fcb :FZFBCommits<CR>
+" https://github.com/junegunn/fzf.vim/issues/364
+nnoremap <Leader>ff  :Files<CR>
+nnoremap <Leader>fff :call fzf#vim#files('.', {'options':'--query '.expand('<cword>')})<CR>
+nnoremap <Leader>fg  :FZFGFiles? --exclude-standard --cached --others<CR>
+nnoremap <Leader>fgg :FZFGFiles<CR>
+nnoremap <Leader>fl  :FZFLines<CR>
+nnoremap <Leader>fh  :FZFHistory<CR>
+nnoremap <Leader>fm  :FZFMru<CR>
+nnoremap <Leader>fr  :FZFRg<Space>
+nnoremap <Leader>fs  :FZFSnippets<CR>
+nnoremap <Leader>fw  :FZFWindows<CR>
+
+" insert mode only
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=.git'
 
 """" Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -331,9 +430,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " nnoremap <silent> <space>cp  :<C-u>CocListResume<CR>
 " " yank list
 " nnoremap <silent> <space>cy  :<C-u>CocList -A --normal yank<cr>
-
 """"""""""  /coc
-
 
 """" Snippets
 " Plug 'SirVer/ultisnips'
@@ -349,18 +446,80 @@ Plug 'easymotion/vim-easymotion'
 
 """" Git
 Plug 'airblade/vim-gitgutter'
+"" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""""
+"" (sign column) and stages/reverts hunks.
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '·'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '~'
+"" Doesn't map any keys by default
+let g:gitgutter_map_keys = 0
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+nnoremap <silent><Leader>gn :GitGutterNextHunk<CR>
+nnoremap <silent><Leader>gp :GitGutterPrevHunk<CR>
+nnoremap <silent><Leader>gu :GitGutterUndoHunk<CR>
+nnoremap <silent><Leader>gv :GitGutterPreviewHunk<CR>
+
 Plug 'tpope/vim-fugitive'
+"" fugitive.vim """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <Leader>gb :Gblame<CR>
+nnoremap <silent> <Leader>gd :Gdiff<CR>
+nnoremap <silent> <Leader>gs :Gstatus<CR>
+
 Plug 'gregsexton/gitv', {'on': ['Gitv']}
 
 """" Code
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
+"" EditorConfig Vim Plugin """""""""""""""""""""""""""""""""""""""""""""""""""
+"" To ensure that this plugin works well with Tim Pope's fugitive,
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:EditorConfig_max_line_indicator = "fill"
+let g:EditorConfig_verbose = 0
+
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'dense-analysis/ale'
+let g:ale_completion_enabled = 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 0
+" let g:ale_echo_msg_error_str = 'Error'
+" let g:ale_echo_msg_warning_str = 'Warn'
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" nma <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <Leader>an :ALENextWrap<cr>
+nmap <silent> <Leader>ap :ALEPreviousWrap<cr>
+
 Plug 'sheerun/vim-polyglot'
+"" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""""
+"" INCLUDED IN VIM-POLYGLOT "Plugin 'pangloss/vim-javascript'
+"" to disable individual language packs:
+" let g:polyglot_disabled = ['css']
+let javascript_enable_domhtmlcss=1
+" let g:javascript_conceal_function       = "ƒ"
+" let g:javascript_conceal_null           = "ø"
+" let g:javascript_conceal_this           = "@"
+" let g:javascript_conceal_return         = "⇚"
+" let g:javascript_conceal_undefined      = "¿"
+" let g:javascript_conceal_NaN            = "ℕ"
+" let g:javascript_conceal_prototype      = "¶"
+" let g:javascript_conceal_static         = "•"
+" let g:javascript_conceal_super          = "Ω"
+" let g:javascript_conceal_arrow_function = "⇒"
 
 Plug 'hail2u/vim-css3-syntax'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+"" vim-prettier """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Leader>pp :Prettier<CR>
+map <Leader>pa :PrettierAsync<CR>
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+let g:prettier#quickfix_enabled = 0
+" let g:prettier#exec_cmd_async = 1
 
 "Then type <c-y>, (Ctrly,)
 Plug 'mattn/emmet-vim'
@@ -392,15 +551,60 @@ Plug 'styled-components/vim-styled-components'
 """" Markdown
 Plug 'tpope/vim-markdown'
 Plug 'shime/vim-livedown'
+"" livedown: """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" requires livedown app: npm install -g livedown
+"" ./livedown start <file> --open
+nmap <Leader>md :LivedownToggle<CR>
+
 """" Utils
 Plug 'guns/xterm-color-table.vim'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+"" vim-sayonara """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Quickly close the current window
+nnoremap <Leader>q :Sayonara<CR>
+"" Quickly close the current buffer without quiting
+nnoremap <Leader>Q :Sayonara!<CR>
+
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
+"" sjl/gundo.vim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+silent noremap <Leader>gut :GundoToggle<CR>
+
 Plug 'terryma/vim-expand-region'
+"" terryma/vim-expand-region """""""""""""""""""""""""""""""""""""""""""""""""""
+"" expand region. S-v to kill. Ctrl-v to shrink.
+vmap v <Plug>(expand_region_expand)
+vmap <S-v> <Plug>(expand_region_shrink)
+
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'unblevable/quick-scope'
+"" https://github.com/unblevable/quick-scope """""""""""""""""""""""""""""""""""
+"" Only enable the quick-scope plugin's highlighting when using the f/F/t/T movements
+function! Quick_scope_selective(movement)
+    let needs_disabling = 0
+    if !g:qs_enable
+        QuickScopeToggle
+        redraw
+        let needs_disabling = 1
+    endif
+    let letter = nr2char(getchar())
+    if needs_disabling
+        QuickScopeToggle
+    endif
+    return a:movement . letter
+endfunction
+let g:qs_enable = 0
+
+nnoremap <expr> <silent> f Quick_scope_selective('f')
+nnoremap <expr> <silent> F Quick_scope_selective('F')
+nnoremap <expr> <silent> t Quick_scope_selective('t')
+nnoremap <expr> <silent> T Quick_scope_selective('T')
+vnoremap <expr> <silent> f Quick_scope_selective('f')
+vnoremap <expr> <silent> F Quick_scope_selective('F')
+vnoremap <expr> <silent> t Quick_scope_selective('t')
+vnoremap <expr> <silent> T Quick_scope_selective('T')
+
 Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'machakann/vim-highlightedyank'
@@ -436,258 +640,6 @@ Plug 'chr4/nginx.vim'
 
 call plug#end()
 "" /////////////////////////////////////////////////////////////////
-
-let g:ale_completion_enabled = 1
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\}
-let g:ale_fixers = {
-\   'javascript': ['eslint'],
-\}
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 0
-" let g:ale_echo_msg_error_str = 'Error'
-" let g:ale_echo_msg_warning_str = 'Warn'
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" nma <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <Leader>an :ALENextWrap<cr>
-nmap <silent> <Leader>ap :ALEPreviousWrap<cr>
-
-"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" The NERD tree : A tree explorer plugin for navigating the filesystem.
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache_    _']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:NERDTreeShowHidden=1
-let g:NERDTreeMinimalUI=1
-" let g:NERDTreeDirArrows=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 30
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-"" This closes vim if the only window open is nerdtree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-" NERDTree File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('ini',    'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md',     'blue',    'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red',     'none', 'red', '#151515')
-call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
-
-"" this opens nerdtree pointing to the location of the file in the current
-"" buffer
-" nnoremap <silent> <F2> :NERDTreeFind<CR>
-" noremap <F3> :NERDTreeToggle<CR>
-nnoremap <Leader>nf  :NERDTreeFind<CR>
-nnoremap <Leader>nn  :NERDTreeToggle<CR>
-
-"" ryanoasis/vim-devicons """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" enable for nerdtree
-let g:webdevicons_enable_nerdtree = 1
-"" the amount of space to use after the glyph character (default ' ')
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-" whether or not to show the nerdtree brackets around flags
-let g:webdevicons_conceal_nerdtree_brackets = 1
-
-"" fzf.vim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:fzf_command_prefix = 'FZF'
-" This is the default extra key bindings
-let g:fzf_action = {
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
-" Enable per-command history.
-" CTRL-N and CTRL-P will be automatically bound to next-history and
-" previous-history instead of down and up. If you don't like the change,
-" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-" Files with preview
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" I use space leader, so it's space+space
-" nnoremap <silent><expr><Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
-
-" --column: Show column number
-" --line-number: Show line number
-" --no-heading: Do not show file headings in results
-" --fixed-strings: Search term as a literal string
-" --ignore-case: Case insensitive search
-" --no-ignore: Do not respect .gitignore, etc...
-" --hidden: Search hidden files and folders
-" --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-" --color: Search color options
-
-command! -bang -nargs=* Find
-  \ call fzf#vim#grep(
-  \   'rg --smart-case --column --line-number --no-heading --color=always --colors=match:style:bold --colors=path:fg:green --colors=line:fg:yellow --glob=!*.lock --glob=!tags.temp '.shellescape(expand('<cword>')), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-nnoremap <Leader>fn  :Find<CR>
-
-nnoremap <Leader>fa  :FZFAg<Space>
-nnoremap <Leader>faa :FZFAg!<Space>
-" find word under cursor
-nnoremap <Leader>fac :call fzf#vim#tags(expand('<cword>'))<CR>
-nnoremap <Leader>fb  :FZFBuffers<CR>
-nnoremap <Leader>fc  :FZFCommits<CR>
-nnoremap <Leader>fcb :FZFBCommits<CR>
-" https://github.com/junegunn/fzf.vim/issues/364
-nnoremap <Leader>ff  :Files<CR>
-nnoremap <Leader>fff :call fzf#vim#files('.', {'options':'--query '.expand('<cword>')})<CR>
-nnoremap <Leader>fg  :FZFGFiles? --exclude-standard --cached --others<CR>
-nnoremap <Leader>fgg :FZFGFiles<CR>
-nnoremap <Leader>fl  :FZFLines<CR>
-nnoremap <Leader>fh  :FZFHistory<CR>
-nnoremap <Leader>fm  :FZFMru<CR>
-nnoremap <Leader>fs  :FZFSnippets<CR>
-nnoremap <Leader>fw  :FZFWindows<CR>
-
-" insert mode only
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=.git'
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" "" Ultisnips """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-" let g:UltiSnipsExpandTrigger="<C-l>"
-" " let g:UltiSnipsListSnippets = "<C-x>"
-" let g:UltiSnipsJumpForwardTrigger="<C-n>"
-" let g:UltiSnipsJumpBackwardTrigger="<C-p>"
-" " If you want :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="horizontal"
-" let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
-
-"" vim-action-ag """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" use * to search current word in normal mode
-nmap & <Plug>AgActionWord
-"" use * to search selected text in visual mode
-vmap & <Plug>AgActionVisual
-
-"" fugitive.vim """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> <Leader>gb :Gblame<CR>
-nnoremap <silent> <Leader>gd :Gdiff<CR>
-nnoremap <silent> <Leader>gs :Gstatus<CR>
-
-"" vim-gitgutter: A Vim plugin which shows a git diff in the gutter """"""""""""
-"" (sign column) and stages/reverts hunks.
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '·'
-let g:gitgutter_sign_removed = '-'
-let g:gitgutter_sign_removed_first_line = '^'
-let g:gitgutter_sign_modified_removed = '~'
-
-"" Doesn't map any keys by default
-let g:gitgutter_map_keys = 0
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
-nnoremap <silent><Leader>gn :GitGutterNextHunk<CR>
-nnoremap <silent><Leader>gp :GitGutterPrevHunk<CR>
-nnoremap <silent><Leader>gu :GitGutterUndoHunk<CR>
-nnoremap <silent><Leader>gv :GitGutterPreviewHunk<CR>
-
-"" EditorConfig Vim Plugin """""""""""""""""""""""""""""""""""""""""""""""""""
-"" To ensure that this plugin works well with Tim Pope's fugitive,
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-let g:EditorConfig_max_line_indicator = "fill"
-let g:EditorConfig_verbose = 0
-
-"" vim-polyglot: A collection of language packs for Vim. """""""""""""""""""""""
-"" INCLUDED IN VIM-POLYGLOT "Plugin 'pangloss/vim-javascript'
-"" to disable individual language packs:
-" let g:polyglot_disabled = ['css']
-let javascript_enable_domhtmlcss=1
-" let g:javascript_conceal_function       = "ƒ"
-" let g:javascript_conceal_null           = "ø"
-" let g:javascript_conceal_this           = "@"
-" let g:javascript_conceal_return         = "⇚"
-" let g:javascript_conceal_undefined      = "¿"
-" let g:javascript_conceal_NaN            = "ℕ"
-" let g:javascript_conceal_prototype      = "¶"
-" let g:javascript_conceal_static         = "•"
-" let g:javascript_conceal_super          = "Ω"
-" let g:javascript_conceal_arrow_function = "⇒"
-
-"" vim-prettier """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <Leader>pp :Prettier<CR>
-map <Leader>pa :PrettierAsync<CR>
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-let g:prettier#quickfix_enabled = 0
-" let g:prettier#exec_cmd_async = 1
-
-
-"" livedown: """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" requires livedown app: npm install -g livedown
-"" ./livedown start <file> --open
-nmap <Leader>md :LivedownToggle<CR>
-
-"" vim-sayonara """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Quickly close the current window
-nnoremap <Leader>q :Sayonara<CR>
-"" Quickly close the current buffer without quiting
-nnoremap <Leader>Q :Sayonara!<CR>
-
-"" sjl/gundo.vim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-silent noremap <Leader>gut :GundoToggle<CR>
-
-"" terryma/vim-expand-region """""""""""""""""""""""""""""""""""""""""""""""""""
-"" expand region. S-v to kill. Ctrl-v to shrink.
-vmap v <Plug>(expand_region_expand)
-vmap <S-v> <Plug>(expand_region_shrink)
-
-"" https://github.com/unblevable/quick-scope """""""""""""""""""""""""""""""""""
-"" Only enable the quick-scope plugin's highlighting when using the f/F/t/T movements
-function! Quick_scope_selective(movement)
-    let needs_disabling = 0
-    if !g:qs_enable
-        QuickScopeToggle
-        redraw
-        let needs_disabling = 1
-    endif
-    let letter = nr2char(getchar())
-    if needs_disabling
-        QuickScopeToggle
-    endif
-    return a:movement . letter
-endfunction
-let g:qs_enable = 0
-nnoremap <expr> <silent> f Quick_scope_selective('f')
-nnoremap <expr> <silent> F Quick_scope_selective('F')
-nnoremap <expr> <silent> t Quick_scope_selective('t')
-nnoremap <expr> <silent> T Quick_scope_selective('T')
-vnoremap <expr> <silent> f Quick_scope_selective('f')
-vnoremap <expr> <silent> F Quick_scope_selective('F')
-vnoremap <expr> <silent> t Quick_scope_selective('t')
-vnoremap <expr> <silent> T Quick_scope_selective('T')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -762,12 +714,9 @@ if has("gui_running")
     set lines=999 columns=999
     autocmd GUIEnter * set vb t_vb=
     colorscheme wombat256
-    let g:NERDTreeWinSize = 50
 else
     colo fhwrdh
 endif
 
-
 "" enable syntax highlighting
 syntax on
-
