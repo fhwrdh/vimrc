@@ -104,6 +104,8 @@ map <space> <Leader>
 "" fast saving a buffer
 nmap <Leader>w :wa!<cr>
 
+nmap <Leader>u :r ! uuidgen<cr>
+
 "" map backspace to last buffer
 " nnoremap <bs> <c-^>
 "" go to most recent buffer
