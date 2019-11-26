@@ -336,7 +336,7 @@ nmap <leader>rn <Plug>(coc-rename)
 
 
 """" Snippets
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
@@ -577,16 +577,15 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-
-"" Ultisnips """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<C-l>"
-" let g:UltiSnipsListSnippets = "<C-x>"
-let g:UltiSnipsJumpForwardTrigger="<C-n>"
-let g:UltiSnipsJumpBackwardTrigger="<C-p>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="horizontal"
-let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+" "" Ultisnips """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<C-l>"
+" " let g:UltiSnipsListSnippets = "<C-x>"
+" let g:UltiSnipsJumpForwardTrigger="<C-n>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="horizontal"
+" let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
 
 "" vim-action-ag """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" use * to search current word in normal mode
