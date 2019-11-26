@@ -547,7 +547,7 @@ nnoremap <Leader>jr :call JSXEncloseReturn()<CR>
 nnoremap <Leader>jt :call JSXChangeTagPrompt()<CR>
 nnoremap vat :call JSXSelectTag()<CR>
 
-Plug 'styled-components/vim-styled-components'
+Plug 'styled-components/vim-styled-components', {'branch': 'main'}
 """" Markdown
 Plug 'tpope/vim-markdown'
 Plug 'shime/vim-livedown'
