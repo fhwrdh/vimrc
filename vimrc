@@ -432,12 +432,15 @@ let g:ale_completion_enabled = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \}
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\}
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" let g:ale_echo_msg_error_str = 'Error'
+" let g:ale_echo_msg_warning_str = 'Warn'
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" nma <silent> <C-k> <Plug>(ale_previous_wrap)
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> <Leader>an :ALENextWrap<cr>
 nmap <silent> <Leader>ap :ALEPreviousWrap<cr>
