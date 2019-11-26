@@ -238,11 +238,14 @@ vnoremap <silent> <Leader>tt :Tab /\|<CR>
 """" UI
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
+
 let g:lightline = {}
 let g:lightline.colorscheme = 'wombat'
 let g:lightline.component_function = {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
+      \   'cocstatus': 'coc#status',
       \ }
+
 let g:lightline.component_expand = {
       \  'linter_checking': 'lightline#ale#checking',
       \  'linter_warnings': 'lightline#ale#warnings',
@@ -256,8 +259,8 @@ let g:lightline.component_type = {
       \     'linter_ok': 'left',
       \ }
 let g:lightline.active = {
-      \   'left': [ [ 'mode', 'paste' ], ['filename', 'modified']],
-      \   'right': [['lineinfo'],['percent'], ['gitbranch', 'readonly' ], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']] }
+      \   'left': [ [ 'mode', 'paste' ], ['gitbranch'], ['filename', 'modified'], ['currentfunction']],
+      \   'right': [['lineinfo'],['percent'], ['readonly' ], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok'], ['cocstatus']] }
 
 
 """" Files
