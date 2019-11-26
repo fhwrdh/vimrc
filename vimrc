@@ -368,13 +368,26 @@ Plug 'mattn/emmet-vim'
 """ JavaScript
 "" Prefer local repo install of eslint over global install with syntastic
 " Plug 'mtscout6/syntastic-local-eslint.vim'
-" Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 " Plug 'othree/yajs.vim'
 " Plug 'HerringtonDarkholme/yats.vim'
 """" React
 Plug 'mvolkmann/vim-react'
 Plug 'mxw/vim-jsx'
+"" vim-jsx: React JSX syntax highlighting and indenting for vim. """""""""""""""
+"" This bundle requires pangloss's vim-javascript syntax highlighting.
+"" By default, JSX syntax highlighting and indenting will be enabled only for
+"" files with the .jsx extension. If you would like JSX in .js files, add:
+let g:jsx_ext_required = 0
+
 Plug 'samuelsimoes/vim-jsx-utils'
+"" https://github.com/samuelsimoes/vim-jsx-utils """"""""""""""""""""""""""""""""
+"" Plugin with some utilities (like extract partial render) to folks who work with JSX on Vim.
+nnoremap <Leader>je :call JSXExtractPartialPrompt()<CR>
+nnoremap <Leader>ji :call JSXEachAttributeInLine()<CR>
+nnoremap <Leader>jr :call JSXEncloseReturn()<CR>
+nnoremap <Leader>jt :call JSXChangeTagPrompt()<CR>
+nnoremap vat :call JSXSelectTag()<CR>
+
 Plug 'styled-components/vim-styled-components'
 """" Markdown
 Plug 'tpope/vim-markdown'
@@ -631,30 +644,6 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 let g:prettier#quickfix_enabled = 0
 " let g:prettier#exec_cmd_async = 1
 
-"" tern_for_vim: Tern plugin for vim """""""""""""""""""""""""""""""""""""""""""
-"" Install the tern server by running npm install in the bundle/tern_for_vim
-"" directory.
-" Plugin 'marijnh/tern_for_vim'
-let g:tern_map_keys=1
-let g:tern_show_argument_hints='on_hold'
-nnoremap <Leader>td :TernDef<CR>
-nnoremap <Leader>tn :TernRename<CR>
-nnoremap <Leader>tr :TernRefs<CR>
-nnoremap <Leader>tt :TernType<CR>
-
-"" vim-jsx: React JSX syntax highlighting and indenting for vim. """""""""""""""
-"" This bundle requires pangloss's vim-javascript syntax highlighting.
-"" By default, JSX syntax highlighting and indenting will be enabled only for
-"" files with the .jsx extension. If you would like JSX in .js files, add:
-let g:jsx_ext_required = 0
-
-"" https://github.com/samuelsimoes/vim-jsx-utils """"""""""""""""""""""""""""""""
-"" Plugin with some utilities (like extract partial render) to folks who work with JSX on Vim.
-nnoremap <Leader>je :call JSXExtractPartialPrompt()<CR>
-nnoremap <Leader>ji :call JSXEachAttributeInLine()<CR>
-nnoremap <Leader>jr :call JSXEncloseReturn()<CR>
-nnoremap <Leader>jt :call JSXChangeTagPrompt()<CR>
-nnoremap vat :call JSXSelectTag()<CR>
 
 "" livedown: """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" requires livedown app: npm install -g livedown
