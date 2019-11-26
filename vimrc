@@ -93,6 +93,10 @@ map 0 ^
 " No man pages because I don't write C or many shell scripts
 noremap K <nop>
 
+"" don't clobber the unnamed register on paste
+"" https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
+xnoremap p "_dP
+
 "" map ',' and spacebar to leader.
 let mapleader = " "
 " map <space> <Leader>
