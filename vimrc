@@ -99,7 +99,7 @@ xnoremap p "_dP
 
 "" map ',' and spacebar to leader.
 let mapleader = " "
-" map <space> <Leader>
+map <space> <Leader>
 
 "" fast saving a buffer
 nmap <Leader>w :wa!<cr>
