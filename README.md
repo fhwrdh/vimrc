@@ -1,18 +1,16 @@
 vimrc
 
-=====
-
 ### Installation
 
 ```
 git clone https://github.com/fhwrdh/vimrc.git
-cd ~/vimrc
+cd vimrc
 ./install.sh
 ```
 
 ### Post install
 
-install the coc-extensions
+install coc-extensions
 
 ```
 vim -c "CocInstall coc-css coc-eslint coc-go coc-gocode coc-highlight coc-html coc-json coc-lists
