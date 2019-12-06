@@ -6,23 +6,23 @@ set nocompatible
 set hidden
 set history=1000
 set undolevels=1000
-set ttyfast                   " Better redraw for large files?
+set ttyfast                             " Better redraw for large files?
 set encoding=utf8
 set textwidth=120
-" set colorcolumn=+1          " show vertical line at 'textwidth' column
+" set colorcolumn=+1                    " show vertical line at 'textwidth' column
 
-set autowriteall              " save all files when switching buffers
-:au FocusLost * :wa           " save all files with losing focus
+set autowriteall                        " save all files when switching buffers
+:au FocusLost * :wa                     " save all files with losing focus
 set mouse=a
 
 "" [ Backup ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set directory=~/.vim/tmp/     " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
-set nowritebackup             " no backups on write
-set nobackup                  " no backups at all
-set noswapfile                " no swap files
+set directory=~/.vim/tmp/               " prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
+set nowritebackup                       " no backups on write
+set nobackup                            " no backups at all
+set noswapfile                          " no swap files
 if exists("&undodir")
-    set undofile              " Persistent undo!
+    set undofile                        " Persistent undo!
     let &undodir=&directory
     set undolevels=500
     set undoreload=500
@@ -33,35 +33,35 @@ endif
 
 "" [ Match and search ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set hlsearch              " highlight search
-set ignorecase            " Do case in sensitive matching with
-set smartcase             " be sensitive when there's a capital letter
-set incsearch             " Search as you type
+set hlsearch                            " highlight search
+set ignorecase                          " Do case in sensitive matching with
+set smartcase                           " be sensitive when there's a capital letter
+set incsearch                           " Search as you type
 
 "" [ Visual ]
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set number                " Show line numbers
-set showmatch             " Show matching brackets.
-set matchtime=5           " Bracket blinking.
-set novisualbell          " No blinking
-set noerrorbells          " No noise.
-set laststatus=2          " Always show status line.
-set vb t_vb=              " disable any beeps or flashes on error
-set ruler                 " Show ruler
-set noshowmode            " Don't show the mode since Powerline shows it
-set showcmd               " Display an incomplete command in the lower right corner
-set autoread              " Automatically read a file that has changed on disk
-set list                  " Display unprintable characters f12 - switches
-                          " Unprintable chars mapping
-set listchars=tab:·\-,trail:·,extends:»,precedes:«
+set number                              " Show line numbers
+set showmatch                           " Show matching brackets.
+set matchtime=5                         " Bracket blinking.
+" set novisualbell                        " No blinking
+" set noerrorbells                        " No noise.
+set laststatus=2                        " Always show status line.
+" set vb t_vb=                            " disable any beeps or flashes on error
+set ruler                               " Show ruler
+set noshowmode                          " Don't show the mode since Powerline shows it
+set showcmd                             " Display an incomplete command in the lower right corner
+set autoread                            " Automatically read a file that has changed on disk
+set list                                " Display unprintable characters f12 - switches
+set listchars=tab:·\-,trail:·,extends:»,precedes:«          " Unprintable chars mapping
 set scrolloff=20          " keep the cursor in the middle of the screen
-                          " Let backspace cross linest
-set backspace=indent,eol,start
-set splitbelow            " default split locations
+set backspace=indent,eol,start          " Let backspace cross linest
+set splitbelow                          " default split locations
 set splitright
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set wildmode=longest,list,full
 set wildmenu
 set cursorline
-" set colorcolumn=100,120     " highlight column 79 as a soft reminder
+" set colorcolumn=100,120               " highlight column 79 as a soft reminder
 " set cursorcolumn
 
 "" [ Text Formatting ]
@@ -70,8 +70,8 @@ set autoindent
 set smartindent
 set tabstop=4
 set softtabstop=4
-set shiftwidth=4          " Width of '<' '>' indentation
-set expandtab             " Insert spaces when <TAB>ing
+set shiftwidth=4                        " Width of '<' '>' indentation
+set expandtab                           " Insert spaces when <TAB>ing
 set nosmarttab
 
 "" [ Keybindings ]
@@ -119,7 +119,7 @@ nnoremap g= mmgg=G`m
 "" insert newline in normal mode
 nnoremap <CR> :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
-"" call :sudow FILENAME when bit by a file you don't own
+"" call :sudow FILENAME to write a file you don't own
 cnoremap sudow w !sudo tee % >/dev/null
 
 "" search/replace with selection
@@ -223,6 +223,9 @@ nnoremap <silent> <Leader>z :call <sid>zoom()<cr>
 nnoremap <F4> "=strftime("%Y-%m-%d")<CR>
 inoremap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
 
+" switch to last buffer
+nmap <C-e> :e#<CR>
+
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" plug.vim | https://github.com/junegunn/vim-plug
 "" To install new plugin:
@@ -277,7 +280,6 @@ let g:NERDTreeMinimalUI=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 30
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 "" This closes vim if the only window open is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
@@ -353,18 +355,25 @@ command! -bang -nargs=? -complete=dir Files
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-
-command! -bang -nargs=* Find
+command! -bang -nargs=* FindRg
   \ call fzf#vim#grep(
-  \   'rg --smart-case --column --line-number --no-heading --color=always --colors=match:style:bold --colors=path:fg:green --colors=line:fg:yellow --glob=!*.lock --glob=!tags.temp '.shellescape(expand('<cword>')), 1,
+  \   'rg --smart-case --column --line-number --no-heading --color=always --colors=match:style:bold --colors=path:fg:green --colors=line:fg:yellow --glob=!*.lock --glob=!tags.temp --glob=!package-lock.json '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
-nnoremap <Leader>fn  :Find<CR>
 
-nnoremap <Leader>fa  :FZFRg<Space>
 " find word under cursor
-nnoremap <Leader>fac :call fzf#vim#tags(expand('<cword>'))<CR>
+command! -bang -nargs=* FindRgCWord
+  \ call fzf#vim#grep(
+  \   'rg --smart-case --column --line-number --no-heading --color=always --colors=match:style:bold --colors=path:fg:green --colors=line:fg:yellow --glob=!*.lock --glob=!tags.temp --glob=!package-lock.json '.shellescape(expand('<cword>')), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+nnoremap <Leader>fa  :FindRg<Space>
+nnoremap <Leader>fr  :FindRg<Space>
+nnoremap <Leader>fn  :FindRgCWord<CR>
+
 nnoremap <Leader>fb  :FZFBuffers<CR>
 nnoremap <Leader>fc  :FZFCommits<CR>
 nnoremap <Leader>fcb :FZFBCommits<CR>
@@ -376,7 +385,6 @@ nnoremap <Leader>fgg :FZFGFiles<CR>
 nnoremap <Leader>fl  :FZFLines<CR>
 nnoremap <Leader>fh  :FZFHistory<CR>
 nnoremap <Leader>fm  :FZFMru<CR>
-nnoremap <Leader>fr  :FZFRg<Space>
 nnoremap <Leader>fs  :FZFSnippets<CR>
 nnoremap <Leader>fw  :FZFWindows<CR>
 
@@ -487,7 +495,7 @@ if  executable('ctags')
 endif
 
 Plug 'dense-analysis/ale'
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \}
@@ -496,8 +504,6 @@ let g:ale_set_quickfix = 0
 " let g:ale_echo_msg_error_str = 'Error'
 " let g:ale_echo_msg_warning_str = 'Warn'
 " let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" nma <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> <Leader>an :ALENextWrap<cr>
 nmap <silent> <Leader>ap :ALEPreviousWrap<cr>
 
