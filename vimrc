@@ -223,9 +223,6 @@ nnoremap <silent> <Leader>z :call <sid>zoom()<cr>
 nnoremap <F4> "=strftime("%Y-%m-%d")<CR>
 inoremap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
 
-" switch to last buffer
-nmap <C-e> :e#<CR>
-
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" plug.vim | https://github.com/junegunn/vim-plug
 "" To install new plugin:
@@ -322,11 +319,11 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
+"" fzf.vim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 
-"" fzf.vim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:fzf_command_prefix = 'FZF'
 " This is the default extra key bindings
 let g:fzf_action = {
