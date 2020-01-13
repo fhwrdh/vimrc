@@ -440,7 +440,9 @@ let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=.git'
 """"""""""  /coc
 
 """" Snippets
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger = "<C-l>"
+
 Plug 'honza/vim-snippets'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
