@@ -549,8 +549,8 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 let g:prettier#quickfix_enabled = 0
 " let g:prettier#exec_cmd_async = 1
 
-"Then type <c-y>, (Ctrly,)
 Plug 'mattn/emmet-vim'
+imap <C-e> <C-y>,
 
 """ JavaScript
 "" Prefer local repo install of eslint over global install with syntastic
