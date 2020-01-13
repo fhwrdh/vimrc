@@ -506,9 +506,9 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_max_line_indicator = "fill"
 let g:EditorConfig_verbose = 0
 
-if  executable('ctags')
-  Plug 'ludovicchabant/vim-gutentags'
-endif
+" if  executable('ctags')
+"   Plug 'ludovicchabant/vim-gutentags'
+" endif
 
 Plug 'dense-analysis/ale'
 let g:ale_completion_enabled = 0
