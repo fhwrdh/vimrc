@@ -1,7 +1,7 @@
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" fhwrdh | vimrc
 "" URL: http://www.github.com/fhwrdh/vimrc
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 set hidden
 set history=1000
@@ -244,7 +244,6 @@ let g:lightline = {}
 let g:lightline.colorscheme = 'wombat'
 let g:lightline.component_function = {
       \   'gitbranch': 'fugitive#head',
-      \   'cocstatus': 'coc#status',
       \ }
 
 let g:lightline.component_expand = {
@@ -261,7 +260,7 @@ let g:lightline.component_type = {
       \ }
 let g:lightline.active = {
       \   'left': [ [ 'mode', 'paste' ], ['gitbranch'], ['filename', 'modified'], ['currentfunction']],
-      \   'right': [['lineinfo'],['percent'], ['readonly' ], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok'], ['cocstatus']] }
+      \   'right': [['lineinfo'],['percent'], ['readonly' ], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']] }
 
 """" Files
 Plug 'scrooloose/nerdtree'
@@ -395,35 +394,35 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=.git'
 
 """" Completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-autocmd FileType json syntax match Comment +\/\/.\+$+
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-imap <C-l> <Plug>(coc-snippets-expand)
-nnoremap <silent> <space>cy :<C-u>CocList -A --normal yank<cr>
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" autocmd FileType json syntax match Comment +\/\/.\+$+
+" inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+" inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+" imap <C-l> <Plug>(coc-snippets-expand)
+" nnoremap <silent> <space>cy :<C-u>CocList -A --normal yank<cr>
 
-" " remap keys for gotos
-nmap <silent> cgd <Plug>(coc-definition)
-nmap <silent> cgy <Plug>(coc-type-definition)
-nmap <silent> cgi <Plug>(coc-implementation)
-nmap <silent> cgr <Plug>(coc-references)
+" " " remap keys for gotos
+" nmap <silent> cgd <Plug>(coc-definition)
+" nmap <silent> cgy <Plug>(coc-type-definition)
+" nmap <silent> cgi <Plug>(coc-implementation)
+" nmap <silent> cgr <Plug>(coc-references)
 
-" " use <c-space>for trigger completion
-" " inoremap <silent><expr> <c-space> coc#refresh()
+" " " use <c-space>for trigger completion
+" " " inoremap <silent><expr> <c-space> coc#refresh()
 
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
+" function! s:show_documentation()
+"     if (index(['vim','help'], &filetype) >= 0)
+"         execute 'h '.expand('<cword>')
+"     else
+"         call CocAction('doHover')
+"     endif
+" endfunction
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" " Use K to show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+" " Remap for rename current word
+" nmap <leader>rn <Plug>(coc-rename)
 
 " nmap <silent> [c <Plug>(coc-diagnostic-prev)
 " nmap <silent> ]c <Plug>(coc-diagnostic-next)
