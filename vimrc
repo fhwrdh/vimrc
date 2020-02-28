@@ -461,7 +461,7 @@ Plug 'easymotion/vim-easymotion'
 " or
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap s <Plug>(easymotion-overwin-f2)
+nmap s <Plug>(easymotion-overwin-f)
 
 " Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 1
@@ -569,10 +569,10 @@ let g:jsx_ext_required = 0
 Plug 'samuelsimoes/vim-jsx-utils'
 "" https://github.com/samuelsimoes/vim-jsx-utils """"""""""""""""""""""""""""""""
 "" Plugin with some utilities (like extract partial render) to folks who work with JSX on Vim.
-nnoremap <Leader>je :call JSXExtractPartialPrompt()<CR>
-nnoremap <Leader>ji :call JSXEachAttributeInLine()<CR>
-nnoremap <Leader>jr :call JSXEncloseReturn()<CR>
-nnoremap <Leader>jt :call JSXChangeTagPrompt()<CR>
+" nnoremap <Leader>je :call JSXExtractPartialPrompt()<CR>
+" nnoremap <Leader>ji :call JSXEachAttributeInLine()<CR>
+" nnoremap <Leader>jr :call JSXEncloseReturn()<CR>
+" nnoremap <Leader>jt :call JSXChangeTagPrompt()<CR>
 nnoremap vat :call JSXSelectTag()<CR>
 
 Plug 'styled-components/vim-styled-components', {'branch': 'main'}
@@ -665,6 +665,8 @@ Plug 'felixhummel/setcolors.vim'
 Plug 'jparise/vim-graphql'
 
 Plug 'chr4/nginx.vim'
+
+Plug 'AndrewRadev/splitjoin.vim'
 
 call plug#end()
 "" /////////////////////////////////////////////////////////////////
