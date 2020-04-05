@@ -1,5 +1,8 @@
 " Maintainer:   Franklin Henderson / fhwrdh
 " Credits:      Vim color scheme "fhwrdh" originaly based on "Up" colorscheme create by Sasha Koss
+"
+" Test command
+" :so $VIMRUNTIME/syntax/hitest.vim
 
 set background=dark
 

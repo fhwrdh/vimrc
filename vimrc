@@ -440,6 +440,8 @@ let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=.git'
 """"""""""  /coc
 
 """" Snippets
+"" good mac build of vim with python3:
+"" https://github.com/vim/vim/issues/4233#issuecomment-482551652
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger = "<C-l>"
 
