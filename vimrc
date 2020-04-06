@@ -452,6 +452,9 @@ Plug 'epilande/vim-react-snippets'
 "" try: ,,w
 
 Plug 'easymotion/vim-easymotion'
+" EasyMotion search with highlighting
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
 " let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
@@ -460,14 +463,14 @@ Plug 'easymotion/vim-easymotion'
 " or
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap s <Plug>(easymotion-overwin-f)
+" nmap s <Plug>(easymotion-overwin-f)
 
 " Turn on case-insensitive feature
-let g:EasyMotion_smartcase = 1
+" let g:EasyMotion_smartcase = 1
 
 " JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+" map <Leader>j <Plug>(easymotion-j)
+" map <Leader>k <Plug>(easymotion-k)
 
 
 """" Git
@@ -652,9 +655,6 @@ Plug 'itchyny/vim-cursorword'
 
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
-
-Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
-let g:Hexokinase_ftAutoload = ['css', 'js']
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
