@@ -285,36 +285,33 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
-call NERDTreeHighlightFile('ini',    'yellow',  'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('ini',    'yellow',  'none', 'yellow',  '#151515')
 call NERDTreeHighlightFile('md',     'blue',    'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red',     'none', 'red', '#151515')
+call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan',    '#151515')
+call NERDTreeHighlightFile('coffee', 'Red',     'none', 'red',     '#151515')
 call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
 
-"" this opens nerdtree pointing to the location of the file in the current
-"" buffer
-" nnoremap <silent> <F2> :NERDTreeFind<CR>
-" noremap <F3> :NERDTreeToggle<CR>
+"" this opens nerdtree pointing to the location of the file in the current buffer
 nnoremap <Leader>nf  :NERDTreeFind<CR>
 nnoremap <Leader>nn  :NERDTreeToggle<CR>
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 let g:NERDTreeShowIgnoredStatus = 1
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
+    \ "Modified"  : "ᵐ",
+    \ "Staged"    : "ˢ",
+    \ "Untracked" : "ᵘ",
+    \ "Renamed"   : "ʳ",
+    \ "Unmerged"  : "ᶴ",
+    \ "Deleted"   : "ˣ",
+    \ "Dirty"     : "˜",
+    \ "Clean"     : "ᵅ",
+    \ 'Ignored'   : "·",
     \ "Unknown"   : "?"
     \ }
 
