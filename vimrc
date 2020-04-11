@@ -484,12 +484,12 @@ let g:gitgutter_sign_removed_first_line = '^'
 let g:gitgutter_sign_modified_removed = '~'
 "" Doesn't map any keys by default
 let g:gitgutter_map_keys = 0
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
-nnoremap <silent><Leader>gn :GitGutterNextHunk<CR>
-nnoremap <silent><Leader>gp :GitGutterPrevHunk<CR>
-nnoremap <silent><Leader>gu :GitGutterUndoHunk<CR>
-nnoremap <silent><Leader>gv :GitGutterPreviewHunk<CR>
+nnoremap <silent><Leader>ggn :GitGutterNextHunk<CR>
+nnoremap <silent><Leader>ggp :GitGutterPrevHunk<CR>
+nnoremap <silent><Leader>ggr :GitGutterPreviewHunk<CR>
+nnoremap <silent><Leader>ggs :GitGutterStageHunk<CR>
+nnoremap <silent><Leader>ggu :GitGutterUndoHunk<CR>
+nnoremap <silent><Leader>ggv :GitGutterPreviewHunk<CR>
 
 Plug 'tpope/vim-fugitive'
 "" fugitive.vim """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
