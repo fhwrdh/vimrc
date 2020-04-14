@@ -338,30 +338,15 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-" --column: Show column number
-" --line-number: Show line number
-" --no-heading: Do not show file headings in results
-" --fixed-strings: Search term as a literal string
-" --ignore-case: Case insensitive search
-" --no-ignore: Do not respect .gitignore, etc...
-" --hidden: Search hidden files and folders
-" --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-" --color: Search color options
 command! -bang -nargs=* FindRg
-  \ call fzf#vim#grep(
-  \   'rg --smart-case --column --line-number --no-heading --color=always --colors=match:style:bold --colors=path:fg:green --colors=line:fg:yellow --glob=!*.lock --glob=!tags.temp --glob=!package-lock.json '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+   \ call fzf#vim#grep(
+   \   'rg --column --line-number --no-heading --color=always --smart-case --colors=match:style:bold --colors=path:fg:green --colors=line:fg:yellow --glob="!*.lock" --glob=!tags.temp --glob=!package-lock.json '.shellescape(<q-args>), 1,
+   \   fzf#vim#with_preview(), <bang>0)
 
-" find word under cursor
 command! -bang -nargs=* FindRgCWord
   \ call fzf#vim#grep(
-  \   'rg --smart-case --column --line-number --no-heading --color=always --colors=match:style:bold --colors=path:fg:green --colors=line:fg:yellow --glob=!*.lock --glob=!tags.temp --glob=!package-lock.json '.shellescape(expand('<cword>')), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+  \   'rg --column --line-number --no-heading --color=always --smart-case --colors=match:style:bold --colors=path:fg:green --colors=line:fg:yellow --glob="!*.lock" --glob=!tags.temp --glob=!package-lock.json '.shellescape(expand('<cword>')), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 nnoremap <Leader>fa  :FindRg<Space>
 nnoremap <Leader>fr  :FindRg<Space>
@@ -508,9 +493,9 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_max_line_indicator = "fill"
 let g:EditorConfig_verbose = 0
 
-" if  executable('ctags')
-"   Plug 'ludovicchabant/vim-gutentags'
-" endif
+if executable('ctags')
+  Plug 'ludovicchabant/vim-gutentags'
+endif
 
 Plug 'dense-analysis/ale'
 let g:ale_completion_enabled = 0
