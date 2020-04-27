@@ -653,6 +653,8 @@ Plug 'chr4/nginx.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'wesQ3/vim-windowswap'
+Plug 'rbong/vim-flog'
+let g:flog_default_arguments = { 'format': '%ai [%h] {%an}%d %s' }
 
 call plug#end()
 "" /////////////////////////////////////////////////////////////////
