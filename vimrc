@@ -652,6 +652,8 @@ Plug 'chr4/nginx.vim'
 
 Plug 'AndrewRadev/splitjoin.vim'
 
+Plug 'wesQ3/vim-windowswap'
+
 call plug#end()
 "" /////////////////////////////////////////////////////////////////
 
