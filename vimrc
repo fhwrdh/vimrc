@@ -117,7 +117,8 @@ nmap <Leader>e :e#<CR>
 nnoremap g= mmgg=G`m
 
 "" insert newline in normal mode
-nnoremap <CR> :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+"" this clobbers <cr> as the way to navigate the quickfix list
+" nnoremap <CR> :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
 "" call :sudow FILENAME to write a file you don't own
 cnoremap sudow w !sudo tee % >/dev/null
@@ -655,6 +656,8 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'wesQ3/vim-windowswap'
 Plug 'rbong/vim-flog'
 let g:flog_default_arguments = { 'format': '%ai [%h] {%an}%d %s' }
+
+Plug 'wincent/vcs-jump'
 
 call plug#end()
 "" /////////////////////////////////////////////////////////////////
