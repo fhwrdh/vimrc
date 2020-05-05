@@ -110,8 +110,8 @@ nmap <Leader>u :r ! uuidgen<cr>
 
 "" map backspace to last buffer
 " nnoremap <bs> <c-^>
-"" go to most recent buffer
-nmap <Leader>e :e#<CR>
+"" reload buffer from disk
+nmap <Leader>e :e!<CR>
 
 "" format file without losing position
 nnoremap g= mmgg=G`m
@@ -610,7 +610,7 @@ function! Quick_scope_selective(movement)
     endif
     return a:movement . letter
 endfunction
-let g:qs_enable = 0
+let g:qs_enable = 1
 
 nnoremap <expr> <silent> f Quick_scope_selective('f')
 nnoremap <expr> <silent> F Quick_scope_selective('F')
