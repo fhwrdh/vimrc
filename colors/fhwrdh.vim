@@ -67,7 +67,7 @@ hi link vimGroup Action
 
 hi link vimHiGroup Action
 hi vimHiGuiRgb     guifg=#ABB78D   guibg=NONE      gui=NONE             ctermfg=NONE    ctermbg=NONE    cterm=NONE
-hi ColorColumn     guifg=NONE      guibg=#323232   gui=NONE             ctermfg=NONE    ctermbg=236    cterm=NONE
+hi ColorColumn     guifg=NONE      guibg=#323232   gui=NONE             ctermfg=NONE    ctermbg=NONE    cterm=NONE
 
 "————————————————————————————————————————————————————————————————————————————————————————————————————————————————————"
 " Basic code highlight
