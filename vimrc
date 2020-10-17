@@ -306,8 +306,8 @@ nnoremap <Leader>nf  :NERDTreeFind<CR>
 nnoremap <Leader>nn  :NERDTreeToggle<CR>
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
-let g:NERDTreeShowIgnoredStatus = 1
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusShowIgnored = 1
+let g:NERDTreeGitStatusIndicatorMap = {
     \ "Modified"  : "ᵐ",
     \ "Staged"    : "ˢ",
     \ "Untracked" : "ᵘ",
