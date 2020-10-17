@@ -239,7 +239,7 @@ call plug#begin('~/.vim/plugged')
 """" Env
 Plug 'wincent/terminus'
 Plug 'godlygeek/tabular'
-vnoremap <silent> <Leader>tt :Tab /\|<CR>
+vnoremap <silent> <Leader>t :Tab /\|<CR>
 
 """" UI
 Plug 'itchyny/lightline.vim'
