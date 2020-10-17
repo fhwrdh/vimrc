@@ -106,7 +106,7 @@ map <space> <Leader>
 "" fast saving a buffer
 nmap <Leader>w :wa!<cr>
 
-nmap <Leader>u :r ! uuidgen<cr>
+" nmap <Leader>u :r ! uuidgen<cr>
 
 "" map backspace to last buffer
 " nnoremap <bs> <c-^>
@@ -140,6 +140,10 @@ nnoremap <Leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 "" remove the ^M from wonky windows encodings
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+"" start substitute with word under cursor
+nnoremap <Leader>s :%s/<C-r><C-w>//gc<Left><Left><Left>
+
 
 "" open splits
 nnoremap <Leader>vs :sp<CR>
@@ -364,6 +368,7 @@ nnoremap <Leader>fgg :FZFGFiles<CR>
 nnoremap <Leader>fl  :FZFLines<CR>
 nnoremap <Leader>fh  :FZFHistory<CR>
 nnoremap <Leader>fm  :FZFMru<CR>
+nnoremap <Leader>ft  :FZFTags<CR>
 nnoremap <Leader>fs  :FZFSnippets<CR>
 nnoremap <Leader>fw  :FZFWindows<CR>
 
@@ -470,12 +475,25 @@ let g:gitgutter_sign_removed_first_line = '^'
 let g:gitgutter_sign_modified_removed = '~'
 "" Doesn't map any keys by default
 let g:gitgutter_map_keys = 0
-nnoremap <silent><Leader>ggn :GitGutterNextHunk<CR>
+
+function! GitGutterNextHunkCycle()
+  let line = line('.')
+  silent! GitGutterNextHunk
+  if line('.') == line
+    1
+    GitGutterNextHunk
+  endif
+endfunction
+
+nnoremap <silent><Leader>ggh :GitGutterLineHighlightsToggle<CR>
+nnoremap <silent><Leader>ggn :call GitGutterNextHunkCycle()<CR>
+" nnoremap <silent><Leader>ggn :GitGutterNextHunk<CR>
 nnoremap <silent><Leader>ggp :GitGutterPrevHunk<CR>
 nnoremap <silent><Leader>ggr :GitGutterPreviewHunk<CR>
 nnoremap <silent><Leader>ggs :GitGutterStageHunk<CR>
 nnoremap <silent><Leader>ggu :GitGutterUndoHunk<CR>
 nnoremap <silent><Leader>ggv :GitGutterPreviewHunk<CR>
+
 
 Plug 'tpope/vim-fugitive'
 "" fugitive.vim """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -494,9 +512,9 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_max_line_indicator = "fill"
 let g:EditorConfig_verbose = 0
 
-if executable('ctags')
-  Plug 'ludovicchabant/vim-gutentags'
-endif
+" if executable('ctags')
+  " Plug 'ludovicchabant/vim-gutentags'
+" endif
 
 Plug 'dense-analysis/ale'
 let g:ale_completion_enabled = 0
@@ -643,7 +661,7 @@ Plug 'alvan/vim-closetag'
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
 
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'felixhummel/setcolors.vim'
 
@@ -658,6 +676,7 @@ Plug 'rbong/vim-flog'
 let g:flog_default_arguments = { 'format': '%ai [%h] {%an}%d %s' }
 
 Plug 'wincent/vcs-jump'
+Plug 'kburdett/vim-nuuid'
 
 call plug#end()
 "" /////////////////////////////////////////////////////////////////
@@ -716,6 +735,23 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
+
+function! OscCopy()
+  let encodedText=@"
+  let encodedText=substitute(encodedText, '\', '\\\\', "g")
+  let encodedText=substitute(encodedText, "'", "'\\\\''", "g")
+  let executeCmd="echo -n '".encodedText."' | base64 | tr -d '\\n'"
+  let encodedText=system(executeCmd)
+  if $TMUX != ""
+    "tmux
+    let executeCmd='echo -en "\x1bPtmux;\x1b\x1b]52;;'.encodedText.'\x1b\x1b\\\\\x1b\\" > /dev/tty'
+  else
+    let executeCmd='echo -en "\x1b]52;;'.encodedText.'\x1b\\" > /dev/tty'
+  endif
+  call system(executeCmd)
+  redraw!
+endfunction
+command! OscCopy :call OscCopy()
 
 "" Colors
 "" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
